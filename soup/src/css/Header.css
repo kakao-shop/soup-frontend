@@ -1,9 +1,9 @@
 /* Header */
-header {
+header.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 25px 0;
+  margin: 30px auto;
 }
 
 .logo {
@@ -52,10 +52,6 @@ header {
   font-size: 10px;
   padding: 5% 0;
   text-align: center;
-}
-
-.login-btn:hover {
-
 }
 
 .join-btn {

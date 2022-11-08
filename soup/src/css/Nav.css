@@ -1,13 +1,11 @@
 nav {
     background-color: #FF6928;
-    margin-bottom: 70px;
 }
 
-nav > .container {
+nav .container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
     margin: 0 auto;
 }
 
@@ -23,5 +21,5 @@ nav > .container {
 }
 
 .nav-item:hover {
-    background-color: #fc5e1a;
+    background-color: #ff4d00;
 }
