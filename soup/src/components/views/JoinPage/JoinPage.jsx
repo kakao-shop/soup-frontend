@@ -22,6 +22,10 @@ function JoinPage() {
     setId(e.currentTarget.value);
   };
 
+  const onDoublecheckHandler = (e) => {
+    console.log("Id: ", Id);
+  }
+
   const onNicknameHandler = (e) => {
     console.log("nick:", e.currentTarget.value)
     setNickname(e.currentTarget.value);
@@ -91,7 +95,7 @@ function JoinPage() {
           <form action="/">
             <div>
               <label htmlFor="join-id">ID</label>
-              <input type="text" value={Id} minLength="5" maxLength="12" onChange={onIdHandler} id="join-id" placeholder="ID 입력 (5~12자)" />  
+              <input type="text" value={Id} minLength="5" maxLength="12" onChange={onIdHandler} id="join-id" placeholder="ID 입력 (5~12자)" />
               <button type="button" onClick={onDuplicateHandler} className="btn id-check">중복확인</button>
             </div>
             <div>
