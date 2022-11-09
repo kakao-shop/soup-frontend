@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 // import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 import Header from '../Header';
 import Nav from '../Nav'
@@ -50,9 +51,37 @@ function JoinPage() {
     setGender(e.currentTarget.value);
   };
 
+  const onDuplicateHandler =() => {
+    axios.get('http://localhost:8000/members/id-check', {
+      params: {
+        id: `${Id}`
+      }
+  })
+  .then(function (response) {
+      console.log(response.data)
+  }).catch(function (error) {
+      alert('Fail to Signup');
+      console.log(error);  
+  });
+  };
+
   const onSubmitHandler = (e) => {
-    console.log("submit:", e.currentTarget)
-    e.preventDefault();
+    axios.post('http://localhost:8000/members/signup', {
+      id: `${Id}`,
+      nickname: `${Nickname}`,
+      password: `${Password}`,
+      confirmPassword: `${PasswordCheck}`,
+      birthday:`${Birth}`,
+      gender: `${Gender}`,
+      role: "USER",
+      oauth: "ORIGIN"
+  })
+  .then(function (response) {
+      console.log(response.data)
+  }).catch(function (error) {
+      alert('Fail to Signup');
+      console.log(error);  
+  });
   };  
 
 
@@ -63,11 +92,11 @@ function JoinPage() {
       <main className="Join container">
         <div className="square">
           <h2>회원가입</h2>
-          <form action="">
+          <form action="/">
             <div>
               <label htmlFor="join-id">ID</label>
-              <input type="text" value={Id} minLength="5" maxLength="12" onChange={onIdHandler} id="join-id" placeholder="ID 입력 (5~12자)" />  
-              <button type="button" onClick={onDoublecheckHandler} className="btn id-check">중복확인</button>
+              <input type="text" value={Id} minLength="5" maxLength="12" onChange={onIdHandler} id="join-id" placeholder="ID 입력 (5~12자)" />
+              <button type="button" onClick={onDuplicateHandler} className="btn id-check">중복확인</button>
             </div>
             <div>
               <label htmlFor="join-nickname">닉네임</label>
@@ -88,9 +117,9 @@ function JoinPage() {
             <div>
               <label htmlFor="">성별</label>
               <div>
-                <input type="radio" value="male" onChange={onGenderHandler} id="male" checked={Gender === "male"} />
+                <input type="radio" value="M" onChange={onGenderHandler} id="male" checked={Gender === "M"} />
                 <label htmlFor="male">남자</label>
-                <input type="radio" value="female" onChange={onGenderHandler} id="female" checked={Gender === "female"} />
+                <input type="radio" value="W" onChange={onGenderHandler} id="female" checked={Gender === "W"} />
                 <label htmlFor="female">여자</label> 
               </div> 
             </div>
