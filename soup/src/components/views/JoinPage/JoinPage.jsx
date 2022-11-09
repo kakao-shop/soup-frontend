@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Header from '../Header';
 import Nav from '../Nav'
 
+import '../../../css/JoinPage.css';
 
 function JoinPage() {
 
@@ -61,30 +62,31 @@ function JoinPage() {
           <form action="">
             <div>
               <label htmlFor="join-id">ID</label>
-              <input type="text" value={Id} minLength="5" maxLength="12" onChange={onIdHandler} id="join-id" className="form-label" placeholder="ID 입력 (5~12자)" />  
+              <input type="text" value={Id} minLength="5" maxLength="12" onChange={onIdHandler} id="join-id" placeholder="ID 입력 (5~12자)" />  
+              <button type="button" className="btn id-check">중복확인</button>
             </div>
             <div>
               <label htmlFor="join-nickname">닉네임</label>
-              <input type="text" value={Nickname} minLength="2" maxLength="10" onChange={onNicknameHandler} id="join-nickname" className="form-label" placeholder="닉네임 입력 (2~10자)"/>  
+              <input type="text" value={Nickname} minLength="2" maxLength="10" onChange={onNicknameHandler} id="join-nickname" placeholder="닉네임 입력 (2~10자)"/>  
             </div>
             <div>
               <label htmlFor="join-pw">비밀번호</label>
-              <input type="password" value={Password} minLength="8" maxLength="15" onChange={onPasswordHandler} id="join-pw" className="form-label" placeholder="비밀번호 입력 (8~15자)" />  
+              <input type="password" value={Password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="join-pw" placeholder="비밀번호 입력 (8~15자)" />  
             </div>
             <div>
               <label htmlFor="join-pwcheck">비밀번호 확인</label>
-              <input type="password" value={PasswordCheck} minLength="8" maxLength="15" onChange={onPasswordCheckHandler} id="join-pwcheck" className="form-label" placeholder="비밀번호 재입력" />  
+              <input type="password" value={PasswordCheck} minLength="6" maxLength="15" onChange={onPasswordCheckHandler} id="join-pwcheck" placeholder="비밀번호 재입력" />  
             </div>
             <div>
               <label htmlFor="join-birth">생년월일</label>
-              <input type="date" value={Birth} onChange={onBirthHandler} id="join-birth" className="form-label"/>  
+              <input type="date" value={Birth} onChange={onBirthHandler} id="join-birth"/>  
             </div>
             <div>
               <label htmlFor="">성별</label>
               <div>
-                <input type="radio" value="male" onChange={onGenderHandler} id="male" checked={Gender === "male"} className="form-label" />
+                <input type="radio" value="male" onChange={onGenderHandler} id="male" checked={Gender === "male"} />
                 <label htmlFor="male">남자</label>
-                <input type="radio" value="female" onChange={onGenderHandler} id="female" checked={Gender === "female"} className="form-label" />
+                <input type="radio" value="female" onChange={onGenderHandler} id="female" checked={Gender === "female"} />
                 <label htmlFor="female">여자</label> 
               </div> 
             </div>

@@ -49,6 +49,7 @@ button:active {
 .container {
   width: 1050px;
   margin: 0 auto;
+  position: relative;
 }
 
 .square {
@@ -75,7 +76,7 @@ form {
 }
 
 form > div {
-  width: 270px;
+  width: 280px;
   display: flex;
   justify-content: left;
   align-items: center;
