@@ -83,7 +83,7 @@ function JoinPage() {
             </div>
             <div>
               <label htmlFor="join-birth">생년월일</label>
-              <input type="date" value={Birth} onChange={onBirthHandler} id="join-birth"/>  
+              <input type="text" value={Birth} onChange={onBirthHandler} id="join-birth"/>  
             </div>
             <div>
               <label htmlFor="">성별</label>
