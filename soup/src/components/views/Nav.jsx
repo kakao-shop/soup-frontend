@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import '../../css/Nav.css';
 
 function Nav() {
-
+  const navigate = useNavigate();
   const categoryList = [
     {
       main: "과일",
@@ -62,13 +62,16 @@ function Nav() {
     }
   ]
 
+  function move(index) {
+    
+  }
   return (
     <nav>
       <div id="nav-bar"></div>
       <div className="Category container">
         {categoryList.map((category, index) => (
-          <div className="category-item" key={`category${index + 1}`}>
-            <Link to="/category" className="nav-item" key={`main${index + 1}`}>{category.main}</Link>
+          <div className="category-item" id={`${index}`} key={`category${index + 1}`}>            
+            <button type="button" onClick={(e) => {navigate('/category', {state: `${e.target.parentElement.id}`});}} className="nav-item" key={`main${index + 1}`}>{category.main}</button>
             <div
               className={`sub-panel index${index + 1}`}
               key={`sub${index + 1}`}>
