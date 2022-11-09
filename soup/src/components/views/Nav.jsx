@@ -66,13 +66,13 @@ function Nav() {
         <div id="nav-bar"></div>
         <div className="Category container">
             {categoryList.map((category, index) => (
-                <div className="category-item">
-                    <Link to="#" className="nav-item" key={index}>{category.main}</Link>
+                <div className="category-item" key={`category${index+1}`}>
+                    <Link to="#" className="nav-item" key={`main${index+1}`}>{category.main}</Link>
                     <div 
-                    className={`sub-panel index${index+1}`} 
-                    key={index}>
+                        className={`sub-panel index${index+1}`} 
+                        key={`sub${index+1}`}>
                     {category.sub.item.map((sub, index) => (
-                        <Link class="sub-item" to="#">{sub}</Link>
+                        <Link className="sub-item" to="#" key={`sub${index+1}-item`}>{sub}</Link>
                     // category.sub[{index}].item.map((subcategory, index) => (
                     //     <Link to="#" className="sub-link" key={index}>{subcategory}</Link>
                     ))
