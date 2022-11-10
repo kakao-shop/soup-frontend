@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Btns from "./Btns";
 
 import '../../css/Header.css';
+import Avatar from "./Avatar";
 
 function Header() {
   return (
@@ -15,6 +16,7 @@ function Header() {
         </button>
       </div>
       <Btns />
+      <Avatar />
     </header>
   );
 }

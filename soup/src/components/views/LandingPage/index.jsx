@@ -1,4 +1,5 @@
 import React from 'react';
+import Avatar from '../Avatar';
 import Header from '../Header';
 import Nav from '../Nav';
 import DefaultItem from './DefaultItem';

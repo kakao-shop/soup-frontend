@@ -1,9 +1,13 @@
 // import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from './components/views/LandingPage/LandingPage'; 
-import LoginPage from './components/views/LoginPage/LoginPage';
-import JoinPage from './components/views/JoinPage/JoinPage';
+import LandingPage from './components/views/LandingPage'; 
+import LoginPage from './components/views/LoginPage';
+import JoinPage from './components/views/JoinPage';
 import ConfirmPw from './components/views/UserPage/ConfirmPw';
+
+import EditUserInfo from './components/views/UserPage/EditUserInfo';
+import CategoryView from './components/views/Item/CategoryView';
+
 
 import './App.css';
 
@@ -12,11 +16,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/login" element={<LoginPage />} />
-          <Route exact path="/join" element={<JoinPage />} />
-          <Route exact path="/confirmPw" element={<ConfirmPw />} />
-          <Route exact path="/editUserInfo" element={<editUserInfo />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/join" element={<JoinPage />} />
+          <Route path="/confirmPw" element={<ConfirmPw />} />
+          {/* <AuthRoute version={2} exact path="/confirmPw" element={<ConfirmPw />} /> */}
+          <Route path="/editUserInfo" element={<EditUserInfo />} />
+          <Route path="/category" element={<CategoryView />} />
           
           {/* <Route exact path="*" element={<NotFound />} */}
         </Routes>
