@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import '../../../css/ItemList.css';
 
-function ItemList() {
+function ItemList({match}) {
   return (
     <div>
       ItemList()

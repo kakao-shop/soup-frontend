@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 50px auto;
+    margin: 0 auto 50px;
     overflow: hidden;
 }
 
@@ -32,11 +32,13 @@
 }
 
 .theme-shift {
-    width: 100px;
+    display: flex;
+    text-align: center;
 }
 
 .theme-shift button {
-    width: 30px;
+    text-align: center;
+    width: 16px;
 }
 
 .theme-shift > *:hover {

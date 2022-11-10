@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 
 import '../../../css/CategoryPage.css';
 
-function SubCategoryList(sublist) {
-    console.log(Location.state);
-    if (Location.state !== undefined) {
+function SubCategoryList(location) {
+    
+    console.log(location.state);
+    if (location.state !== undefined) {
         return (
             <div>SubCategoryList</div>
         )

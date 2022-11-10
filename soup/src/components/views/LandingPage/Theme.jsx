@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-import { Link } from 'react-router-dom';
-
 import '../../../css/Theme.css';
+import Banner from "./Banner";
 
 function Theme() {
 
@@ -11,6 +10,11 @@ function Theme() {
     const onClickShiftHandler = (e) => {
         e.currentTarget.value = e.currentTarget.value === "∥" ? "▶" : "∥";
         setShift(e.currentTarget.value);
+    }
+
+    // const [Page, setPage] = useState("1");
+    const onClickRightHandler = (e) => {
+
     }
 
 
@@ -59,20 +63,16 @@ function Theme() {
 
     return (
         <div className="Theme container">
-            <div className="Banner">
-                <Link to="/join" style={{display: "block", height: "100%", marginBottom: "40px"}}>
-                    <div className="banner-item"></div>
-                </Link>
-            </div>
+            {/* <Banner /> */}
             <div className="Title">
                 <div className="theme-shift">
                         <button type="button">&lt;</button>
                         <button type="button" onClick={onClickShiftHandler} value={Shift}>{Shift}</button>
-                        <button type="button">&gt;</button>
+                        <button type="button" onClick={onClickRightHandler}>&gt;</button>
                 </div>
                 <div className="theme-group" style={{width: "100%"}}>
                     {themeList.map((theme, index) => (
-                        <button type="button" key={index + 1} className="theme-btn">{theme.title}</button>
+                        <button type="button" key={index + 1} className="theme-btn ">{theme.title}</button>
                     ))}
                 </div>
             </div>

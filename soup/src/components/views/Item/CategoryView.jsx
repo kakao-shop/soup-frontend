@@ -8,12 +8,13 @@ import Nav from '../Nav';
 
 import '../../../css/CategoryPage.css';
 
-function CategoryView() {
+function CategoryView({match}) {
+  console.log(match);
   return (
     <div>
         <Header />
         <Nav />
-        <ItemList />
+        {/* <ItemList match} /> */}
         <SubCategoryList />
     </div>
   )

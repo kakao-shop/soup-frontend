@@ -67,8 +67,8 @@ function Nav() {
             {categoryList.map((category, index) => (
                 <div className="category-item" key={`category${index+1}`}>
                     <Link to={{
-                      pathname: "/category",
-                      state: category
+                      pathname: `/category/${category.main}`,
+                      state: {category}
                     }} className="nav-item" key={`Link${index+1}`}>{category.main}</Link>
                     <div className={`sub-panel index${index+1}`} key={`panel${index+1}`}>
                     {category.sub.item.map((sub, index) => (
