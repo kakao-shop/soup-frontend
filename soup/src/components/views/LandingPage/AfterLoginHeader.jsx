@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Avatar from "./LandingPage/Avatar";
-import Btns from "./Btns";
 
-import '../../css/Header.css';
+import Avatar from "./Avatar";
 
-function Header({isLogin, setIsLogin}) {
+function AfterLoginHeader() {
+
   return (
     <header className="container">
       <Link to="/"><img className="logo" alt="logo" src="img/logo.png"/></Link>
@@ -15,9 +14,9 @@ function Header({isLogin, setIsLogin}) {
           <img src="img/search.png" alt="search"/>
         </button>
       </div>
-      <Btns isLogin={isLogin} setIsLogin={setIsLogin} />
+      <Avatar />
     </header>
   );
 }
 
-export default Header;
+export default AfterLoginHeader;

@@ -7,7 +7,7 @@ import Nav from '../Nav';
 
 
 // function ConfirmPw(user) {
-function ConfirmPw() {
+function ConfirmPw({isLogin, setIsLogin}) {
     
     const user = {
         id: "12345id",
@@ -26,7 +26,7 @@ function ConfirmPw() {
 
     return (
         <div>
-            <Header /> 
+            <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
             <Nav />
             <div>
                 <main className="ConfirmPw container">
