@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import Btns from "./Btns";
 
 import '../../css/Header.css';
-import Avatar from "./Avatar";
 
-function Header() {
+function Header({isLogin, setIsLogin}) {
   return (
     <header className="container">
       <Link to="/"><img className="logo" alt="logo" src="img/logo.png"/></Link>
@@ -15,8 +14,7 @@ function Header() {
           <img src="img/search.png" alt="search"/>
         </button>
       </div>
-      <Btns />
-      <Avatar />
+      <Btns isLogin={isLogin} setIsLogin={setIsLogin} />
     </header>
   );
 }

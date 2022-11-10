@@ -23,7 +23,6 @@ function App() {
           {/* <AuthRoute version={2} exact path="/confirmPw" element={<ConfirmPw />} /> */}
           <Route path="/editUserInfo" element={<EditUserInfo />} />
           <Route path="/category" element={<CategoryView />} />
-          
           {/* <Route exact path="*" element={<NotFound />} */}
         </Routes>
       </BrowserRouter>

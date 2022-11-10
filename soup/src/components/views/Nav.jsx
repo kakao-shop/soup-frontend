@@ -64,31 +64,11 @@ function Nav() {
 
   return (
     <nav>
-        {/* <div className="Nav container">
-            {categoryList.map((category, index) => (
-                <div className="category-item" key={`category${index+1}`}>
-                    <Link to={{
-                      pathname: `/category/${category.main}`,
-                      state: {category}
-                    }} className="nav-item" key={`Link${index+1}`}>{category.main}</Link>
-                    <div className={`sub-panel index${index+1}`} key={`panel${index+1}`}>
-                    {category.sub.item.map((sub, index) => (
-                        <Link className="sub-item" to="#" key={index}>{sub}</Link>
-                    // category.sub[{index}].item.map((subcategory, index) => (
-                    //     <Link to="#" className="sub-link" key={index}>{subcategory}</Link>
-                    ))
-                    }
-                    </div>
-                </div>
-            ))}
-        </div>
-    </nav>  
-======= */}
       <div id="nav-bar"></div>
       <div className="Category container">
         {categoryList.map((category, index) => (
           <div className="category-item" id={`${index}`} key={`category${index + 1}`}>            
-            <button type="button" onClick={(e) => {navigate('/category', {state: `${e.target.parentElement.id}`});}} className="nav-item" key={`main${index + 1}`}>{category.main}</button>
+            <button type="button" onClick={(e) => {console.log(e.target.innerText);navigate('/category', {state: `${e.target.parentElement.id}`});}} className="nav-item" key={`main${index + 1}`}>{category.main}</button>
             <div
               className={`sub-panel index${index + 1}`}
               key={`sub${index + 1}`}>

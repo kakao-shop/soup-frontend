@@ -6,7 +6,7 @@ import SubCategoryList from './SubCategoryList';
 import Header from '../Header';
 import Nav from '../Nav';
 
-import '../../../css/CategoryPage.css';
+// import '../../../css/CategoryPage.css';
 
 function CategoryView() {
 
@@ -73,8 +73,10 @@ function CategoryView() {
     <div>
         <Header />
         <Nav />
-        <ItemList/>
-        <SubCategoryList data={categoryList[num]} />
+        <div className="CategoryView container">
+          <SubCategoryList data={categoryList[num]} />
+          <ItemList data={categoryList[num]} />
+        </div>
     </div>
   )
 }

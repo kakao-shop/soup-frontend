@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import '../../../css/DefaultItem.css'
-import MainMsg from './MainMsg';
 
 function DefaultItem() {
     
@@ -68,11 +67,17 @@ function DefaultItem() {
             price: "10,000"
         }
     ]
-
+    
+    const user = {
+        nickname: "아람"
+    }
+    
+    const result = user.nickname === "" ? <h3 style={{width: "100%"}}>인기 상품</h3> : <div><h3 id="nickname" style={{display: "inline-block", margin: "0 10px 0 0"}}>{user.nickname}</h3><span>님을 위한 추천 상품</span></div>;
+ 
     return (
         <main className="DefaultItem container">
             <div className="default-item">
-                <MainMsg />
+            {result}
                 <div className="item-list">
                 {itemlist.map((item, index) => (
                     <div key={"default" + index} className="item">
