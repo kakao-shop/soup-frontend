@@ -8,7 +8,7 @@ import Nav from '../Nav'
 import '../../../css/LoginPage.css';
 
 
-function LoginPage() {
+function Login() {
 
   const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
@@ -16,14 +16,14 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const getloginId=(e)=>{
-    setId(e.target.value);
+    setId(e.currentTarget.value);
   }
 
   const getloginPw=(e)=>{
-    setPassword(e.target.value);
+    setPassword(e.currentTarget.value);
   }
 
-  const btnLogin = () => {
+  const btnLogin = (e) => {
     axios.post('/members/login', {
         id : `${Id}`,
         password : `${Password}`
@@ -39,8 +39,8 @@ function LoginPage() {
         localStorage.clear();
         localStorage.setItem('access_token', response.data.result.accessToken);
         navigate('/',
-        { status: result }
-        )
+        {status: result}
+        );
         alert('Login Success!')
         console.log(response);
       }
@@ -54,7 +54,7 @@ function LoginPage() {
      alert('Fail to Login');
      console.log(error);  
  });
-}
+};
   return (
     <div>
       <main className="Login container">
@@ -78,4 +78,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Login;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from '../Header';
 import Nav from '../Nav';
 import AfterLoginHeader from './AfterLoginHeader';
@@ -7,6 +8,10 @@ import Theme from './Theme';
 
 function LandingPage({isLogin, setIsLogin}) {
   console.log(isLogin)
+  let location = useLocation();
+  const user = location.state;
+
+  console.log(user);
   // if (isLogin){
   //   return(
   //     <div>
