@@ -4,73 +4,118 @@ import Header from '../Header';
 import Nav from '../Nav';
 
 import '../../../css/UserPage.css';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 
 // function ConfirmPw(user) {
-function EditUserInfo() {
+function EditUserInfo({isLogin, setIsLogin}) {
+    const [Id, setId] = useState('');
+    const [Nickname, setNickname] = useState('');
+    const [Password, setPassword] = useState('');
+    const [Birth, setBirth] = useState('');
+    const [Gender, setGender] = useState('');
     
-    const result = {
-        id: "12345id",
-        nickname: "소비머신",
-        password: "123456",
-        birthday: "20000113",
-        gender: "W"
-    }
+        useEffect(() => {
+            axios.get('/members/mypage', 
+        {
+            headers: {
+                'x-access-token': localStorage.getItem('access_token')
+            }
+        }
+        ).then(function (response) {
+            setNickname(response.data.result.nickname)
+            setId(response.data.result.id)
+            setBirth(response.data.result.birthday)
+            setGender(response.data.result.gender)
+        }).catch(function (error) {
+            alert('error');
+            console.log(error);  
+        });
+        })
 
-    const [Nickname, setNickname] = useState(`${result.nickname}`);
-    const [Password, setPassword] = useState(`${result.password}`);
-    const [Birth, setBirth] = useState(`${result.birthday}`);
-    // const [Gender, setGender] = useState("");
-    const [Gender, setGender] = useState(`${result.gender}`);
-    
     const onPasswordHandler = (e) => {
         setPassword(e.currentTarget.value);
     };
 
-    const onNicknameHandler = (e) => {
-        setNickname(e.currentTarget.value);
-    };
-
-    const onBirthHandler = (e) => {
-        setBirth(e.currentTarget.value);
-    };
-
     const onGenderHandler = (e) => {
         setGender(e.currentTarget.value);
-    };
+    }
     
     const onEditHandler = (e) => {
-      e.preventDefault();
+        axios.patch('/members/mypage', {
+            password : `${Password}`,
+            nickname : `${Nickname}`
+        },
+        {
+            headers: {
+                'x-access-token': localStorage.getItem('access_token')
+            }
+        })
+        .then(function (response) {
+          let result = response.data;
+          
+          if (response.status === 200) {
+            alert('비밀번호 변경이 완료되었습니다!');
+            console.log(response);
+            document.location.href = '/confirmPw'
+    
+          }
+
+     }).catch(function (error) {
+         alert('비밀번호 형식을 맞춰주세요! 비밀번호 입력(6~15자)');
+         console.log(error);  
+     });
     }; 
     
     const onSecessionHandler = (e) => {
-      e.preventDefault();
+        axios.delete('/members/mypage', 
+        {
+            headers: {
+                'x-access-token': localStorage.getItem('access_token')
+            }
+        })
+        .then(function (response) {
+
+          if (response.status === 200) {
+            alert('회원탈퇴 성공');
+            console.log(response);
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('id')
+            localStorage.removeItem('nickname')
+            document.location.href = '/'
+          }
+
+     }).catch(function (error) {
+         alert('비밀번호 형식을 맞춰주세요! 비밀번호 입력(6~15자)');
+         console.log(error);  
+     });
     }; 
 
     return (
         <div>
-            <Header /> 
+            <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
             <Nav />
             <div>
                 <main className="ConfirmPw container">
                     <div className="square">
-                        <h2>회원 정보 수정</h2>
+                        <h2>비밀 번호 변경</h2>
                         <form action="">
                             <div>
                                 <label htmlFor="user-id">ID</label>
-                                <span id="user-id">{result.id}</span>
+                                <span id="user-id">{Id}</span>
                             </div>
                             <div>            
                                 <label htmlFor="edit-nick">닉네임</label>
-                                <input type="text" value={Nickname} minLength="2" maxLength="10" onChange={onNicknameHandler} id="edit-nick" className="form-label" />
+                                <span id="user-id">{Nickname}</span>
                             </div>
                             <div>            
                                 <label htmlFor="usercheck-pw">비밀번호</label>
-                                <input type="password" value={Password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="usercheck-pw" className="form-label" />
+                                <input type="password" name={Password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="usercheck-pw" className="form-label" />
                             </div>
                             <div>
                                 <label htmlFor="join-birth">생년월일</label>
-                                <input type="text" value={Birth} onChange={onBirthHandler} id="join-birth"/>  
+                                <span id="user-id">{Birth}</span>  
                             </div>
                             <div>
                                 <label htmlFor="">성별</label>

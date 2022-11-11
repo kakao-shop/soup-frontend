@@ -33,8 +33,8 @@ function App() {
           <Route path="/join" element={<JoinPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
           <Route path="/confirmPw" element={<ConfirmPw isLogin={isLogin} setIsLogin={setIsLogin} />} />
           {/* <AuthRoute version={2} exact path="/confirmPw" element={<ConfirmPw />} /> */}
-          <Route path="/editUserInfo" element={<EditUserInfo />} />
-          <Route path="/category" element={<CategoryView />} />
+          <Route path="/editUserInfo" element={<EditUserInfo isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+          <Route path="/category" element={<CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/*" element={<NotFound />} />
           
           {/* <Route exact path="*" element={<NotFound />} */}

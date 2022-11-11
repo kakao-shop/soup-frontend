@@ -1,32 +1,57 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from '../Header';
 import Nav from '../Nav';
+import axios from "axios";
+
 
 // import '.css';
 
 
 // function ConfirmPw(user) {
-function ConfirmPw() {
-    
+function ConfirmPw({isLogin, setIsLogin}) {
+    let navigate = useNavigate();
     const user = {
-        id: "12345id",
-        pw: "1234"
+        id: localStorage.getItem('id'),
     }
 
-    const [Password, setPassword] = useState("");
+    const [password, setpassword] = useState("");
     
     const onPasswordHandler = (e) => {
-      setPassword(e.currentTarget.value);
+      setpassword(e.currentTarget.value);
     };
     
     const onSubmitHandler = (e) => {
-      e.preventDefault();
+        axios.post('/members/mypage/password-check', 
+        {
+            password: `${password}`
+        },
+        {
+            headers: {
+                'x-access-token': localStorage.getItem('access_token')
+            }
+        }).then(function (response) {
+        console.log(response)
+        if (response.status === 200) {
+            alert('비밀번호가 일치합니다!');
+            console.log(response);
+            navigate('/editUserInfo', {
+                state: response.data,
+            });
+          }
+        // App 으로 이동(새로고침)
+        // document.location.href = '/'
+      }).catch(function (error) {
+        alert('비밀번호가 일치하지 않습니다');
+        console.log(error);  
+
+      });
+
     };  
 
     return (
         <div>
-            <Header /> 
+            <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
             <Nav />
             <div>
                 <main className="ConfirmPw container">
@@ -39,9 +64,11 @@ function ConfirmPw() {
                             </div>
                             <div>            
                                 <label htmlFor="usercheck-pw">비밀번호</label>
-                                <input type="password" value={Password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="usercheck-pw" className="form-label" />
+                                <input type="password" value={password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="usercheck-pw" className="form-label" />
                             </div>
-                            <button type="submit" className="page-btn btn" onClick={onSubmitHandler}>비밀번호 확인</button>
+                            
+                            <button type="button" className="page-btn btn" onClick={onSubmitHandler}>비밀번호 확인</button>
+                           
                         </form>
                     </div>
                 </main>

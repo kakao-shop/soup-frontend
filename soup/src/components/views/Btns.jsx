@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import '../../css/Avatar.css';
@@ -5,9 +6,19 @@ import '../../css/Avatar.css';
 function Btns({isLogin, setIsLogin}) {
   const onLogout = () => {
     // sessionStorage 에 user_id 로 저장되어있는 아이템을 삭제한다.
-      localStorage.removeItem('access_token')
-      // App 으로 이동(새로고침)
-      document.location.href = '/'
+      axios.delete('/members/logout',)
+      .then(function (response) {
+        console.log(response)
+
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('id')
+        localStorage.removeItem('nickname')
+        // App 으로 이동(새로고침)
+        document.location.href = '/'
+      }).catch(function (error) {
+        alert('Fail to Logout');
+        console.log(error);  
+    });
   }    
   if (isLogin){
     return(

@@ -18,7 +18,7 @@ function SubCategoryList(props) {
                 <h2>{title}</h2>
                 <div className="subCategoryBox">
                     {subList.map((sub, index) => (
-                        <Link className="subBtn" key={`cateSub${index + 1}`}><button>{sub}</button></Link>
+                        <button className="subBtn" key={`cateSub${index + 1}`} >{sub}</button>
                     ))}
                 </div>
             </div>

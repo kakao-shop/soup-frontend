@@ -8,7 +8,7 @@ import Nav from '../Nav';
 
 // import '../../../css/CategoryPage.css';
 
-function CategoryView() {
+function CategoryView({isLogin, setIsLogin}) {
 
   const categoryList = [
     {
@@ -71,7 +71,7 @@ function CategoryView() {
   const num = location.state;
   return (
     <div>
-        <Header />
+        <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
         <Nav />
         <div className="CategoryView container">
           <SubCategoryList data={categoryList[num]} />

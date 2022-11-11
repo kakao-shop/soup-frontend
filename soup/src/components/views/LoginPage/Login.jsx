@@ -38,13 +38,12 @@ function Login() {
       if (response.status === 200) {
         localStorage.clear();
         localStorage.setItem('access_token', response.data.result.accessToken);
-        
+        localStorage.setItem('nickname', response.data.result.nickname);
+        localStorage.setItem('id', `${Id}`);
         alert('Login Success!');
-        navigate('/',
-        {status: result}
-        );
+        document.location.href = '/'
         console.log(response);
-        window.location.href("/");
+
       }
       // if(Object.keys(result).length === 0){
       //    alert('Does not exist..');

@@ -9,7 +9,6 @@ function LandingPage({isLogin, setIsLogin}) {
   console.log(isLogin)
   let location = useLocation();
   const user = location.state;
-
   console.log(user);
   // if (isLogin){
   //   return(
