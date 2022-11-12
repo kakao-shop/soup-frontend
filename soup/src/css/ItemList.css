@@ -1,0 +1,71 @@
+.ItemList {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.ItemList .msg {
+    display: flex;
+    align-items: flex-end;
+    margin: 10px;
+}
+
+.ItemList .msg * {
+    padding: 10px 5px;
+}
+
+.ItemList .itemList {
+    margin-bottom: 100px;
+}
+
+
+.ItemList .list-item {
+    display: flex;
+    border: 1px solid #d3d3d3;
+    border-top: none;
+    padding: 10px;
+}
+
+.ItemList .list-item:first-child {
+    border-top: 1px solid #d3d3d3;
+}
+
+.ItemList .list-item > * {
+    margin: 0;
+}
+
+.ItemList .list-item .item-img {
+    width: 120px;
+    height: 120px;
+}
+
+.ItemList .list-item .item-info {
+    width: 60%;
+    margin-left: 20px;
+}
+
+.ItemList .list-item .item-info .item-price {
+    font-size: 14px;
+}
+
+.ItemList .list-item .item-info .item-name {
+    display: block;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.ItemList .list-item .item-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 11px;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.ItemList .list-item .item-desc span {
+    display: inline-block;
+    width: 50px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
