@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Link, Navigate, Route, Router, Routes } from "react-router-dom";
+import React from "react";
 
 import Header from "../Header";
 import SetTheme from "./SetTheme";
-import AdminMenu from "./AdminMenu";
 
 import "../../../css/AdminPage.css";
 import UserInfo from "./UserInfo";
