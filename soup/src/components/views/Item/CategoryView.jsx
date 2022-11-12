@@ -102,7 +102,7 @@ function CategoryView({isLogin, setIsLogin}) {
   const getProduct = (e) => {
     const cat = e.target.innerText;
     // setSubcat(`${cat}`);
-    axios.get('/search', {
+    axios.get('/search/subcat', {
       params: {
         category: `${cat}`,
         size: `${size}`,

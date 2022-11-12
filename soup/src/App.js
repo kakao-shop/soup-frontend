@@ -6,6 +6,7 @@ import JoinPage from './components/views/JoinPage';
 import ConfirmPw from './components/views/UserPage/ConfirmPw';
 import EditUserInfo from './components/views/UserPage/EditUserInfo';
 import CategoryView from './components/views/Item/CategoryView';
+import ItemList from './components/views/Item/ItemList';
 
 
 import './App.css';
@@ -35,6 +36,7 @@ function App() {
           {/* <AuthRoute version={2} exact path="/confirmPw" element={<ConfirmPw />} /> */}
           <Route path="/editUserInfo" element={<EditUserInfo isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/category" element={<CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+          <Route path="/searchResult" element={<ItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/*" element={<NotFound />} />
           
           {/* <Route exact path="*" element={<NotFound />} */}
