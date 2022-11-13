@@ -59,15 +59,15 @@ function DefaultItem({props,isLogin}) {
                 {result}
                 <div className="item-list">
                     {productList.map((item, index) => (
+                        <a href={item.webUrl} target="_blank">
                         <div key={"default" + index} className="item">
-                            <Link to={item.url} className="item-link">
                                 <img src={item.imgSrc} alt="Item"
                                      className="item-img"/>
                                 <strong className="item-name">{item.prdName}</strong>
                                 <span className="item-desc">{item.site}</span>
                                 <span className="item-price">{item.price}원</span>
-                            </Link>
                         </div>
+                        </a>
                     ))}
                 </div>
             </div>
