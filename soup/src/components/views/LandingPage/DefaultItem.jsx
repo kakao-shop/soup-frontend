@@ -1,72 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from "axios";
 import '../../../css/DefaultItem.css'
+import { useEffect } from 'react';
 
 function DefaultItem() {
-    
-    const itemlist = [
+    const [product, setProduct] = useState([
         {
-            url: "#",
-            name: "샘플 이름1",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름2",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름3",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름4",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름5",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름6",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름7",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름8",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름9",
-            desc: "샘플 설명",
-            price: "10,000"
-        },
-        {
-            url: "#",
-            name: "샘플 이름10",
-            desc: "샘플 설명",
-            price: "10,000"
+          id: "상품명",
+          score: "이미지URL",
+          site: "상품 가격(원)",
+          prdName: "상품 가격(원)",
+          webUrl: "대분류카테고리",
+          price: "소분류카테고리",
+          purchase: 0,
+          cat: "사이트",
+          subcat: "",
+          imgSrc: ""
         }
-    ]
+      ]);
+      
+      useEffect(() => {
+       
+        const getProduct = async () => {
+          try{ 
+            const response = await axios.get('/search/collections/today-best', {
+          });
+            console.log(response.data.result);
+            setProduct(response.data.result)
+            
+        }catch (e) {
+            alert('error');
+            console.log(e); 
+        }
+        };
+        getProduct();
+      },[]);
+    
+      console.log(product[1]);
+    
     
     const user = {
         nickname: localStorage.getItem('nickname')
@@ -79,14 +51,13 @@ function DefaultItem() {
             <div className="default-item">
             {result}
                 <div className="item-list">
-                {itemlist.map((item, index) => (
+                {product.map((item, index) => (
                     <div key={"default" + index} className="item">
-                        <Link to={item.url} className="item-link">
-                            <img src={process.env.PUBLIC_URL + '/img/대왕보따리 춘식이.png'} alt="Item" className="item-img" />
-                            <strong className="item-name">{item.name}</strong>
-                            <span className="item-desc">{item.desc}</span>
-                            <span className="item-price">{item.price}원</span>
-                        </Link>
+                        <a href={item.webUrl} className="item-link">
+                            <img src={item.imgSrc} alt="Item" className="item-img" />
+                            <strong className="item-name">{item.prdName}</strong>
+                            <span className="item-price">{item.price}원</span><span className="item-price">{item.subcat}</span>
+                        </a>
                     </div>
                 ))}
                 </div>
