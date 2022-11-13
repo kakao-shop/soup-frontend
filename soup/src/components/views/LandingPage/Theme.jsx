@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import { Link } from 'react-router-dom';
 
 import '../../../css/Theme.css';
+import axios from "axios";
 
-function Theme() {
+function Theme(props) {
 
     const [Shift, setShift] = useState("∥");
 
@@ -12,50 +13,39 @@ function Theme() {
         e.currentTarget.value = e.currentTarget.value === "∥" ? "▶" : "∥";
         setShift(e.currentTarget.value);
     }
-
-
-    const themeList = [
+    const [themeList,setThemeList] = useState([
         {
-            title: "당신의 집을 카페로 ☕",
-            color: "#000",
-            index: 1
-        }, 
-        {
-            title: "제철 과일🍇🥝🍎",
-            color: "#",
-            index: 2
-        }, 
-        {
-            title: "추워질 때 호호~ 겨울 음식 🍠",
-            color: "#",
-            index: 3
-        }, 
-        {
-            title: "건강한 다이어트 🍴",
-            color: "#",
-            index: 4
-        }, 
-        {
-            title: "비 오는 날, 밀키트 어때?",
-            color: "#",
-            index: 5
-        }, 
-        {
-            title: "달콤한 간식 🥨",
-            color: "#",
-            index: 6
-        }, 
-        {
-            title: "달콤한 간식 🥨",
-            color: "#",
-            index: 6
-        }, 
-        {
-            title: "달콤한 간식 🥨",
-            color: "#",
-            index: 6
+            idx: 1,
+            title: "테마1"
         }
-    ]
+    ]);
+
+    useEffect(()=> {
+        const getThemeList = async () => {
+            try {
+                axios.get('http://localhost:8000/', {
+                        headers: {
+                            'x-access-token': localStorage.getItem('access_token')
+                        }
+                    }
+                ).then(function (response) {
+                    console.log("result");
+                    setThemeList(response.data.result.themeList);
+                }).catch(function (error) {
+                    alert('error');
+                    console.log(error);
+                });
+
+            } catch (e) {
+                alert('error');
+                console.log(e);
+            }
+        };
+        getThemeList();
+    },[])
+
+
+
 
     return (
         <div className="Theme container">
@@ -66,9 +56,9 @@ function Theme() {
             </div>
             <div className="Title">
                 <div className="theme-shift">
-                        <button type="button">&lt;</button>
-                        <button type="button" onClick={onClickShiftHandler} value={Shift}>{Shift}</button>
-                        <button type="button">&gt;</button>
+                    <button type="button">&lt;</button>
+                    <button type="button" onClick={onClickShiftHandler} value={Shift}>{Shift}</button>
+                    <button type="button">&gt;</button>
                 </div>
                 <div className="theme-group" style={{width: "100%"}}>
                     {themeList.map((theme, index) => (
