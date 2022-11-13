@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { Link, useLocation, NavLink } from "react-router-dom";
+import React, { useState, useRef } from 'react';
+import {useLocation} from "react-router-dom";
 import ItemList from './ItemList';
 import axios from 'axios';
-import Pagination from 'rc-pagination';
+import Pagination from 'react-js-pagination';
 
 import Header from '../Header';
 import Nav from '../Nav';
-import "../../../css/SubCategoryList.css";
-import { useEffect } from 'react';
 
-// import '../../../css/CategoryPage.css';
+import "../../../css/SubCategoryList.css";
 import '../../../css/ItemList.css';
+import '../../../css/Pagination.css';
+
+
 
 
 function CategoryView({isLogin, setIsLogin}) {
@@ -75,9 +76,12 @@ function CategoryView({isLogin, setIsLogin}) {
     }
   ]
   const [category, setcategory] = useState("사과");
-  const [size, setsize] = useState("10");
+  const [size, setsize] = useState("30");
   const [sort, setsort] = useState("price,desc");
-  const [page, setpage] = useState("1");
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages]= useState(0);
+  const page = useRef(0);
+  console.log(page.current);
   const [product, setProduct] = useState([
     {
       id: "상품명",
@@ -101,22 +105,56 @@ function CategoryView({isLogin, setIsLogin}) {
 
   const getProduct = (e) => {
     const cat = e.target.innerText;
+    setcategory(cat);
+    page.current = 0;
     // setSubcat(`${cat}`);
-    axios.get('/search', {
+    console.log(`params: {
+      category: ${cat},
+      size: ${size},
+      sort: ${sort},
+      page: ${page.current}
+    }`);
+    axios.get('/search/subcat', {
       params: {
         category: `${cat}`,
         size: `${size}`,
         sort: `${sort}`,
-        page: `${page}`
+        page: `${page.current}`
       }
   })
   .then(function (response) {
-    setProduct(response.data.result.result.content)
+    console.log(response);
+    setProduct(response.data.result.result.content);
+    setTotalElements(response.data.result.result.totalElements);
+    setTotalPages(response.data.result.result.totalPages);
   }).catch(function (error) {
       alert('error');
       console.log(error);  
   });
   };
+
+
+  // 아람
+
+  const handlePageChange = (Page) => {
+    page.current = Page-1;
+    axios.get('/search/subcat', {
+      params: {
+        category: `${category}`,
+        size: `${size}`,
+        sort: `${sort}`,
+        page: `${page.current}`
+      }
+  })
+  .then(function (response) {
+    console.log(response)
+    setProduct(response.data.result.result.content)
+    console.log(page);
+  }).catch(function (error) {
+      alert('error');
+      console.log(error);  
+  });
+  }
   
 
   //   try{ 
@@ -144,46 +182,58 @@ function CategoryView({isLogin, setIsLogin}) {
   // }
   return (
     <div>
-        <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
-        <Nav />
-        <div className="CategoryView container">
-          <div className="SubCategoryList container">
-            <h2>{categoryList[num].main}</h2>
-              <div className="subCategoryBox">
-               {subList.map((sub, index) => (
-                <button className="subBtn" key={`cateSub${index + 1}`} onClick={getProduct}>{sub}</button>
-                ))}  
-              </div>
-            </div>
-      
-            <div className="ItemList">
-      <div className="msg">
-        <h3>{categoryList[num].main}</h3><span>의 특가 상품이 검색되었습니다.</span>
-      </div>
-      <div className="itemList">
-        {product.map((data, index) => (
-          <a href={data.webUrl} target="_blank">
-          <div className="list-item" key={`상품목록${index+1}`}>
-              <div className="item-img">
-                <img src={data.imgSrc} style={{ width: "120px", height: "120px"}} alt="item" />
-              </div>
-            <div className="item-info">
-                <div>
-                <strong className="item-name">{data.prdName}</strong>
-                <div className="item-price">{data.price}원</div>
-              </div>
-            </div>
-            <div className="item-desc">
-              <div><span>카테고리</span><span>{data.cat}>{data.subcat}</span></div>
-              <div><span>구매횟수</span><span>{data.purchase}</span></div>
-              <div><span>판매처</span><span>{data.site}</span></div>
-            </div>
+      <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
+      <Nav />
+      <div className="CategoryView container">
+        <div className="SubCategoryList container">
+          <h2>{categoryList[num].main}</h2>
+          <div className="subCategoryBox">
+           {subList.map((sub, index) => (
+            <button className="subBtn" key={`cateSub${index + 1}`} id={sub} onClick={getProduct}>{sub}</button>
+            ))}  
           </div>
-          </a>
-        ))}
-      </div>
-    </div>
         </div>
+  
+        <div className="ItemList">
+          <div className="msg">
+            <h3>{category}</h3><span>의 특가 상품이 검색되었습니다.</span>
+          </div>
+          <div className="itemList">
+            {product.map((data, index) => (
+              <a href={data.webUrl} target="_blank" key={`url${index}`}>
+              <div className="list-item" key={`상품목록${index+1}`}>
+                  <div className="item-img">
+                    <img src={data.imgSrc} style={{ width: "120px", height: "120px"}} alt="item" />
+                  </div>
+                  <div className="item-info">
+                    <div>
+                      <strong className="item-name">{data.prdName}</strong>
+                      <div className="item-price">{data.price}원</div>
+                    </div>
+                  </div>
+                  <div className="item-desc">
+                    <div><span>카테고리</span><span>{data.cat}&lt;{data.subcat}</span></div>
+                    <div><span>구매횟수</span><span>{data.purchase}</span></div>
+                    <div><span>판매처</span><span>{data.site}</span></div>
+                  </div>
+                </div>
+              </a>
+            ))}
+            
+          </div>
+        </div><Pagination 
+              activePage={page.current+1}
+              itemsCountPerPage={30}
+              totalItemsCount={totalElements}
+              pageRangeDisplay={totalPages}
+              onChange={handlePageChange}
+              innerClass="page-ul"
+              itemClass="page-li"
+              activeClass="page-active"
+              activeLinkClass="pagelink-active"
+
+            ></Pagination>
+      </div>
     </div>
     
 )

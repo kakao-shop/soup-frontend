@@ -21,12 +21,22 @@ function Btns({isLogin, setIsLogin}) {
     });
   }    
   if (isLogin){
+    if (localStorage.getItem('id') === "admin") {
+      return (
+        <div className="hbtn-group">
+            <Link to="/"><button type="button" onClick={onLogout} className="login-btn btn">로그아웃</button></Link>
+            <Link to="/admin"><button type="button" className="btn login-btn" style={{width: "100%", paddingRight: "5px", paddingLeft: "5px", marginLeft: "10px", backgroundColor: "#FFB798"}}>관리자 페이지</button></Link>
+      </div>
+      )
+    }
+    else {
     return(
       <div className="Avatar hbtn-group">
             <Link to="/"><button type="button" onClick={onLogout} className="login-btn btn">로그아웃</button></Link>
             <Link to="/confirmPw"><img src="img/user.png" alt="user" className="avatar" /></Link>
       </div>
     );
+    }
   }else{
     return(
       <div className="hbtn-group">
