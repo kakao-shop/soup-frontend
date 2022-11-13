@@ -15,6 +15,8 @@ import React, { useState } from 'react';
 import NotFound from "./components/views/NotFound";
 
 function App() {
+ 
+
   const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
     if (localStorage.getItem('access_token') === null){
@@ -27,6 +29,7 @@ function App() {
 
   return (
     <div className="App">
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
@@ -36,9 +39,9 @@ function App() {
           {/* <AuthRoute version={2} exact path="/confirmPw" element={<ConfirmPw />} /> */}
           <Route path="/editUserInfo" element={<EditUserInfo isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/category" element={<CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          <Route path="/searchResult" element={<ItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/*" element={<NotFound />} />
-          
+          <Route path="/searchResult" element={<ItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+
           {/* <Route exact path="*" element={<NotFound />} */}
         </Routes>
       </BrowserRouter>

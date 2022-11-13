@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useLocation, NavLink } from "react-router-dom";
 import ItemList from './ItemList';
 import axios from 'axios';
-import Pagination from 'rc-pagination';
+import Pagination from 'react-js-pagination';
 
 import Header from '../Header';
 import Nav from '../Nav';
@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 
 // import '../../../css/CategoryPage.css';
 import '../../../css/ItemList.css';
+import '../../../css/Pagination.css';
 
 
 function CategoryView({isLogin, setIsLogin}) {
@@ -77,7 +78,10 @@ function CategoryView({isLogin, setIsLogin}) {
   const [category, setcategory] = useState("사과");
   const [size, setsize] = useState("10");
   const [sort, setsort] = useState("price,desc");
-  const [page, setpage] = useState("1");
+  // const [page, setpage] = useState("1");
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages]= useState(0);
+  const page = useRef(0);
   const [product, setProduct] = useState([
     {
       id: "상품명",
@@ -101,22 +105,46 @@ function CategoryView({isLogin, setIsLogin}) {
 
   const getProduct = (e) => {
     const cat = e.target.innerText;
+    setcategory(cat);
+    page.current = 0;
     // setSubcat(`${cat}`);
     axios.get('/search/subcat', {
       params: {
         category: `${cat}`,
         size: `${size}`,
         sort: `${sort}`,
-        page: `${page}`
+        page: `${page.current}`
       }
   })
   .then(function (response) {
     setProduct(response.data.result.result.content)
+    setTotalElements(response.data.result.result.totalElements);
+    setTotalPages(response.data.result.result.totalPages);
   }).catch(function (error) {
       alert('error');
       console.log(error);  
   });
   };
+
+  const handlePageChange = (Page) => {
+    page.current = Page-1;
+    axios.get('/search/subcat', {
+      params: {
+        category: `${category}`,
+        size: `${size}`,
+        sort: `${sort}`,
+        page: `${page.current}`
+      }
+  })
+  .then(function (response) {
+    console.log(response)
+    setProduct(response.data.result.result.content)
+    console.log(page);
+  }).catch(function (error) {
+      alert('error');
+      console.log(error);  
+  });
+  }
   
 
   //   try{ 
@@ -174,7 +202,7 @@ function CategoryView({isLogin, setIsLogin}) {
               </div>
             </div>
             <div className="item-desc">
-              <div><span>카테고리</span><span>{data.cat}>{data.subcat}</span></div>
+              <div><span>카테고리</span><span>{data.cat}&lt;{data.subcat}</span></div>
               <div><span>구매횟수</span><span>{data.purchase}</span></div>
               <div><span>판매처</span><span>{data.site}</span></div>
             </div>
@@ -183,6 +211,18 @@ function CategoryView({isLogin, setIsLogin}) {
         ))}
       </div>
     </div>
+    <Pagination 
+              activePage={page.current+1}
+              itemsCountPerPage={30}
+              totalItemsCount={totalElements}
+              pageRangeDisplay={totalPages}
+              onChange={handlePageChange}
+              innerClass="page-ul"
+              itemClass="page-li"
+              activeClass="page-active"
+              activeLinkClass="pagelink-active"
+
+            ></Pagination>
         </div>
     </div>
     

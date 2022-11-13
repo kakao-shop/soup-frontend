@@ -1,5 +1,5 @@
 import React from "react";
-import { Link,  useNavigate, useParams } from "react-router-dom";
+import { Link,  Navigate, useParams, useNavigate} from "react-router-dom";
 import Btns from "./Btns";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ import { useState } from "react";
 
 
 function Header({isLogin, setIsLogin}) {
+  const navigate = useNavigate();
   const [word, setWord] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [size, setsize] = useState("10");
@@ -15,23 +16,7 @@ function Header({isLogin, setIsLogin}) {
   const [page, setpage] = useState("1");
 
   const searchPrd = (e) => {
-    const cat = e.target.innerText;
-    axios.get('/search', {
-        params: {
-          q: `${word}`,
-          size: `${size}`,
-          sort: `${sort}`,
-          page: `${page}`
-        },
-        headers: {
-          'x-access-token': localStorage.getItem('access_token')
-        }
-  }).then(function (response) {
-    console.log(response.data)
-  }).catch(function (error) {
-      alert('error');
-      console.log(error);  
-  });
+    navigate('/searchResult', {state: `${word}`});
   };
 
   return (
@@ -39,7 +24,7 @@ function Header({isLogin, setIsLogin}) {
       <Link to="/"><img className="logo" alt="logo" src="img/logo.png"/></Link>
       <div className="search">
         <input className="search-input" type="text" onChange={(e) => { 
-          setWord(e.target.value); console.log(word);}}/>
+          setWord(e.target.value);}}/>
         <button type="button" className="search-btn" onClick={searchPrd}>
           <img src="img/search.png" alt="search"/>
         </button>

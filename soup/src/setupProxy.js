@@ -5,6 +5,14 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function(app) {
 
   //CORS ERROR
+    // app.use(
+    //   '/',
+    //   createProxyMiddleware({
+    //     target: "http://localhost:8000",
+    //     changeOrigin: true,
+    //   })
+    // );
+
     app.use(
         '/members',
         createProxyMiddleware({
@@ -20,6 +28,8 @@ module.exports = function(app) {
         changeOrigin: true,
       })
     );
+    
+    
       
     //   app.use(
     //     '/user',
