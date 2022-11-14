@@ -76,7 +76,7 @@ function ItemList({isLogin, setIsLogin}) {
               </div>
             </div>
             <div className="item-desc">
-              <div><span>카테고리</span><span>{data.cat}>{data.subcat}</span></div>
+              <div><span>카테고리</span><span>{data.cat}{data.subcat}</span></div>
               <div><span>구매횟수</span><span>{data.purchase}</span></div>
               <div><span>판매처</span><span>{data.site}</span></div>
             </div>

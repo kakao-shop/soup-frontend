@@ -68,12 +68,12 @@ function Nav() {
       <div className="Category container">
         {categoryList.map((category, index) => (
           <div className="category-item" id={`${index}`} key={`category${index + 1}`}>            
-            <button type="button" onClick={(e) => {console.log(e.target.innerText);navigate('/category', {state: `${e.target.parentElement.id}`});}} className="nav-item" key={`main${index + 1}`}>{category.main}</button>
+            <button type="button" /*onClick={(e) => {console.log(e.target.innerText);navigate('/category', {state: {idx: `${e.target.parentElement.id}`, subcat: ''}});}}*/ className="nav-item" key={`main${index + 1}`}>{category.main}</button>
             <div
               className={`sub-panel index${index + 1}`}
               key={`sub${index + 1}`}>
-              {category.sub.item.map((sub, index) => (
-                <Link className="sub-item" to="#" key={`sub${index + 1}-item`}>{sub}</Link>
+              {category.sub.item.map((sub, subIndex) => (
+                <Link className="sub-item" to='/category' state= {{idx: index, subcat: sub}} key={`sub${subIndex + 1}-item`}>{sub}</Link>
               ))
               }
             </div>
