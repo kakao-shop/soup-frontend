@@ -5,6 +5,7 @@ import Header from '../Header';
 import Nav from '../Nav';
 import '../../../css/ItemList.css';
 import { useEffect } from 'react';
+import Bot from '../Bot/Bot'
 
 function ItemList({isLogin, setIsLogin}) {
   const [category, setcategory] = useState("사과");
@@ -50,7 +51,7 @@ function ItemList({isLogin, setIsLogin}) {
     alert('error');
     console.log(error);  
 });
-});
+},[num]);
 
   // const searchPrd = (e) => {
   //   const cat = e.target.innerText;
@@ -103,7 +104,7 @@ function ItemList({isLogin, setIsLogin}) {
     <div>
     <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
     <Nav/>
-   
+    <Bot />
     <div className="ItemList">
       <div className="itemList">
       <div className="msg">
@@ -123,7 +124,7 @@ function ItemList({isLogin, setIsLogin}) {
               </div>
             </div>
             <div className="item-desc">
-              <div><span>카테고리</span><span>{data.cat}>{data.subcat}</span></div>
+              <div><span>카테고리</span><span>{data.cat}{data.subcat}</span></div>
               <div><span>구매횟수</span><span>{data.purchase}</span></div>
               <div><span>판매처</span><span>{data.site}</span></div>
             </div>

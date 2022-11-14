@@ -5,6 +5,7 @@ import Nav from '../Nav';
 import DefaultItem from './DefaultItem';
 import Theme from './Theme';
 import MyBestItem from './MyBestItem';
+import Bot from '../Bot/Bot'
 
 function LandingPage({isLogin, setIsLogin}) {
   console.log(isLogin)
@@ -37,6 +38,7 @@ function LandingPage({isLogin, setIsLogin}) {
     <Header setIsLogin={setIsLogin} isLogin={isLogin}/> 
     <Nav />
     <Theme />
+    <Bot />
     {list}
  
   </div>
