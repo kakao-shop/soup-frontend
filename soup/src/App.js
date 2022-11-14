@@ -7,7 +7,7 @@ import ConfirmPw from './components/views/UserPage/ConfirmPw';
 import EditUserInfo from './components/views/UserPage/EditUserInfo';
 import CategoryView from './components/views/Item/CategoryView';
 import ItemList from './components/views/Item/ItemList';
-
+import ThemeItemList from "./components/views/Item/ThemeItemList";
 
 import './App.css';
 import { useEffect } from "react";
@@ -41,7 +41,7 @@ function App() {
           <Route path="/category" element={<CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/searchResult" element={<ItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-
+          <Route path="/theme" element={<ThemeItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           {/* <Route exact path="*" element={<NotFound />} */}
         </Routes>
       </BrowserRouter>

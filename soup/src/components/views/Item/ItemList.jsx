@@ -104,7 +104,6 @@ function ItemList({isLogin, setIsLogin}) {
     <div>
     <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
     <Nav/>
-    <Bot />
     <div className="ItemList">
       <div className="itemList">
       <div className="msg">

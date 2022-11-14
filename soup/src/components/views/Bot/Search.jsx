@@ -10,12 +10,12 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
     const [idx, setIdx] = useState('');
 
     const componentDidMount = async () => {
-        setIdx(steps.triggerMaker.value);
         const search = previousStep.value;
         const param = previousStep.metadata.param;
         setParam(param);
         setSearch(search);
         if (param == 'category') {
+            setIdx(steps.triggerMaker.value);
             await axios.get("/search/subcat", {
                 params: {
                     category: `${search}`
@@ -61,7 +61,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                         <div key={re.id}>{re.prdName}</div>
                     ))}
                 </div>
-                <Link className='btn btn' to={`/${param}`} state= {{idx: `${idx}`, subcat: `${search}`}}>더보기</Link>
+                <Link className='btn btn' to={`/${param}`} state= {(`${param}` == 'theme')? {themeIdx: `${search}`} : {idx: `${idx}`, subcat: `${search}`}}>더보기</Link>
 
                 <button onClick={triggerNext}>처음으로</button>
             </div>
