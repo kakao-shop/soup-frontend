@@ -5,7 +5,7 @@ import Nav from '../Nav';
 import DefaultItem from './DefaultItem';
 import Theme from './Theme';
 import ThemeResult from './ThemeResult';
-import Bot from '../../Bot/Bot';
+import Bot from '../Bot/Bot';
 
 function LandingPage({isLogin, setIsLogin}) {
 

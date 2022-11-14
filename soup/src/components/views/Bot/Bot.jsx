@@ -50,8 +50,8 @@ const Bot = () => {
     {
       id: 'themes',
       options: [
-        { value: '1', label: '겨울에 생각나는 간식', trigger: 'last' },
-        { value: '2', label: '계절 과일', trigger: 'last' },
+        { value: '12', label: 'MD 정지윤의 추천 상품🙋🏻‍♀️', trigger: 'last' },
+        { value: '9', label: '배우 강아람의 추천 메뉴', trigger: 'last' },
         { value: '3', label: '간편식', trigger: 'last' },
         { value: '4', label: '수확의 계절', trigger: 'last' },
         { value: '5', label: '먹거리', trigger: 'last' }

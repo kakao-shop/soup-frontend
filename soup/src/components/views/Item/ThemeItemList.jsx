@@ -5,7 +5,7 @@ import Header from '../Header';
 import Nav from '../Nav';
 import '../../../css/ItemList.css';
 import { useEffect } from 'react';
-import Bot from '../../Bot/Bot';
+import Bot from '../Bot/Bot';
 
 function ThemeItemList({ isLogin, setIsLogin }) {
     const [size, setsize] = useState("10");
