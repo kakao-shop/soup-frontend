@@ -50,7 +50,7 @@ function ItemList({isLogin, setIsLogin}) {
     alert('error');
     console.log(error);  
 });
-});
+},[num]);
 
   // const searchPrd = (e) => {
   //   const cat = e.target.innerText;
