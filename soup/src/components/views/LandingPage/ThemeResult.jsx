@@ -4,7 +4,7 @@ import axios from "axios";
 import '../../../css/DefaultItem.css'
 import { useEffect } from 'react';
 
-function DefaultItem() {
+function ThemeResult(idx) {
     const [product, setProduct] = useState([
         {
           id: "상품명",
@@ -24,15 +24,8 @@ function DefaultItem() {
        
         const getProduct = async () => {
           try{ 
-            const response = await axios.get('/search/main', 
-                {
-                    headers: {
-                        'x-access-token': localStorage.getItem('access_token')
-                    }
-                }
-
-          );
-            setProduct(response.data.result.recommendResult);
+            const response = await axios.get('/search/collections/'+idx.idx.idx);
+            setProduct(response.data.result.result.content);
             
         }catch (e) {
             alert('error');
@@ -40,7 +33,7 @@ function DefaultItem() {
         }
         };
         getProduct();
-      },[]);
+      },[idx]);
     
     
     
@@ -48,7 +41,7 @@ function DefaultItem() {
         nickname: localStorage.getItem('nickname')
     }
     
-    const result = user.nickname === null ? <h3 style={{width: "100%"}}>인기 상품</h3> : <div><h3 id="nickname" style={{display: "inline-block", margin: "0 10px 0 0"}}>{user.nickname}</h3><span>님을 위한 추천 상품</span></div>;
+    const result = <h3 style={{width: "100%"}}>{idx.idx.title}</h3>;
  
     return (
         <main className="DefaultItem container">
@@ -73,4 +66,4 @@ function DefaultItem() {
     );
 }
 
-export default DefaultItem;
+export default ThemeResult;

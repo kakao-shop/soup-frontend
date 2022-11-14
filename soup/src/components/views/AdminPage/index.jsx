@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "../Header";
-import SetTheme from "./SetTheme";
+import SetTheme from "./setTheme";
 
 import "../../../css/AdminPage.css"
 import UserInfo from "./UserInfo";

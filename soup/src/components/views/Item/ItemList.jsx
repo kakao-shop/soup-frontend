@@ -51,53 +51,6 @@ function ItemList({isLogin, setIsLogin}) {
     console.log(error);  
 });
 },[num]);
-
-  // const searchPrd = (e) => {
-  //   const cat = e.target.innerText;
-  //   axios.get('/search', {
-  //       params: {
-  //         q: `${num}`,
-  //         size: `${size}`,
-  //         sort: `${sort}`,
-  //         page: `${page}`
-  //       },
-  //       headers: {
-  //         'x-access-token': localStorage.getItem('access_token')
-  //       }
-  // }).then(function (response) {
-  //   const result = response.data.result.result.content
-  //   console.log(response.data)
-  //   // navigate('/searchResult', { state: e.target.value });
-  // }).catch(function (error) {
-  //     alert('error');
-  //     console.log(error);  
-  // });
-  // };
-  // setProduct(num);
-  // useEffect(() => {
-   
-  //   const getProduct = async () => {
-  //     try{ 
-  //       const response = await axios.get('/search', {
-  //         params: {
-  //         category: `${subcat}`,
-  //         size: `${size}`,
-  //         sort: `${sort}`,
-  //         page: `${page}`
-  //       }
-  //     });
-  //       console.log(response.data.result.result.content);
-  //       setProduct(response.data.result.result.content)
-        
-  //   }catch (e) {
-  //       alert('error');
-  //       console.log(e); 
-  //   }
-  //   };
-  //   getProduct();
-  // },[]);
-
-  // console.log(product[0]);
   
   return (
     <div>

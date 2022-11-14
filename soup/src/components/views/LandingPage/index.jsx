@@ -4,13 +4,13 @@ import Header from '../Header';
 import Nav from '../Nav';
 import DefaultItem from './DefaultItem';
 import Theme from './Theme';
-
+import ThemeResult from './ThemeResult';
+import Bot from '../../Bot/Bot';
 
 function LandingPage({isLogin, setIsLogin}) {
-  console.log(isLogin)
+
   let location = useLocation();
-  const user = location.state;
-  console.log(user);
+  const itemIdx = location.state;
   
   const users = {
     nickname: localStorage.getItem('nickname')
@@ -23,7 +23,12 @@ function LandingPage({isLogin, setIsLogin}) {
     <Header setIsLogin={setIsLogin} isLogin={isLogin}/> 
     <Nav />
     <Theme />
-    <DefaultItem/>
+    <Bot/>
+    {itemIdx === null
+    ? <DefaultItem/>
+    : <ThemeResult idx = {itemIdx}/>
+    }
+   
  
   </div>
   );

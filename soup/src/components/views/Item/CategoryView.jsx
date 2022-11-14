@@ -84,14 +84,14 @@ function CategoryView({isLogin, setIsLogin}) {
   const page = useRef(0);
   const [product, setProduct] = useState([
     {
-      id: "상품명",
+      id: "",
       score: "이미지URL",
       site: "상품 가격(원)",
       prdName: "상품 가격(원)",
       webUrl: "대분류카테고리",
       price: "소분류카테고리",
       purchase: 0,
-      cat: "사이트",
+      cat: "",
       subcat: "",
       imgSrc: ""
     }
@@ -103,11 +103,11 @@ function CategoryView({isLogin, setIsLogin}) {
   const subList = categoryList[num].sub.item;
   const [subcat, setSubcat] = useState("");
 
+
   const getProduct = (e) => {
     const cat = e.target.innerText;
     setcategory(cat);
     page.current = 0;
-    // setSubcat(`${cat}`);
     axios.get('/search/subcat', {
       params: {
         category: `${cat}`,
@@ -145,31 +145,8 @@ function CategoryView({isLogin, setIsLogin}) {
       console.log(error);  
   });
   }
-  
 
-  //   try{ 
-  //     const response = axios.get('/search', {
-  //       params: {
-  //       category: `${cat}`,
-  //       size: `${size}`,
-  //       sort: `${sort}`,
-  //       page: `${page}`
-  //     }
-  //   });
-  //       console.log(response.data.result.result.content);
-  //       setProduct(response.data.result.result.content)
-        
-  //   }catch (e) {
-  //       alert('error');
-  //       console.log(e); 
-  //   }
-  //   };
-  // };
 
-  // const onSubcat = (e) => {
-  //   setSubcat(e.target.innerText);
-  //   console.log(e.target.innerText);
-  // }
   return (
     <div>
         <Header setIsLogin={setIsLogin} isLogin={isLogin}/>
@@ -186,9 +163,9 @@ function CategoryView({isLogin, setIsLogin}) {
       
             <div className="ItemList">
       <div className="msg">
-        <h3>{categoryList[num].main}</h3><span>의 특가 상품이 검색되었습니다.</span>
+        <h3>{category}</h3><span>의 특가 상품이 검색되었습니다.</span>
       </div>
-      <div className="itemList">
+       <div className="itemList">
         {product.map((data, index) => (
           <a href={data.webUrl} target="_blank">
           <div className="list-item" key={`상품목록${index+1}`}>
@@ -208,6 +185,7 @@ function CategoryView({isLogin, setIsLogin}) {
             </div>
           </div>
           </a>
+        
         ))}
       </div>
     </div>
