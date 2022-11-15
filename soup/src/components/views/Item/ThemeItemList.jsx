@@ -114,7 +114,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                 <div className="item-info">
                                     <div>
                                         <strong className="item-name">{data.prdName}</strong>
-                                        <div className="item-price">{data.price}원</div>
+                                        <div className="item-price">{data.price.toLocaleString()} 원</div>
                                     </div>
                                 </div>
                                 <div className="item-desc">

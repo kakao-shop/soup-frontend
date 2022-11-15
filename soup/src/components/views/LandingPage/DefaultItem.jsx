@@ -86,7 +86,7 @@ function DefaultItem() {
                                     {item.prdName}
                                 </strong>
                                 <span className="item-price">
-                                    {item.price}원
+                                    {item.price.toLocaleString()} 원
                                 </span>
                                 <span className="item-cate">{item.subcat}</span>
                             </a>

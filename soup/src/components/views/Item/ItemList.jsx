@@ -114,7 +114,7 @@ function ItemList({ isLogin, setIsLogin }) {
                                                 {data.prdName}
                                             </strong>
                                             <div className="item-price">
-                                                {data.price}원
+                                                {data.price.toLocaleString()} 원
                                             </div>
                                         </div>
                                     </div>

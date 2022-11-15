@@ -48,7 +48,7 @@ function ThemeResult(idx) {
                             : <img src={item.imgSrc} alt="Item" className="item-img" />
                             }
                             <strong className="item-name">{item.prdName}</strong>
-                            <span className="item-price">{item.price}원</span>
+                            <span className="item-price">{item.price.toLocaleString()} 원</span>
                             <span className="item-cate">{item.subcat}</span>
                         </a>
                     </div>
