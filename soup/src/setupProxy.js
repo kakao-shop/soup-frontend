@@ -1,0 +1,37 @@
+const { createProxyMiddleware } = require("http-proxy-middleware");
+// const MOVIE_API_ADDR = process.env.API_IP
+//const BACK_URI = `http://localhost:8000`
+//const BACK_URI = `http://172.18.0.3:8000`
+module.exports = function(app) {
+    //CORS ERROR
+    app.use(
+        "/main",
+        createProxyMiddleware({
+            target: "http://localhost:8000",
+            changeOrigin: true,
+        })
+    );
+
+    app.use(
+        "/members",
+        createProxyMiddleware({
+            target: "http://localhost:8000",
+            changeOrigin: true,
+        })
+    );
+
+    app.use(
+        "/search",
+        createProxyMiddleware({
+            target: "http://localhost:8000",
+            changeOrigin: true,
+        })
+    );
+    app.use(
+        "/admin",
+        createProxyMiddleware({
+            target: "http://localhost:8000",
+            changeOrigin: true,
+        })
+    );
+};

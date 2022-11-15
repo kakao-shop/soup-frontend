@@ -1,0 +1,72 @@
+.Theme.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto 50px;
+    overflow: hidden;
+}
+
+.Theme > * {
+    display: flex;
+}
+
+.Theme .Title > div {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.theme-group {
+    overflow: hidden;
+    padding-left: 15px;
+    border-left: 1px solid #d3d3d3;
+}
+
+.theme-group .theme-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.theme-shift,
+.theme-btn {
+    white-space: nowrap;
+    border: 2px solid #d3d3d3;
+    border-radius: 35px;
+    padding: 5px 20px;
+    margin-right: 15px;
+    letter-spacing: -1px;
+}
+
+.theme-shift {
+    display: flex;
+    text-align: center;
+}
+
+.theme-shift button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    margin: 2px;
+    width: 16px;
+}
+
+.theme-shift button img {
+    width: 100%;
+}
+
+.theme-shift button:hover {
+    transform: scale(1.2);
+}
+
+.theme-shift > *:hover {
+    font-weight: 700;
+}
+
+.theme-btn:hover {
+    border-color: #FF6928;
+    
+    border-color: #FFB798;
+    background-color: #FF6928;
+    color: #fff;
+    font-weight: 700;
+}

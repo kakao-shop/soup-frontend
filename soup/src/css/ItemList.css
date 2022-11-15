@@ -1,0 +1,114 @@
+.ItemList {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.ItemList .msg {
+    display: flex;
+    align-items: flex-end;
+    margin: 10px;
+}
+
+.ItemList .msg * {
+    padding: 10px 5px;
+}
+
+.ItemList .result-msg {
+    margin: 10px;
+    padding: 10px 5px;
+}
+
+.ItemList .itemList {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.ItemList .sort-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ItemList .sort-group button {
+    margin: 8px 8px;
+    padding: 1px 1px 0 1px;
+}
+
+.ItemList .sort-group button:first-child {
+    color: #FF6928;
+    font-weight: 700;
+}
+
+.ItemList .list-item {
+    display: flex;
+    border: 1px solid #d3d3d3;
+    border-top: none;
+    padding: 10px;
+}
+
+.ItemList .list-item:first-child {
+    border-top: 1px solid #d3d3d3;
+}
+
+.ItemList .list-item > * {
+    margin: 0;
+}
+
+.ItemList .list-item .item-img {
+    width: 140px;
+    height: 140px;
+}
+
+.ItemList .list-item .item-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.ItemList .list-item .item-info {
+    width: 58%;
+    margin-left: 20px;
+}
+
+
+.ItemList .list-item .item-info .item-price {
+    font-size: 15px;
+}
+
+.ItemList .list-item .item-info .item-name {
+    display: block;
+    margin: 13px 0;
+    font-size: 16px;
+}
+
+.ItemList .list-item .item-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 9px;
+    border-left: 1px solid #d3d3d3;
+    margin-left: 10px;
+    padding: 5px 10px;
+    flex: 1;
+}
+
+.ItemList .list-item .item-desc div {
+    display: flex;
+    height: 35px;
+}
+
+.ItemList .list-item .item-desc div span:first-child {
+    font-weight: 700;
+}
+
+.ItemList .list-item .item-desc span {
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
+}
+
+.ItemList .list-item .item-desc span:first-child {
+    width: 50px;
+}
