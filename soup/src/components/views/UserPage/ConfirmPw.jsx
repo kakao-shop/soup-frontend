@@ -33,7 +33,6 @@ function ConfirmPw({isLogin, setIsLogin}) {
         }).then(function (response) {
         console.log(response)
         if (response.status === 200) {
-            alert('비밀번호가 일치합니다!');
             console.log(response);
             navigate('/editUserInfo', {
                 state: response.data,

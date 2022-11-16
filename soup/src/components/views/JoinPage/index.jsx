@@ -15,7 +15,7 @@ function JoinPage() {
   const [PasswordCheck, setPasswordCheck] = useState("");
   const [Birth, setBirth] = useState("");
   // const [Gender, setGender] = useState("");
-  const [Gender, setGender] = useState("male");
+  const [Gender, setGender] = useState("M");
 
   const onIdHandler = (e) => {
     setId(e.currentTarget.value);
@@ -41,16 +41,17 @@ function JoinPage() {
     setGender(e.currentTarget.value);
   };
 
-  const onDuplicateHandler =() => {
+  const onDuplicateHandler =(e) => {
     axios.get('/members/id-check', {
       params: {
         id: `${Id}`
       }
   })
   .then(function (response) {
+    if (response.status === 200) alert("사용할 수 있는 ID 입니다.");
   }).catch(function (error) {
-      alert('Fail to Signup');
-      console.log(error);  
+      alert(error.response.data.message);
+      e.target.previousSibling.value = "";
   });
   };
 
@@ -67,8 +68,8 @@ function JoinPage() {
   })
   .then(function (response) {
   }).catch(function (error) {
-      alert('Fail to Signup');
-      console.log(error);  
+      console.log(error.response.data.message);
+      alert(error.response.data.message);
   });
   };  
 
@@ -92,7 +93,7 @@ function JoinPage() {
             </div>
             <div>
               <label htmlFor="join-pw">비밀번호</label>
-              <input type="password" value={Password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="join-pw" placeholder="비밀번호 입력 (8~15자)" />  
+              <input type="password" value={Password} minLength="6" maxLength="15" onChange={onPasswordHandler} id="join-pw" placeholder="비밀번호 입력 (6~15자)" />  
             </div>
             <div>
               <label htmlFor="join-pwcheck">비밀번호 확인</label>

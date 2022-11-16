@@ -15,7 +15,7 @@ function SetTheme({ category }) {
 
     useEffect(() => {
         axios({
-            url: "http://localhost:8000/admin/collections",
+            url: "/admin/collections",
             method: "get",
         }).then(function (response) {
             setThemeList(response.data.result.themeList);
@@ -28,7 +28,7 @@ function SetTheme({ category }) {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
             e.target.parentNode.remove();
             axios
-                .delete(`http://localhost:8000/admin/collections/${idx}`, null)
+                .delete(`/admin/collections/${idx}`, null)
                 .then(function (response) {
                     const changedThemeList = ThemeList.filter(function (theme) {
                         return idx !== theme["idx"];
@@ -90,7 +90,7 @@ function SetTheme({ category }) {
 
     const saveTheme = (e) => {
         axios
-            .post(`http://localhost:8000/admin/collections`, {
+            .post(`/admin/collections`, {
                 title: `${ThemeName}`,
                 categoryList: L,
             })
