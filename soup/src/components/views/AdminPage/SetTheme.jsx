@@ -4,7 +4,7 @@ import axios from "axios";
 
 import "../../../css/AdminPage.css";
 
-function SetTheme({ categoryList }) {
+function SetTheme({ category }) {
     const [ThemeList, setThemeList] = useState([]);
 
     const subValue = useRef([]);
@@ -19,6 +19,8 @@ function SetTheme({ categoryList }) {
             method: "get",
         }).then(function (response) {
             setThemeList(response.data.result.themeList);
+        }).catch(function (error) {
+            console.log(error);
         });
     }, []);
 
@@ -28,7 +30,6 @@ function SetTheme({ categoryList }) {
             axios
                 .delete(`http://localhost:8000/admin/collections/${idx}`, null)
                 .then(function (response) {
-                    console.log(response.data);
                     const changedThemeList = ThemeList.filter(function (theme) {
                         return idx !== theme["idx"];
                     });
@@ -46,7 +47,7 @@ function SetTheme({ categoryList }) {
     function changeSub(e) {
         const subSelect = e.target.nextSibling.nextSibling;
         subSelect.innerHTML = "";
-        const currentCate = categoryList.filter(function (cate) {
+        const currentCate = category.filter(function (cate) {
             return cate.main === e.target.value;
         })[0].sub;
 
@@ -94,7 +95,6 @@ function SetTheme({ categoryList }) {
                 categoryList: L,
             })
             .then(function (response) {
-                console.log(response.data);
                 alert("테마 저장에 성공했습니다.");
                 setL([]);
                 window.location.reload(true);
@@ -141,7 +141,7 @@ function SetTheme({ categoryList }) {
                 />
                 <label>카테고리 대분류</label>
                 <select name="main" className="chosenMain" onChange={changeSub}>
-                    {categoryList.map((cate, index) => (
+                    {category.map((cate, index) => (
                         <option
                             value={cate.main}
                             key={cate.main}

@@ -7,22 +7,21 @@ import "../../../css/AdminPage.css";
 import Header from "../Header";
 
 function UserInfo() {
-    const [UserList, setUserList] = useState([]);
 
+    const [UserList, setUserList] = useState([]);
+    
     useEffect(() => {
         axios({
-            url: "http://localhost:8000/admin/members",
-            method: "get",
+            url: 'http://localhost:8000/admin/members', 
+            method: 'get'
         })
-            .then(function(response) {
-                console.log(response);
-                console.log(response.data.result);
-                setUserList(response.data.result);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+        .then(function (response) {
+            setUserList(response.data.result)
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }, [])
 
     return (
         <div className="UserInfo">
@@ -42,7 +41,7 @@ function UserInfo() {
                 </thead>
                 <tbody className="table-body">
                     {UserList.map((user, index) => (
-                        <tr className="user" key={`user${index + 1}`}>
+                        <tr className="user" key={`user${index+1}`}>
                             <th scope="row">{user.memberIdx}</th>
                             <td>{user.nickname}</td>
                             <td>{user.id}</td>

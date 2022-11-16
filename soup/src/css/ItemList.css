@@ -1,6 +1,6 @@
 .ItemList {
     width: 80%;
-    margin: 0 auto;
+    margin: 100px auto 0;
 }
 
 .ItemList .msg {
@@ -45,7 +45,7 @@
     padding: 10px;
 }
 
-.ItemList .list-item:first-child {
+.ItemList .itemList a:first-child .list-item {
     border-top: 1px solid #d3d3d3;
 }
 
@@ -56,16 +56,19 @@
 .ItemList .list-item .item-img {
     width: 140px;
     height: 140px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .ItemList .list-item .item-img img {
-    width: 100%;
-    height: 100%;
+    width: 140px;
+    height: 140px;
 }
 
 .ItemList .list-item .item-info {
     width: 58%;
     margin-left: 20px;
+    flex-shrink: 0;
 }
 
 
@@ -99,7 +102,8 @@
     font-weight: 700;
 }
 
-.ItemList .list-item .item-desc span {
+.ItemList .list-item .item-desc span, 
+.ItemList .list-item .item-desc strong  {
     display: inline-block;
     margin-top: 5px;
     margin-left: 5px;
@@ -108,6 +112,8 @@
     overflow : hidden;
     text-overflow: ellipsis;
 }
+
+
 
 .ItemList .list-item .item-desc span:first-child {
     width: 50px;

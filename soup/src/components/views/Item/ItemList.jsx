@@ -13,13 +13,17 @@ import "../../../css/Pagination.css";
 function ItemList({ isLogin, setIsLogin }) {
     const [size, setsize] = useState("30");
     const [sort, setsort] = useState("purchase,desc");
-    const page = useRef(0);
+    const [title, setTitle] = useState("");
     const [totalElements, setTotalElements] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);    
+    const page = useRef(0);
+    const clickedSort = useRef("purchase,desc");
+
 
     const location = useLocation();
     const num = location.state;
 
+    
     const [product, setProduct] = useState([
         {
             id: "상품명",
@@ -36,12 +40,24 @@ function ItemList({ isLogin, setIsLogin }) {
     ]);
 
     useEffect(() => {
+        page.current = 0;
+        
+        document.getElementById(clickedSort.current).style.color = "#222222";
+        document.getElementById(clickedSort.current).style.fontWeight = "400";
+
+
+        clickedSort.current = "purchase,desc";
+        console.log(clickedSort);
+
+        document.getElementById("purchase,desc").style.color = "#FF6928";
+        document.getElementById("purchase,desc").style.fontWeight = "700";
+
         axios
             .get("/search", {
                 params: {
                     q: `${num}`,
                     size: `${size}`,
-                    sort: `${sort}`,
+                    sort: `${clickedSort.current}`,
                     page: `${page.current}`,
                 },
                 headers: {
@@ -58,6 +74,41 @@ function ItemList({ isLogin, setIsLogin }) {
                 console.log(error);
             });
     }, [num]);
+
+    const clickSortBtnHandler = (e) => {
+        const sortValue = e.target.id;
+        
+        document.getElementById(clickedSort.current).style.color = "#222222";
+        document.getElementById(clickedSort.current).style.fontWeight = "400";
+
+        clickedSort.current = sortValue;
+        setsort(sortValue);
+        document.getElementById(e.target.id).style.color = "#FF6928";
+        document.getElementById(e.target.id).style.fontWeight = "700";
+
+        axios
+        .get("/search", {
+            params: {
+                q: `${num}`,
+                size: `${size}`,
+                sort: `${sortValue}`,
+                page: `${page.current}`,
+            },
+                headers: {
+                    "x-access-token": localStorage.getItem("access_token"),
+                },
+            })
+            .then(function(response) {
+                console.log(response)
+                setProduct(response.data.result.result.content);
+                setTotalElements(response.data.result.result.totalElements);
+                setTotalPages(response.data.result.result.totalPages);
+            })
+            .catch(function(error) {
+                alert("error");
+                console.log(error);
+            });
+    };
 
     const handlePageChange = async (Page) => {
         page.current = Page - 1;
@@ -78,7 +129,7 @@ function ItemList({ isLogin, setIsLogin }) {
             })
             .catch(function(error) {
                 alert("error");
-                console.log(error)
+                console.log(error);
             });
     };
 
@@ -87,25 +138,64 @@ function ItemList({ isLogin, setIsLogin }) {
             <Header setIsLogin={setIsLogin} isLogin={isLogin} />
             <Nav />
 
-            <div className="ItemList">
+            <div className="ItemList container">
+                <div className="msg">
+                    <h3>{num}</h3>
+                    <span>의 특가 상품이 검색되었습니다.</span>
+                </div>
+                <div className="sort-group">
+                    <button
+                        className="sort-btn"
+                        id="purchase,desc"
+                        onClick={clickSortBtnHandler}
+                    >
+                        판매량순
+                    </button>
+                    <button
+                        className="sort-btn"
+                        id="price,asc"
+                        onClick={clickSortBtnHandler}
+                    >
+                        가격낮은순
+                    </button>
+                    <button
+                        className="sort-btn"
+                        id="price,desc"
+                        onClick={clickSortBtnHandler}
+                    >
+                        가격높은순
+                    </button>
+                </div>
                 <div className="itemList">
-                    <div className="msg">
-                        <h3>{num}</h3>
-                        <span>의 특가 상품이 검색되었습니다.</span>
-                    </div>
                     {product && product.length > 0 ? (
                         product.map((data, index) => (
-                            <a href={data.webUrl} className="item-link" key={`item-link${index}`}>
+                            <a
+                                href={data.webUrl}
+                                className="item-link"
+                                target="_blank"
+                                key={`item-link${index}`}
+                            >
                                 <div
                                     className="list-item"
                                     key={`상품목록${index + 1}`}
                                 >
                                     <div className="item-img">
-                                        
-                                        {data.imgSrc === null
-                            ? <img src={process.env.PUBLIC_URL + '/img/no-img.png'} alt="Item" className="item-img" />
-                            : <img src={data.imgSrc} alt="Item" className="item-img" />
-                            }
+                                        {data.imgSrc === null ? (
+                                            <img
+                                                src={
+                                                    process.env.PUBLIC_URL +
+                                                    "/img/no-img.png"
+                                                }
+                                                alt="Item"
+                                                className="item-img"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={data.imgSrc}
+                                                alt="Item"
+                                                className="item-img"
+                                            />
+                                        )}
                                     </div>
 
                                     <div className="item-info">

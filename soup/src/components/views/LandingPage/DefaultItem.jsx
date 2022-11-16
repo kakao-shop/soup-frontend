@@ -21,6 +21,7 @@ function DefaultItem() {
             imgSrc: "",
         },
     ]);
+    console.log(process.env.API_IP);
 
     useEffect(() => {
         const getProduct = async () => {

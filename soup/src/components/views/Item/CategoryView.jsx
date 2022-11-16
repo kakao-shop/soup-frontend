@@ -250,16 +250,16 @@ function CategoryView({ isLogin, setIsLogin }) {
     const search = location.state.subcat;
     const subList = categoryList[num].sub.item;
 
-    const [mainNum, setMainNum] = useState(num);
     const [isBot, setIsBot] = useState(true);
     const [category, setCategory] = useState("");
     const [size, setsize] = useState("30");
     const [sort, setsort] = useState("purchase,desc");
     const [clickedSub, setClickedSub] = useState(search);
-    const [clickedSort, setClickedSort] = useState("purchase,desc");
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const page = useRef(0);
+    const clickedSort = useRef("purchase,desc");
+    
     const [product, setProduct] = useState([
         {
             id: "상품명",
@@ -278,6 +278,7 @@ function CategoryView({ isLogin, setIsLogin }) {
     const getCategory = async (e) => {
         let cat = '';
         cat = search;
+
         setIsBot(false);
         setClickedSub(cat);
         await getProduct(cat);
@@ -285,18 +286,25 @@ function CategoryView({ isLogin, setIsLogin }) {
 
     const getProduct = async (cat) => {
         setCategory(cat);
+        
+        document.getElementById(clickedSort.current).style.color = "#222222";
+        document.getElementById(clickedSort.current).style.fontWeight = "400";
+
+        clickedSort.current = "purchase,desc";
+        console.log(clickedSort);
+        document.getElementById("purchase,desc").style.color = "#FF6928";
+        document.getElementById("purchase,desc").style.fontWeight = "700";
         page.current = 0;
-        // setSubcat(`${cat}`);
+
         await axios.get('/search/subcat', {
           params: {
             category: `${cat}`,
             size: `${size}`,
-            sort: `${sort}`,
+            sort: `${clickedSort.current}`,
             page: `${page.current}`
           }
         })
           .then(function (response) {
-            setClickedSub()
             setProduct(response.data.result.result.content)
             setTotalElements(response.data.result.result.totalElements);
             setTotalPages(response.data.result.result.totalPages);
@@ -310,14 +318,14 @@ function CategoryView({ isLogin, setIsLogin }) {
     const clickSortBtnHandler = (e) => {
         const sortValue = e.target.id;
 
-        document.getElementById(clickedSort).style.color = "#222222";
-        document.getElementById(clickedSort).style.fontWeight = "400";
+        document.getElementById(clickedSort.current).style.color = "#222222";
+        document.getElementById(clickedSort.current).style.fontWeight = "400";
 
-        setClickedSort(sortValue);
+        clickedSort.current = sortValue;
+        setsort(sortValue);
 
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";
-
         axios
             .get("/search/subcat", {
                 params: {
@@ -414,6 +422,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                             product.map((data, index) => (
                                 <a
                                     href={data.webUrl}
+                                    className="item-link"
                                     target="_blank"
                                     key={`a-${index}`}
                                 >

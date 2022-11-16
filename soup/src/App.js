@@ -7,7 +7,7 @@ import JoinPage from './components/views/JoinPage';
 import ConfirmPw from './components/views/UserPage/ConfirmPw';
 import EditUserInfo from './components/views/UserPage/EditUserInfo';
 import CategoryView from './components/views/Item/CategoryView';
-import AdminPage from './components/views/AdminPage1';
+import AdminPage from './components/views/AdminPage';
 import ItemList from './components/views/Item/ItemList';
 import ThemeItemList from "./components/views/Item/ThemeItemList";
 import NotFound from "./components/views/NotFound";
