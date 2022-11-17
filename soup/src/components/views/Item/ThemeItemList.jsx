@@ -13,8 +13,8 @@ import "../../../css/Pagination.css";
 function ThemeItemList({ isLogin, setIsLogin }) {
     const [size, setsize] = useState("30");
     const [sort, setsort] = useState("purchase,desc");
-    const [title, setTitle] = useState("");
-    const [page, setpage] = useState("1");
+    const [title, setTitle] = useState("");   
+    const page = useRef(0);
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [clickedSort, setClickedSort] = useState("purchase,desc");
@@ -38,11 +38,12 @@ function ThemeItemList({ isLogin, setIsLogin }) {
     ]);
 
     useEffect(() => {
+        page.current = 0;
         axios
             .get(`/search/collections/${themeIdx}`, {
                 params: {
                     size: `${size}`,
-                    page: `${page}`,
+                    page: `${page.current}`,
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
@@ -75,7 +76,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
             .get(`/search/collections/${themeIdx}`, {
                 params: {
                     size: `${size}`,
-                    page: `${page}`,
+                    page: `${page.current}`,
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
@@ -98,7 +99,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
             .get(`/search/collections/${themeIdx}`, {
                 params: {
                     size: `${size}`,
-                    page: `${page}`,
+                    page: `${page.current}`,
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
@@ -120,7 +121,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
             <div className="ItemList">
                 <div className="msg">
                     <h3>{title}</h3>
-                    <span>의 특가 상품이 검색되었습니다.</span>
+                    <span> 테마 상품이 검색되었습니다.</span>
                 </div>
                 <div className="sort-group">
                     <button
@@ -146,13 +147,9 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                     </button>
                 </div>
                 <div className="itemList">
-                    <div className="msg">
-                        <h3>{title}</h3>
-                        <span>의 특가 상품이 검색되었습니다.</span>
-                    </div>
                     {product && product.length > 0 ? (
                         product.map((data, index) => (
-                            <a href={data.webUrl} className="item-link">
+                            <a href={data.webUrl} className="item-link" key={`link-${data.prdName}`}>
                                 <div
                                     className="list-item"
                                     key={`상품목록${index + 1}`}

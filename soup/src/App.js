@@ -8,6 +8,8 @@ import ConfirmPw from './components/views/UserPage/ConfirmPw';
 import EditUserInfo from './components/views/UserPage/EditUserInfo';
 import CategoryView from './components/views/Item/CategoryView';
 import AdminPage from './components/views/AdminPage';
+import UserInfo from './components/views/AdminPage/UserInfo';
+import SetTheme from './components/views/AdminPage/SetTheme';
 import ItemList from './components/views/Item/ItemList';
 import ThemeItemList from "./components/views/Item/ThemeItemList";
 import NotFound from "./components/views/NotFound";
@@ -81,12 +83,15 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/join" element={<JoinPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
           <Route path="/confirmPw" element={<ConfirmPw isLogin={isLogin} setIsLogin={setIsLogin} />} />
-          {/* <AuthRoute version={2} exact path="/confirmPw" element={<ConfirmPw />} /> */}
           <Route path="/editUserInfo" element={<EditUserInfo isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/category" element={<CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/searchResult" element={<ItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          <Route path="/admin/*" element={<AdminPage isLogin={isLogin} setIsLogin={setIsLogin} category={categoryList} />} />
+          <Route path="/admin/*" element={<AdminPage isLogin={isLogin} setIsLogin={setIsLogin} category={categoryList} />}>
+            <Route path="userInfo" element={<UserInfo isLogin={isLogin} setIsLogin={setIsLogin} category={categoryList} />} />
+            <Route path="setTheme" element={<SetTheme isLogin={isLogin} setIsLogin={setIsLogin} category={categoryList} />} />
+          </Route>
+          
           <Route path="/theme" element={<ThemeItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
           {/* <Route exact path="*" element={<NotFound />} */}
         </Routes>

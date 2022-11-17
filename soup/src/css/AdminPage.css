@@ -18,7 +18,8 @@
     padding: 20px;
 }
 
-.AdminMenu .menu-box button {
+.AdminMenu .menu-box button,
+.AdminMenu .menu-box a {
     display: block;
     margin-bottom: 10px;
 }

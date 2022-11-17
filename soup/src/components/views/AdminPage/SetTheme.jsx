@@ -15,12 +15,11 @@ function SetTheme({ category }) {
 
     useEffect(() => {
         axios({
-            url: "/admin/collections",
+            url: "http://localhost:8000/admin/collections",
             method: "get",
         }).then(function (response) {
+            console.log(response);
             setThemeList(response.data.result.themeList);
-        }).catch(function (error) {
-            console.log(error);
         });
     }, []);
 
@@ -28,8 +27,9 @@ function SetTheme({ category }) {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
             e.target.parentNode.remove();
             axios
-                .delete(`/admin/collections/${idx}`, null)
+                .delete(`http://localhost:8000/admin/collections/${idx}`, null)
                 .then(function (response) {
+                    console.log(response.data);
                     const changedThemeList = ThemeList.filter(function (theme) {
                         return idx !== theme["idx"];
                     });
@@ -90,11 +90,12 @@ function SetTheme({ category }) {
 
     const saveTheme = (e) => {
         axios
-            .post(`/admin/collections`, {
+            .post(`http://localhost:8000/admin/collections`, {
                 title: `${ThemeName}`,
                 categoryList: L,
             })
             .then(function (response) {
+                console.log(response.data);
                 alert("테마 저장에 성공했습니다.");
                 setL([]);
                 window.location.reload(true);

@@ -46,7 +46,7 @@ button:active {
 
 .container {
   width: 1050px;
-  margin: 0 auto;
+  margin: auto auto;
   position: relative;
 }
 

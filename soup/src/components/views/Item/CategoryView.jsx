@@ -291,7 +291,7 @@ function CategoryView({ isLogin, setIsLogin }) {
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
         clickedSort.current = "purchase,desc";
-        console.log(clickedSort);
+
         document.getElementById("purchase,desc").style.color = "#FF6928";
         document.getElementById("purchase,desc").style.fontWeight = "700";
         page.current = 0;
@@ -323,6 +323,7 @@ function CategoryView({ isLogin, setIsLogin }) {
 
         clickedSort.current = sortValue;
         setsort(sortValue);
+        page.current = 0;
 
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";

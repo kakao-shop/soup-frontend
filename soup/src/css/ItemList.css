@@ -1,12 +1,13 @@
 .ItemList {
     width: 80%;
-    margin: 100px auto 0;
+    margin: 0 auto;
 }
 
 .ItemList .msg {
     display: flex;
+    justify-content: center;
     align-items: flex-end;
-    margin: 10px;
+    margin: 100px auto 50px;
 }
 
 .ItemList .msg * {
@@ -117,4 +118,8 @@
 
 .ItemList .list-item .item-desc span:first-child {
     width: 50px;
+}
+
+.ItemList .no-search {
+    text-align: center;
 }

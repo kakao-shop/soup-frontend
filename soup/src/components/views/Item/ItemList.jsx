@@ -40,17 +40,15 @@ function ItemList({ isLogin, setIsLogin }) {
     ]);
 
     useEffect(() => {
-        page.current = 0;
-        
+        console.log("useEffect");
         document.getElementById(clickedSort.current).style.color = "#222222";
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
-
         clickedSort.current = "purchase,desc";
-        console.log(clickedSort);
+        page.current = 0;
 
-        document.getElementById("purchase,desc").style.color = "#FF6928";
-        document.getElementById("purchase,desc").style.fontWeight = "700";
+        document.getElementById(clickedSort.current).style.color = "#FF6928";
+        document.getElementById(clickedSort.current).style.fontWeight = "700";
 
         axios
             .get("/search", {
@@ -75,6 +73,7 @@ function ItemList({ isLogin, setIsLogin }) {
             });
     }, [num]);
 
+
     const clickSortBtnHandler = (e) => {
         const sortValue = e.target.id;
         
@@ -82,9 +81,9 @@ function ItemList({ isLogin, setIsLogin }) {
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
         clickedSort.current = sortValue;
-        setsort(sortValue);
-        document.getElementById(e.target.id).style.color = "#FF6928";
-        document.getElementById(e.target.id).style.fontWeight = "700";
+        page.current = 0;
+        document.getElementById(sortValue).style.color = "#FF6928";
+        document.getElementById(sortValue).style.fontWeight = "700";
 
         axios
         .get("/search", {
@@ -117,7 +116,7 @@ function ItemList({ isLogin, setIsLogin }) {
                 params: {
                     q: `${num}`,
                     size: `${size}`,
-                    sort: `${sort}`,
+                    sort: `${clickedSort.current}`,
                     page: `${page.current}`,
                 },
                 headers: {
@@ -138,7 +137,7 @@ function ItemList({ isLogin, setIsLogin }) {
             <Header setIsLogin={setIsLogin} isLogin={isLogin} />
             <Nav />
 
-            <div className="ItemList container">
+            <div className="ItemList container" style={{marginTop: "50px"}}>
                 <div className="msg">
                     <h3>{num}</h3>
                     <span>의 특가 상품이 검색되었습니다.</span>
@@ -229,7 +228,7 @@ function ItemList({ isLogin, setIsLogin }) {
                             </a>
                         ))
                     ) : (
-                        <div>검색 결과가 없습니다.</div>
+                        <div className="no-search">검색 결과가 없습니다.</div>
                     )}
                 </div>
 

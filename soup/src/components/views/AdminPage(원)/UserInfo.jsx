@@ -6,18 +6,17 @@ import axios from "axios";
 import "../../../css/AdminPage.css";
 import Header from "../Header";
 
-function UserInfo() {
+function UserInfo({ isLogin, setIsLogin, category }) {
 
     const [UserList, setUserList] = useState([]);
     
     useEffect(() => {
         axios({
-            url: 'http://localhost:8000/admin/members', 
+            url: '/members', 
             method: 'get'
         })
         .then(function (response) {
-            console.log(response)
-            console.log(response.data.result)
+            console.log(response);
             setUserList(response.data.result)
         })
         .catch((error) => {
@@ -26,6 +25,17 @@ function UserInfo() {
     }, [])
 
     return (
+    <div className="AdminPage container">
+    <Header isLogin={{ isLogin, setIsLogin }} />
+
+    <div className="AdminPage-content">
+        <div className="AdminMenu">
+            <h3>관리자 메뉴</h3>
+            <div className="menu-box">
+                <button onClick={() => window.location.pathname="/admin/theme"}>테마 설정</button>
+                <button onClick={() => window.location.pathname="/admin/userinfo"}>유저 정보</button>
+            </div>
+        </div>
         <div className="UserInfo">
             <h3>유저 정보</h3>
             <table className="userInfo">
@@ -57,6 +67,9 @@ function UserInfo() {
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+        
     );
 }
 
