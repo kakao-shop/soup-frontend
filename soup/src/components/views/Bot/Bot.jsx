@@ -4,6 +4,8 @@ import Search from './Search';
 import TriggerMaker from './TriggerMaker';
 
 const Bot = () => {
+
+  // const themeList = axios.get()
   const steps = [
     {
       id: 'start',
@@ -50,11 +52,11 @@ const Bot = () => {
     {
       id: 'themes',
       options: [
-        { value: '1', label: 'MD 정지윤의 추천 상품🙋🏻‍♀️', trigger: 'last' },
-        { value: '2', label: '배우 강아람의 추천 메뉴', trigger: 'last' },
-        { value: '3', label: '간편식', trigger: 'last' },
-        { value: '4', label: '수확의 계절', trigger: 'last' },
-        { value: '5', label: '먹거리', trigger: 'last' }
+        { value: '93', label: 'MD 정지윤의 추천 상품', trigger: 'last' },
+        { value: '94', label: '배우 강아람의 추천 메뉴', trigger: 'last' },
+        { value: '95', label: '간편식', trigger: 'last' },
+        { value: '96', label: '수확의 계절', trigger: 'last' },
+        { value: '97', label: '먹거리', trigger: 'last' }
       ],
       metadata: {
         param: 'theme'
