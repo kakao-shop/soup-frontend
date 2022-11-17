@@ -11,8 +11,8 @@ import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
 function ThemeItemList({ isLogin, setIsLogin }) {
-    const [size, setsize] = useState("30");
-    const [sort, setsort] = useState("purchase,desc");
+    const [size, setSize] = useState("30");
+    const [sort, setSort] = useState("purchase,desc");
     const [title, setTitle] = useState("");
     const page = useRef(0);
     const [totalElements, setTotalElements] = useState(0);
@@ -47,7 +47,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
-                },
+                }
             })
             .then(function(response) {
                 setTitle(response.data.result.title);
@@ -67,7 +67,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
         document.getElementById(clickedSort).style.fontWeight = "400";
 
         setClickedSort(sortValue);
-        setsort(sortValue);
+        setSort(sortValue);
 
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";
@@ -80,7 +80,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
-                },
+                }
             })
             .then(function(response) {
                 setTitle(response.data.result.title);
@@ -89,7 +89,8 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 setTotalPages(response.data.result.result.totalPages);
             })
             .catch(function(error) {
-                alert("error");
+                alert("상품을 정렬하지 못했습니다.");
+                console.log(error);
             });
     };
 
@@ -110,7 +111,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
-                alert("error");
+                alert("현재 페이지의 특가 상품을 가져올 수 없습니다.");
             });
     };
 
@@ -192,7 +193,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                         <div>
                                             <span>카테고리</span>
                                             <span>
-                                                {data.cat}
+                                                {data.cat}&gt;<br />
                                                 {data.subcat}
                                             </span>
                                         </div>

@@ -11,8 +11,7 @@ import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
 function ItemList({ isLogin, setIsLogin }) {
-    const [size, setsize] = useState("30");
-    const [sort, setsort] = useState("purchase,desc");
+    const [size, setSize] = useState("30");
     const [title, setTitle] = useState("");
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);    
@@ -40,7 +39,6 @@ function ItemList({ isLogin, setIsLogin }) {
     ]);
 
     useEffect(() => {
-        console.log("useEffect");
         document.getElementById(clickedSort.current).style.color = "#222222";
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
@@ -68,7 +66,7 @@ function ItemList({ isLogin, setIsLogin }) {
                 setTotalPages(response.data.result.result.totalPages);
             })
             .catch(function(error) {
-                alert("error");
+                alert("상품에 대한 특가 정보를 가져오지 못했습니다.");
                 console.log(error);
             });
     }, [num]);
@@ -82,6 +80,7 @@ function ItemList({ isLogin, setIsLogin }) {
 
         clickedSort.current = sortValue;
         page.current = 0;
+
         document.getElementById(sortValue).style.color = "#FF6928";
         document.getElementById(sortValue).style.fontWeight = "700";
 
@@ -98,13 +97,12 @@ function ItemList({ isLogin, setIsLogin }) {
                 },
             })
             .then(function(response) {
-                console.log(response)
                 setProduct(response.data.result.result.content);
                 setTotalElements(response.data.result.result.totalElements);
                 setTotalPages(response.data.result.result.totalPages);
             })
             .catch(function(error) {
-                alert("error");
+                alert("상품을 정렬하지 못했습니다.");
                 console.log(error);
             });
     };
@@ -127,7 +125,7 @@ function ItemList({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
-                alert("error");
+                alert("현재 페이지의 특가 상품을 가져올 수 없습니다.");
                 console.log(error);
             });
     };
@@ -211,7 +209,7 @@ function ItemList({ isLogin, setIsLogin }) {
                                         <div>
                                             <span>카테고리</span>
                                             <span>
-                                                {data.cat}
+                                                {data.cat}&gt;<br />
                                                 {data.subcat}
                                             </span>
                                         </div>

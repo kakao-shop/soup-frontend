@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
-import Header from '../Header';
-import Nav from '../Nav';
+import Header from "../Header";
+import Nav from "../Nav";
 
-import '../../../css/ItemList.css';
+import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
 function CategoryView({ isLogin, setIsLogin }) {
-
     const categoryList = [
         {
             main: "과일",
@@ -244,7 +243,6 @@ function CategoryView({ isLogin, setIsLogin }) {
         },
     ];
 
-
     const location = useLocation();
     const num = location.state.idx;
     const search = location.state.subcat;
@@ -252,14 +250,14 @@ function CategoryView({ isLogin, setIsLogin }) {
 
     const [isBot, setIsBot] = useState(true);
     const [category, setCategory] = useState("");
-    const [size, setsize] = useState("30");
-    const [sort, setsort] = useState("purchase,desc");
+    const [size, setSize] = useState("30");
+    const [sort, setSort] = useState("purchase,desc");
     const [clickedSub, setClickedSub] = useState(search);
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const page = useRef(0);
     const clickedSort = useRef("purchase,desc");
-    
+
     const [product, setProduct] = useState([
         {
             id: "상품명",
@@ -276,17 +274,17 @@ function CategoryView({ isLogin, setIsLogin }) {
     ]);
 
     const getCategory = async (e) => {
-        let cat = '';
+        let cat = "";
         cat = search;
 
         setIsBot(false);
         setClickedSub(cat);
         await getProduct(cat);
-      }
+    };
 
     const getProduct = async (cat) => {
         setCategory(cat);
-        
+
         document.getElementById(clickedSort.current).style.color = "#222222";
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
@@ -296,24 +294,28 @@ function CategoryView({ isLogin, setIsLogin }) {
         document.getElementById("purchase,desc").style.fontWeight = "700";
         page.current = 0;
 
-        await axios.get('/search/subcat', {
-          params: {
-            category: `${cat}`,
-            size: `${size}`,
-            sort: `${clickedSort.current}`,
-            page: `${page.current}`
-          }
-        })
-          .then(function (response) {
-            setProduct(response.data.result.result.content)
-            setTotalElements(response.data.result.result.totalElements);
-            setTotalPages(response.data.result.result.totalPages);
-          }).catch(function (error) {
-            alert('error');
-          });
-      };
-
-    
+        await axios
+            .get("/search/subcat", {
+                params: {
+                    category: `${cat}`,
+                    size: `${size}`,
+                    sort: `${clickedSort.current}`,
+                    page: `${page.current}`,
+                },
+                headers: {
+                    "x-access-token": localStorage.getItem("access_token"),
+                },
+            })
+            .then(function(response) {
+                setProduct(response.data.result.result.content);
+                setTotalElements(response.data.result.result.totalElements);
+                setTotalPages(response.data.result.result.totalPages);
+            })
+            .catch(function(error) {
+                alert("상품에 대한 특가 정보를 가져오지 못했습니다.");
+                console.log(error);
+            });
+    };
 
     const clickSortBtnHandler = (e) => {
         const sortValue = e.target.id;
@@ -322,7 +324,7 @@ function CategoryView({ isLogin, setIsLogin }) {
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
         clickedSort.current = sortValue;
-        setsort(sortValue);
+        setSort(sortValue);
         page.current = 0;
 
         document.getElementById(e.target.id).style.color = "#FF6928";
@@ -336,12 +338,12 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
             })
-            .then(function (response) {
+            .then(function(response) {
                 setProduct(response.data.result.result.content);
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 console.log(error);
-                alert("error");
+                alert("상품을 정렬하지 못했습니다.");
             });
     };
 
@@ -360,11 +362,11 @@ function CategoryView({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
-                alert("error");
+                alert("현재 페이지의 특가 상품을 가져올 수 없습니다.");
                 console.log(error);
             });
     };
-    
+
     useEffect(() => {
         getCategory();
     }, [search]);
@@ -393,7 +395,15 @@ function CategoryView({ isLogin, setIsLogin }) {
                 <div className="ItemList">
                     <div className="msg">
                         <h3>“ {category} ”</h3>
-                        <span>의 특가 상품이 <strong style={{color: "#FF6928", fontSize: "18px"}}>{totalElements}</strong>개 검색되었습니다.</span>
+                        <span>
+                            의 특가 상품이{" "}
+                            <strong
+                                style={{ color: "#FF6928", fontSize: "18px" }}
+                            >
+                                {totalElements}
+                            </strong>
+                            개 검색되었습니다.
+                        </span>
                     </div>
                     <div className="sort-group">
                         <button
@@ -450,7 +460,8 @@ function CategoryView({ isLogin, setIsLogin }) {
                                                     {data.prdName}
                                                 </strong>
                                                 <div className="item-price">
-                                                    {data.price.toLocaleString()} 원
+                                                    {data.price.toLocaleString()}{" "}
+                                                    원
                                                 </div>
                                             </div>
                                         </div>
