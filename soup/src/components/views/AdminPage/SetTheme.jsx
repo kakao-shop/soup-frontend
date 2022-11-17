@@ -14,33 +14,38 @@ function SetTheme({ category }) {
 
 
     useEffect(() => {
-        axios({
-            url: "http://localhost:8000/admin/collections",
-            method: "get",
-        }).then(function (response) {
-            console.log(response);
+        axios.get("/admin/collections", {
+            headers: {
+                'x-access-token': localStorage.getItem('access_token')
+            }})
+        .then(function (response) {
+            console.log("admin", response);
             setThemeList(response.data.result.themeList);
         });
-    }, []);
+    }, [L]);
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
+            console.log("삭제");
             e.target.parentNode.remove();
             axios
-                .delete(`http://localhost:8000/admin/collections/${idx}`, null)
+                .delete(`/admin/collections/${idx}`,{
+                    headers: {
+                        'x-access-token': localStorage.getItem('access_token')
+                    }}
+                )
                 .then(function (response) {
+                    alert("테마가 삭제되었습니다.");
                     console.log(response.data);
-                    const changedThemeList = ThemeList.filter(function (theme) {
-                        return idx !== theme["idx"];
-                    });
-                    setThemeList([changedThemeList]);
-                    window.location.reload(true);
+                    // const changedThemeList = ThemeList.filter(function (theme) {
+                    //     return idx !== theme["idx"];
+                    // });
+                    // setThemeList([changedThemeList]);
                 })
                 .catch(function (error) {
                     console.log(error);
                     alert("삭제가 불가능합니다.");
-                })
-                .finally(() => {});
+                });
         }
     };
 
@@ -90,7 +95,7 @@ function SetTheme({ category }) {
 
     const saveTheme = (e) => {
         axios
-            .post(`http://localhost:8000/admin/collections`, {
+            .post('/admin/collections', {
                 title: `${ThemeName}`,
                 categoryList: L,
             })
@@ -98,7 +103,6 @@ function SetTheme({ category }) {
                 console.log(response.data);
                 alert("테마 저장에 성공했습니다.");
                 setL([]);
-                window.location.reload(true);
             })
             .catch(function (error) {
                 console.log(error);
@@ -110,7 +114,6 @@ function SetTheme({ category }) {
         <div className="SetTheme">
             <div className="theme-left">
                 <h3>테마 설정</h3>
-                <h4>테마 목록</h4>
                 <div className="theme-box">
                     {ThemeList.map((theme, index) => (
                         <div className="theme-list" key={`theme${index}`}>

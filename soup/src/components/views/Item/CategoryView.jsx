@@ -392,8 +392,8 @@ function CategoryView({ isLogin, setIsLogin }) {
 
                 <div className="ItemList">
                     <div className="msg">
-                        <h3>{category}</h3>
-                        <span>의 특가 상품이 검색되었습니다.</span>
+                        <h3>“ {category} ”</h3>
+                        <span>의 특가 상품이 <strong style={{color: "#FF6928", fontSize: "18px"}}>{totalElements}</strong>개 검색되었습니다.</span>
                     </div>
                     <div className="sort-group">
                         <button

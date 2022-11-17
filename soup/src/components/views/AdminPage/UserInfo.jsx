@@ -3,27 +3,24 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-import "../../../css/AdminPage.css";
-import Header from "../Header";
 
 function UserInfo() {
 
     const [UserList, setUserList] = useState([]);
     
     useEffect(() => {
-        axios({
-            url: 'http://localhost:8000/admin/members', 
-            method: 'get'
-        })
+        axios.get("/admin/members", {
+            headers: {
+                'x-access-token': localStorage.getItem('access_token')
+            }})
         .then(function (response) {
-            console.log(response)
-            console.log(response.data.result)
             setUserList(response.data.result)
         })
         .catch((error) => {
+            alert("유저 정보를 확인할 수 없습니다.");
             console.log(error);
         })
-    }, [])
+    }, []);
 
     return (
         <div className="UserInfo">
@@ -34,7 +31,6 @@ function UserInfo() {
                         <th scope="col">memberIdx</th>
                         <th scope="col">nickname</th>
                         <th scope="col">id</th>
-                        <th scope="col">password</th>
                         <th scope="col">birthday</th>
                         <th scope="col">gender</th>
                         <th scope="col">role</th>
@@ -47,7 +43,6 @@ function UserInfo() {
                             <th scope="row">{user.memberIdx}</th>
                             <td>{user.nickname}</td>
                             <td>{user.id}</td>
-                            <td>{user.password}</td>
                             <td>{user.birthday}</td>
                             <td>{user.gender}</td>
                             <td>{user.role}</td>

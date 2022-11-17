@@ -13,7 +13,7 @@ import "../../../css/Pagination.css";
 function ThemeItemList({ isLogin, setIsLogin }) {
     const [size, setsize] = useState("30");
     const [sort, setsort] = useState("purchase,desc");
-    const [title, setTitle] = useState("");   
+    const [title, setTitle] = useState("");
     const page = useRef(0);
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -120,8 +120,8 @@ function ThemeItemList({ isLogin, setIsLogin }) {
             <Nav />
             <div className="ItemList">
                 <div className="msg">
-                    <h3>{title}</h3>
-                    <span> 테마 상품이 검색되었습니다.</span>
+                    <h3>“ {title} ”</h3>
+                    <span> 테마 상품이 <strong style={{color: "#FF6928", fontSize: "18px"}}>{totalElements}</strong>개 검색되었습니다.</span>
                 </div>
                 <div className="sort-group">
                     <button
@@ -149,7 +149,12 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 <div className="itemList">
                     {product && product.length > 0 ? (
                         product.map((data, index) => (
-                            <a href={data.webUrl} className="item-link" key={`link-${data.prdName}`}>
+                            <a
+                                href={data.webUrl}
+                                className="item-link"
+                                target="_blank"
+                                key={`link-${data.prdName}`}
+                            >
                                 <div
                                     className="list-item"
                                     key={`상품목록${index + 1}`}
@@ -197,7 +202,13 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                         </div>
                                         <div>
                                             <span>판매처</span>
-                                            <span>{data.site}</span>
+                                            <span>
+                                                {data.site === "home"
+                                                    ? "Homeplus"
+                                                    : data.site === "street"
+                                                    ? "11번가"
+                                                    : "kakao"}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

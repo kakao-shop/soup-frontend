@@ -34,13 +34,13 @@ function Login() {
                         response.data.result.nickname
                     );
                     localStorage.setItem("id", `${Id}`);
-                    alert("Login Success!");
+                    localStorage.setItem("role", response.data.result.role);
                     document.location.href = "/";
                     console.log(response);
                 }
             })
             .catch(function(error) {
-                alert("Fail to Login");
+                alert("로그인에 실패했습니다. 다시 로그인을 시도해 주세요.");
                 console.log(error);
             });
     };
