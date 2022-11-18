@@ -3,11 +3,6 @@ import { Link } from "react-router-dom";
 
 import "../../../css/AdminPage.css";
 
-// function SubCategoryList(location) {
-
-//     console.log(location.state);
-//     if (location.state !== undefined) {
-
 function AdminMenu() {
     return (
         <div className="AdminMenu">

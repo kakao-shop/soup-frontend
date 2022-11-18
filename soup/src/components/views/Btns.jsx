@@ -9,16 +9,13 @@ function Btns({isLogin, setIsLogin}) {
     // sessionStorage 에 user_id 로 저장되어있는 아이템을 삭제한다.
       axios.delete('/members/logout',)
       .then(function (response) {
-        console.log(response)
-
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('id')
-        localStorage.removeItem('nickname')
+        alert("로그아웃에 성공했습니다.");
+        document.location.href = '/';
+        localStorage.clear();
         // App 으로 이동(새로고침)
-        document.location.href = '/'
       }).catch(function (error) {
-        alert('Fail to Logout');
-        console.log(error);  
+        alert("로그아웃에 실패했습니다. 다시 시도하세요.");
+        console.log("err",  error);  
     });
   }    
   if (isLogin){

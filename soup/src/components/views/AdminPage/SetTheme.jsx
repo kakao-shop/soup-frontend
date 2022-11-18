@@ -37,10 +37,6 @@ function SetTheme({ category }) {
                 .then(function (response) {
                     alert("테마가 삭제되었습니다.");
                     console.log(response.data);
-                    // const changedThemeList = ThemeList.filter(function (theme) {
-                    //     return idx !== theme["idx"];
-                    // });
-                    // setThemeList([changedThemeList]);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -98,7 +94,11 @@ function SetTheme({ category }) {
             .post('/admin/collections', {
                 title: `${ThemeName}`,
                 categoryList: L,
-            })
+            },{
+                headers: {
+                    'x-access-token': localStorage.getItem('access_token')
+                }}
+            )
             .then(function (response) {
                 console.log(response.data);
                 alert("테마 저장에 성공했습니다.");

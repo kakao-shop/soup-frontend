@@ -8,8 +8,6 @@ import ConfirmPw from './components/views/UserPage/ConfirmPw';
 import EditUserInfo from './components/views/UserPage/EditUserInfo';
 import CategoryView from './components/views/Item/CategoryView';
 import AdminPage from './components/views/AdminPage/index';
-import UserInfo from './components/views/AdminPage/UserInfo';
-import SetTheme from './components/views/AdminPage/SetTheme';
 import ItemList from './components/views/Item/ItemList';
 import ThemeItemList from "./components/views/Item/ThemeItemList";
 import NotFound from "./components/views/NotFound";
@@ -71,7 +69,7 @@ function App() {
       setIsLogin(true)
       console.log('isLogin ?? ::',isLogin)
     }
-  })
+  });
 
 
   return (

@@ -21,7 +21,6 @@ function DefaultItem() {
             imgSrc: "",
         },
     ]);
-    console.log(process.env.API_IP);
 
     useEffect(() => {
         const getProduct = async () => {
@@ -32,16 +31,16 @@ function DefaultItem() {
                     },
                 });
                 setProduct(response.data.result.recommendResult);
-            } catch (e) {
-                alert("error");
-                console.log(e);
+            } catch (error) {
+                alert("상품 목록을 가져오지 못했습니다.");
+                console.log(error);
             }
         };
         getProduct();
     }, []);
 
     const user = {
-        nickname: localStorage.getItem("nickname"),
+        nickname: localStorage.getItem("nickname")
     };
 
     const result =
