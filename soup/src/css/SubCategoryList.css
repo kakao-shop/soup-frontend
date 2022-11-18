@@ -19,3 +19,8 @@
     text-align: start;
     margin: 5px;
 }
+
+.SubCategoryList .subCategoryBox button:hover {
+    color: #FF6928;
+    font-weight: 700;
+}

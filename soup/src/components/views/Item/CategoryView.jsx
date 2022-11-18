@@ -249,14 +249,15 @@ function CategoryView({ isLogin, setIsLogin }) {
     const subList = categoryList[num].sub.item;
 
     const [isBot, setIsBot] = useState(true);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState(search);
     const [size, setSize] = useState("30");
     const [sort, setSort] = useState("purchase,desc");
-    const [clickedSub, setClickedSub] = useState(search);
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const page = useRef(0);
     const clickedSort = useRef("purchase,desc");
+    const idx = useRef("0");
+    const [clickedIdx, setClickedIdx] = useState("0");
 
     const [product, setProduct] = useState([
         {
@@ -272,26 +273,30 @@ function CategoryView({ isLogin, setIsLogin }) {
             imgSrc: "",
         },
     ]);
-
     const getCategory = async (e) => {
         let cat = "";
         cat = search;
-
         setIsBot(false);
-        setClickedSub(cat);
         await getProduct(cat);
     };
 
     const getProduct = async (cat) => {
         setCategory(cat);
-
+        idx.current = document.getElementById(cat).classList[1];
+        setClickedIdx(document.getElementById(cat).classList[1]);
+        
+        document.getElementsByClassName(`subBtn ${clickedIdx}`)[0].style.color = "#222222";
+        document.getElementsByClassName(`subBtn ${clickedIdx}`)[0].style.fontWeight = "400";
         document.getElementById(clickedSort.current).style.color = "#222222";
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
         clickedSort.current = "purchase,desc";
 
+        document.getElementsByClassName(`subBtn ${idx.current}`)[0].style.color = "#FF6928";
+        document.getElementsByClassName(`subBtn ${idx.current}`)[0].style.fontWeight = "700";
         document.getElementById("purchase,desc").style.color = "#FF6928";
         document.getElementById("purchase,desc").style.fontWeight = "700";
+
         page.current = 0;
 
         await axios
@@ -304,7 +309,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
-                },
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -396,7 +401,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     <div className="msg">
                         <h3>“ {category} ”</h3>
                         <span>
-                            의 특가 상품이{" "}
+                            의 특가 상품이
                             <strong
                                 style={{ color: "#FF6928", fontSize: "18px" }}
                             >
