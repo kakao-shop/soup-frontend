@@ -36,14 +36,20 @@ function Login() {
                     localStorage.setItem("id", `${Id}`);
                     localStorage.setItem("role", response.data.result.role);
                     document.location.href = "/";
-                    console.log(response);
                 }
             })
             .catch(function(error) {
-                alert("로그인에 실패했습니다. 다시 로그인을 시도해 주세요.");
-                console.log(error);
+                alert(error.response.data.message);
             });
     };
+
+    const handleOnKeyPress = (e) => {
+        if (e.key === "Enter") {
+            btnLogin();
+        }
+    };
+
+
     return (
         <div>
             <main className="Login container">
@@ -70,6 +76,7 @@ function Login() {
                                 minLength="6"
                                 maxLength="15"
                                 onChange={getloginPw}
+                                onKeyPress={handleOnKeyPress}
                                 id="login-pw"
                                 className="form-label"
                             />
