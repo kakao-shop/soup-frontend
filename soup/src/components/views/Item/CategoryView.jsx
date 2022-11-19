@@ -107,14 +107,16 @@ function CategoryView({ isLogin, setIsLogin }) {
                     "새우",
                     "갑각류",
                     "구색선어",
-                    "오징어/문어",
+                    "오징어",
                     "갈치/삼치/고등어",
+                    "문어",
                     "알/해삼",
-                    "낙지/쭈꾸미",
+                    "쭈꾸미",
                     "연어/참치",
                     "가자미",
                     "동태/명태",
                     "기타수산",
+                    "낙지",
                 ],
             },
         },
@@ -163,7 +165,6 @@ function CategoryView({ isLogin, setIsLogin }) {
                     "볶음/구이",
                     "우유",
                     "돈까스/너겟/치킨",
-                    "과일/야채음료",
                     "두부/유부",
                     "맛집",
                     "어묵/유부/크래미",
@@ -205,20 +206,21 @@ function CategoryView({ isLogin, setIsLogin }) {
             },
         },
         {
-            main: "과자/빵",
+            main: "제과/빵",
             sub: {
                 item: [
                     "초콜릿",
                     "과자",
                     "쿠키",
                     "시리얼",
+                    "커피",
                     "튀김",
                     "빵",
                     "간식류소시지",
                     "떡",
                     "아이스크림",
                     "캔디",
-                    "소스",
+                    "소스"
                 ],
             },
         },
@@ -240,7 +242,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     "씨앗",
                 ],
             },
-        },
+        }
     ];
 
     const location = useLocation();
@@ -284,16 +286,23 @@ function CategoryView({ isLogin, setIsLogin }) {
         setCategory(cat);
         idx.current = document.getElementById(cat).classList[1];
         setClickedIdx(document.getElementById(cat).classList[1]);
-        
-        document.getElementsByClassName(`subBtn ${clickedIdx}`)[0].style.color = "#222222";
-        document.getElementsByClassName(`subBtn ${clickedIdx}`)[0].style.fontWeight = "400";
+
+        document.getElementsByClassName(`subBtn ${clickedIdx}`)[0].style.color =
+            "#222222";
+        document.getElementsByClassName(
+            `subBtn ${clickedIdx}`
+        )[0].style.fontWeight = "400";
         document.getElementById(clickedSort.current).style.color = "#222222";
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
         clickedSort.current = "purchase,desc";
 
-        document.getElementsByClassName(`subBtn ${idx.current}`)[0].style.color = "#FF6928";
-        document.getElementsByClassName(`subBtn ${idx.current}`)[0].style.fontWeight = "700";
+        document.getElementsByClassName(
+            `subBtn ${idx.current}`
+        )[0].style.color = "#FF6928";
+        document.getElementsByClassName(
+            `subBtn ${idx.current}`
+        )[0].style.fontWeight = "700";
         document.getElementById("purchase,desc").style.color = "#FF6928";
         document.getElementById("purchase,desc").style.fontWeight = "700";
 
@@ -309,7 +318,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
-                }
+                },
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -342,6 +351,9 @@ function CategoryView({ isLogin, setIsLogin }) {
                     sort: `${sortValue}`,
                     page: `${page.current}`,
                 },
+                headers: {
+                    "x-access-token": localStorage.getItem("access_token"),
+                },
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -361,6 +373,9 @@ function CategoryView({ isLogin, setIsLogin }) {
                     size: `${size}`,
                     sort: `${sort}`,
                     page: `${page.current}`,
+                },
+                headers: {
+                    "x-access-token": localStorage.getItem("access_token"),
                 },
             })
             .then(function(response) {
@@ -485,13 +500,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                                             </div>
                                             <div>
                                                 <span>판매처</span>
-                                                <span>
-                                                    {data.site === "home"
-                                                        ? "Homeplus"
-                                                        : data.site === "street"
-                                                        ? "11번가"
-                                                        : "kakao"}
-                                                </span>
+                                                <span>{data.site}</span>
                                             </div>
                                         </div>
                                     </div>

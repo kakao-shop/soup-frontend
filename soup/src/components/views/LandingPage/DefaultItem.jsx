@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import "../../../css/ItemList.css";
@@ -22,6 +22,8 @@ function DefaultItem() {
         },
     ]);
 
+    const updateTime = useRef("알 수 없음");
+
     useEffect(() => {
         const getProduct = async () => {
             try {
@@ -30,7 +32,9 @@ function DefaultItem() {
                         "x-access-token": localStorage.getItem("access_token"),
                     },
                 });
+                updateTime.current = response.data.result.crawlingTime;
                 setProduct(response.data.result.recommendResult);
+                // updateTime.current = 
             } catch (error) {
                 alert("상품 목록을 가져오지 못했습니다.");
                 console.log(error);
@@ -45,9 +49,12 @@ function DefaultItem() {
 
     const result =
         user.nickname === null ? (
-            <h3 style={{ width: "100%" }}>인기 상품</h3>
+            <div id="default-header">
+                <h3 style={{ width: "100%" }}>인기 상품</h3>
+                <span id="update-time">최근 업데이트 {updateTime.current}</span>
+            </div>
         ) : (
-            <div>
+            <div id="default-header">
                 <h3
                     id="nickname"
                     style={{ display: "inline-block", margin: "0 10px 0 0" }}
@@ -55,6 +62,7 @@ function DefaultItem() {
                     {user.nickname}
                 </h3>
                 <span>님을 위한 추천 상품</span>
+                <span id="update-time">최근 업데이트 {updateTime.current}</span>
             </div>
         );
 
@@ -65,7 +73,7 @@ function DefaultItem() {
                 <div className="item-list">
                     {product.map((item, index) => (
                         <div key={"default" + index} className="item">
-                            <a href={item.webUrl} className="item-link">
+                            <a href={item.webUrl} className="item-link" target="_blank">
                                 {item.imgSrc === null ? (
                                     <img
                                         src={

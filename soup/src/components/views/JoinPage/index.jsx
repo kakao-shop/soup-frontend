@@ -9,6 +9,7 @@ import "../../../css/JoinPage.css";
 
 function JoinPage() {
     const [Id, setId] = useState("");
+    const [IdCheck, setIdCheck] = useState(400);
     const [Nickname, setNickname] = useState("");
     const [Password, setPassword] = useState("");
     const [PasswordCheck, setPasswordCheck] = useState("");
@@ -49,6 +50,7 @@ function JoinPage() {
             })
             .then(function(response) {
                 if (response.status === 200) alert("사용할 수 있는 ID 입니다.");
+                setIdCheck(200);
             })
             .catch(function(error) {
                 alert(error.response.data.message);
@@ -57,7 +59,8 @@ function JoinPage() {
     };
 
     const onSubmitHandler = (e) => {
-        axios
+        if (IdCheck === 200) {
+            axios
             .post("/members/signup", {
                 id: `${Id}`,
                 nickname: `${Nickname}`,
@@ -75,6 +78,9 @@ function JoinPage() {
                 console.log(error.response.data.message);
                 alert(error.response.data.message);
             });
+        } else {
+            alert("ID 중복확인을 해주세요.")
+        }
     };
 
     return (
