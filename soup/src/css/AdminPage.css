@@ -93,8 +93,17 @@
     margin-bottom: 8px;
 }
 
+.SetTheme select {
+    padding: 8px;
+}
+
 .SetTheme .save-btn {
     background-color: #FF6928;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
 }
 
 

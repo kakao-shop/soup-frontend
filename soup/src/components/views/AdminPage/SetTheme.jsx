@@ -12,16 +12,16 @@ function SetTheme({ category }) {
     const [ThemeName, setThemeName] = useState();
     const [L, setL] = useState([]);
 
-
     useEffect(() => {
-        axios.get("/admin/collections", {
-            headers: {
-                'x-access-token': localStorage.getItem('access_token')
-            }})
-        .then(function (response) {
-            console.log("admin", response);
-            setThemeList(response.data.result.themeList);
-        });
+        axios
+            .get("/admin/collections", {
+                headers: {
+                    "x-access-token": localStorage.getItem("access_token"),
+                },
+            })
+            .then(function(response) {
+                setThemeList(response.data.result.themeList);
+            });
     }, [L]);
 
     const deleteTheme = (e, idx) => {
@@ -29,16 +29,15 @@ function SetTheme({ category }) {
             console.log("삭제");
             e.target.parentNode.remove();
             axios
-                .delete(`/admin/collections/${idx}`,{
+                .delete(`/admin/collections/${idx}`, {
                     headers: {
-                        'x-access-token': localStorage.getItem('access_token')
-                    }}
-                )
-                .then(function (response) {
-                    alert("테마가 삭제되었습니다.");
-                    console.log(response.data);
+                        "x-access-token": localStorage.getItem("access_token"),
+                    },
                 })
-                .catch(function (error) {
+                .then(function(response) {
+                    alert("테마가 삭제되었습니다.");
+                })
+                .catch(function(error) {
                     console.log(error);
                     alert("삭제가 불가능합니다.");
                 });
@@ -48,10 +47,9 @@ function SetTheme({ category }) {
     function changeSub(e) {
         const subSelect = e.target.nextSibling.nextSibling;
         subSelect.innerHTML = "";
-        const currentCate = category.filter(function (cate) {
+        const currentCate = category.filter(function(cate) {
             return cate.main === e.target.value;
-        })[0].sub;
-
+        })[0].sub.item;
         subValue.current = currentCate;
         subValue.current.map(
             (sub, index) =>
@@ -90,24 +88,37 @@ function SetTheme({ category }) {
     };
 
     const saveTheme = (e) => {
+        if (L.length > 1) {
+            
         axios
-            .post('/admin/collections', {
+        .post(
+            "/admin/collections",
+            {
                 title: `${ThemeName}`,
                 categoryList: L,
-            },{
+            },
+            {
                 headers: {
-                    'x-access-token': localStorage.getItem('access_token')
-                }}
-            )
-            .then(function (response) {
-                console.log(response.data);
-                alert("테마 저장에 성공했습니다.");
-                setL([]);
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert("테마 저장에 실패했습니다.");
-            });
+                    "x-access-token": localStorage.getItem("access_token"),
+                },
+            }
+        )
+        .then(function(response) {
+            alert("테마 저장에 성공했습니다.");
+            setL([]);
+
+            document.getElementById("themeTitle-input").value = "";
+            while (document.getElementById("result").hasChildNodes()) {
+                document.getElementById("result").removeChild(document.getElementById("result").firstChild);
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("테마 저장에 실패했습니다.");
+        });
+        } else {
+            alert("카테고리를 2개 이상 지정해 주세요.");
+        }
     };
 
     return (
@@ -140,6 +151,7 @@ function SetTheme({ category }) {
             <form action="/" className="theme-right">
                 <label>테마이름</label>
                 <input
+                    id="themeTitle-input"
                     type="text"
                     onChange={(e) => setThemeName(e.target.value)}
                 />
@@ -159,8 +171,12 @@ function SetTheme({ category }) {
                 <select name="sub" id="chosenSub" onChange={categoryResult}>
                     <option>소분류 선택</option>
                 </select>
-                <div className="result"></div>
-                <button type="button" onClick={saveTheme}>
+                <div id="result"></div>
+                <button
+                    type="button"
+                    className="bt save-btn"
+                    onClick={saveTheme}
+                >
                     테마 저장
                 </button>
             </form>
