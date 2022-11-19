@@ -36,10 +36,10 @@ nav .nav-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
+    font-size: 13.5px;
     color: #fff;
     font-weight: 700;
-    padding: 0 20px;
+    padding: 0 13px;
     height: 50px;
 }
 
@@ -50,7 +50,7 @@ nav .category-item:hover {
 nav .sub-panel {
     position: absolute; 
     display: none;
-    width: 310px;
+    width: 330px;
     padding: 20px 5px 20px 20px;
     border: 1px solid #d3d3d3;
     background-color: #fff;
@@ -68,11 +68,11 @@ nav .category-item:last-child .sub-panel .sub-item {
 
 nav .sub-item {
     display: inline-block;
-    width: 105px;
+    width: 130px;
     font-size: 13px;
-    letter-spacing: -2px;
+    letter-spacing: -0.8px;
     margin: 5px;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 nav .sub-item:hover {

@@ -81,16 +81,20 @@
     width: 150px;
 }
 
-.SetTheme .result {
+.SetTheme #result {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.SetTheme .result .chosenDiv {
+.SetTheme #result .chosenDiv {
     display: flex;
     font-size: 13px;
     margin-bottom: 8px;
+}
+
+.SetTheme .save-btn {
+    background-color: #FF6928;
 }
 
 

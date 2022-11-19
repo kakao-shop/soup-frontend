@@ -10,7 +10,7 @@
 }
 
 .searchResult::-webkit-scrollbar-thumb {
-    height: 50%; /* 스크롤바의 길이 */
+    height: 30%; /* 스크롤바의 길이 */
     background: #ec9d5d; /* 스크롤바의 색상 */
     
     border-radius: 10px;
@@ -21,8 +21,16 @@
 }
 
 .searchResult .result-container {
-    width: 100%;
+    width: 80%;
     display: flex;
+}
+
+.searchResult .result-container #no-result {
+    font-size: 13px;
+}
+
+.searchResult .result-list h4 {
+    margin-bottom: 5px;
 }
 
 .searchResult .result-list .result-item {

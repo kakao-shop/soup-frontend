@@ -1,5 +1,5 @@
 * {
-    letter-spacing: -0.7px;
+    letter-spacing: -0.8px;
 }
 
 .default-item {
@@ -7,6 +7,18 @@
     flex-direction: column;
     width: 900px;
     margin: 0 auto 120px;
+}
+
+.default-item #default-header {
+    position: relative;
+}
+
+.default-item #default-header #update-time {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    font-size: 12px;
+    color: rgb(135, 135, 135);
 }
 
 .item-list {
