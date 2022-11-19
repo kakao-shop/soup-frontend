@@ -14,15 +14,13 @@ function ItemList({ isLogin, setIsLogin }) {
     const [size, setSize] = useState("30");
     const [title, setTitle] = useState("");
     const [totalElements, setTotalElements] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);    
+    const [totalPages, setTotalPages] = useState(0);
     const page = useRef(0);
     const clickedSort = useRef("purchase,desc");
-
 
     const location = useLocation();
     const num = location.state;
 
-    
     const [product, setProduct] = useState([
         {
             id: "상품명",
@@ -71,10 +69,9 @@ function ItemList({ isLogin, setIsLogin }) {
             });
     }, [num]);
 
-
     const clickSortBtnHandler = (e) => {
         const sortValue = e.target.id;
-        
+
         document.getElementById(clickedSort.current).style.color = "#222222";
         document.getElementById(clickedSort.current).style.fontWeight = "400";
 
@@ -85,13 +82,13 @@ function ItemList({ isLogin, setIsLogin }) {
         document.getElementById(sortValue).style.fontWeight = "700";
 
         axios
-        .get("/search", {
-            params: {
-                q: `${num}`,
-                size: `${size}`,
-                sort: `${sortValue}`,
-                page: `${page.current}`,
-            },
+            .get("/search", {
+                params: {
+                    q: `${num}`,
+                    size: `${size}`,
+                    sort: `${sortValue}`,
+                    page: `${page.current}`,
+                },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
                 },
@@ -135,10 +132,16 @@ function ItemList({ isLogin, setIsLogin }) {
             <Header setIsLogin={setIsLogin} isLogin={isLogin} />
             <Nav />
 
-            <div className="ItemList container" style={{marginTop: "50px"}}>
+            <div className="ItemList container" style={{ marginTop: "50px" }}>
                 <div className="msg">
                     <h3>“ {num} ”</h3>
-                    <span>의 특가 상품이  <strong style={{color: "#FF6928", fontSize: "18px"}}>{totalElements}</strong>개 검색되었습니다.</span>
+                    <span>
+                        의 특가 상품이{" "}
+                        <strong style={{ color: "#FF6928", fontSize: "18px" }}>
+                            {totalElements}
+                        </strong>
+                        개 검색되었습니다.
+                    </span>
                 </div>
                 <div className="sort-group">
                     <button
@@ -209,7 +212,8 @@ function ItemList({ isLogin, setIsLogin }) {
                                         <div>
                                             <span>카테고리</span>
                                             <span>
-                                                {data.cat}&gt;<br />
+                                                {data.cat}&gt;
+                                                <br />
                                                 {data.subcat}
                                             </span>
                                         </div>
@@ -219,13 +223,7 @@ function ItemList({ isLogin, setIsLogin }) {
                                         </div>
                                         <div>
                                             <span>판매처</span>
-                                                <span>
-                                                    {data.site === "home"
-                                                        ? "Homeplus"
-                                                        : data.site === "street"
-                                                        ? "11번가"
-                                                        : "kakao"}
-                                                </span>
+                                            <span>{data.site}</span>
                                         </div>
                                     </div>
                                 </div>

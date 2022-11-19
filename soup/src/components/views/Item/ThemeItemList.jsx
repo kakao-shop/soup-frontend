@@ -47,7 +47,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
-                }
+                },
             })
             .then(function(response) {
                 setTitle(response.data.result.title);
@@ -80,7 +80,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 },
                 headers: {
                     "x-access-token": localStorage.getItem("access_token"),
-                }
+                },
             })
             .then(function(response) {
                 setTitle(response.data.result.title);
@@ -122,7 +122,14 @@ function ThemeItemList({ isLogin, setIsLogin }) {
             <div className="ItemList">
                 <div className="msg">
                     <h3>“ {title} ”</h3>
-                    <span> 테마 상품이 <strong style={{color: "#FF6928", fontSize: "18px"}}>{totalElements}</strong>개 검색되었습니다.</span>
+                    <span>
+                        {" "}
+                        테마 상품이{" "}
+                        <strong style={{ color: "#FF6928", fontSize: "18px" }}>
+                            {totalElements}
+                        </strong>
+                        개 검색되었습니다.
+                    </span>
                 </div>
                 <div className="sort-group">
                     <button
@@ -193,7 +200,8 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                         <div>
                                             <span>카테고리</span>
                                             <span>
-                                                {data.cat}&gt;<br />
+                                                {data.cat}&gt;
+                                                <br />
                                                 {data.subcat}
                                             </span>
                                         </div>
@@ -203,13 +211,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                         </div>
                                         <div>
                                             <span>판매처</span>
-                                            <span>
-                                                {data.site === "home"
-                                                    ? "Homeplus"
-                                                    : data.site === "street"
-                                                    ? "11번가"
-                                                    : "kakao"}
-                                            </span>
+                                            <span>{data.site}</span>
                                         </div>
                                     </div>
                                 </div>
