@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import "../../../css/BotSearchResult.css";
 
 const Search = ({ steps, previousStep, triggerNextStep }) => {
     const [result, setResult] = useState([]);
+    const recoTotalElements = useRef(0);
     const [search, setSearch] = useState("");
     const [param, setParam] = useState("");
     const [idx, setIdx] = useState("");
@@ -24,8 +25,8 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     },
                 })
                 .then((response) => {
-                    console.log(response);
                     setResult(response.data.result.result.content);
+                    recoTotalElements.current = response.data.result.result.totalElements;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -34,8 +35,8 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
             await axios
                 .get(`/search/collections/${search}`)
                 .then((response) => {
-                    console.log(response);
                     setResult(response.data.result.result.content);
+                    recoTotalElements.current = response.data.result.result.totalElements;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -60,7 +61,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                 {result.length !== 0 ? (
                     <div className="result-container">
                         {result.map((item, index) => (
-                            <div className="result-item" key={item.id}>
+                            <a href={item.webUrl} target="_blank" className="result-item" key={item.id}>
                                 <div className="item-img">
                                     {item.imgSrc !== null ? (
                                         <img
@@ -81,15 +82,15 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                                 <div className="item-price">
                                     {item.price.toLocaleString()} 원
                                 </div>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 ) : (
                     <div className="result-container">
-                        <div>상품 검색 결과가 없습니다.</div>
+                        <div id="no-result">상품 검색 결과가 없습니다.</div>
                     </div>
                 )}
-                {result.length !== 0 ? <Link
+                {recoTotalElements.current > 10 ? <Link
                             className="btn again-btn"
                             to={`/${param}`}
                             state={
