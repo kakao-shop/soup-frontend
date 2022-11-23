@@ -28,13 +28,15 @@ function UserInfo() {
             <table className="userInfo">
                 <thead className="table-header">
                     <tr>
-                        <th scope="col">memberIdx</th>
-                        <th scope="col">nickname</th>
-                        <th scope="col">id</th>
-                        <th scope="col">birthday</th>
-                        <th scope="col">gender</th>
-                        <th scope="col">role</th>
-                        <th scope="col">oauth</th>
+                        <th scope="col">Member Index</th>
+                        <th scope="col">Nickname</th>
+                        <th scope="col">ID</th>
+                        {/* <th scope="col">birthday</th>
+                        <th scope="col">gender</th> */}
+                        {/* <th scope="col">oauth</th> */}
+                        <th scope="col">Last Access Time</th>
+                        <th scope="col">Total Access Count</th>
+                        <th scope="col">Role</th>
                     </tr>
                 </thead>
                 <tbody className="table-body">
@@ -43,10 +45,12 @@ function UserInfo() {
                             <th scope="row">{user.memberIdx}</th>
                             <td>{user.nickname}</td>
                             <td>{user.id}</td>
-                            <td>{user.birthday}</td>
-                            <td>{user.gender}</td>
+                            {/* <td>{user.birthday}</td>
+                            <td>{user.gender}</td> */}
+                            {/* <td>{user.auth}</td> */}
+                            <td>{user.lastAccessTime}</td>
+                            <td>{user.totalAccessCnt}</td>
                             <td>{user.role}</td>
-                            <td>{user.auth}</td>
                         </tr>
                     ))}
                 </tbody>
