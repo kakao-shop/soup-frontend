@@ -14,6 +14,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
     const componentDidMount = async () => {
         const search = previousStep.value;
         const param = previousStep.metadata.param;
+        console.log("search: ",search, ",param :", param);
         setParam(param);
         setSearch(search);
         if (param === "category") {
@@ -25,21 +26,44 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     },
                 })
                 .then((response) => {
+                    console.log(response.data);
                     setResult(response.data.result.result.content);
-                    recoTotalElements.current = response.data.result.result.totalElements;
+                    recoTotalElements.current =
+                        response.data.result.result.totalElements;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else if (param === "theme") {
+            await axios
+                .get(`/search/collections/${search}`)
+                .then((response) => {
+                    console.log(response.data);
+                    setResult(response.data.result.result.content);
+                    recoTotalElements.current =
+                        response.data.result.result.totalElements;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         } else {
             await axios
-                .get(`/search/collections/${search}`)
-                .then((response) => {
-                    setResult(response.data.result.result.content);
-                    recoTotalElements.current = response.data.result.result.totalElements;
+                .get("/bot/today-best", {
+                    headers: {
+                        "x-access-token": localStorage.getItem("access_token"),
+                    },
+                    params: {
+                        site: `${search}`
+                    },
                 })
-                .catch((error) => {
-                    console.log(error);
+                .then((response) => {
+                    console.log(response.data.result);
+                    setResult(response.data.result.content);
+                    recoTotalElements.current =
+                        response.data.result.totalElements;
+                })
+                .catch((e) => {
+                    console.log(e);
                 });
         }
     };
@@ -61,7 +85,12 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                 {result.length !== 0 ? (
                     <div className="result-container">
                         {result.map((item, index) => (
-                            <a href={item.webUrl} target="_blank" className="result-item" key={item.id}>
+                            <a
+                                href={item.webUrl}
+                                target="_blank"
+                                className="result-item"
+                                key={item.id}
+                            >
                                 <div className="item-img">
                                     {item.imgSrc !== null ? (
                                         <img
@@ -90,20 +119,25 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                         <div id="no-result">상품 검색 결과가 없습니다.</div>
                     </div>
                 )}
-                {recoTotalElements.current > 10 ? <Link
-                            className="btn again-btn"
-                            to={`/${param}`}
-                            state={
-                                `${param}` === "theme"
-                                    ? { themeIdx: `${search}` }
-                                    : { idx: `${idx}`, subcat: `${search}` }
-                            }
-                        >
-                            더보기
-                        </Link>: <div></div>}
+                {recoTotalElements.current > 10 ? (
+                    <Link
+                        className="btn again-btn"
+                        to={`/${param}`}
+                        state={
+                            `${param}` === "theme"
+                                ? { themeIdx: `${search}` }
+                                : (`${param}` === "category") ? { idx: `${idx}`, subcat: `${search}` }
+                                : { site: `${search}`, size: 100 }
+                        }
+                    >
+                        더보기
+                    </Link>
+                ) : (
+                    <div></div>
+                )}
                 <button onClick={triggerNext} className="again-btn btn">
-                            처음으로
-                        </button>
+                    처음으로
+                </button>
             </div>
         </div>
     );

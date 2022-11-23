@@ -36,9 +36,27 @@ const Bot = () => {
     {
       id: 'search-type',
       options: [
+        { value: 'shopbest', label: '쇼핑몰 별 Best 상품', trigger: 'selectShops' },
         { value: 'category', label: '카테고리 검색', trigger: 'selectCat' },
-        { value: 'theme', label: '테마별 검색', trigger: 'selectTheme' }
+        { value: 'theme', label: '테마별 검색', trigger: 'selectTheme' },
+        { value: 'FAQ', label: '자주 묻는 질문 (FAQ)', trigger: 'selectFAQ'}
       ]
+    },
+    {
+      id: 'selectShops',
+      message: '쇼핑몰을 선택해 주세요',
+      trigger: 'shops'
+    },
+    {
+      id: 'shops',
+      options: [
+        { value: 'kakao', label: 'KAKAO Commerse', trigger: 'last'},
+        { value: '11번가', label: '11번가', trigger: 'last'},
+        { value: '홈플러스', label: '홈플러스', trigger: 'last'},
+      ],
+      metadata: {
+        param: 'shopBest'
+      }
     },
     {
       id: 'selectCat',
@@ -47,9 +65,55 @@ const Bot = () => {
     },
     {
       id: 'selectTheme',
-      // component: <Theme />,
       message: '어떤 테마를 검색하시겠습니까?',
       trigger: 'themes'
+    },
+    {
+      id: 'selectFAQ',
+      message: 'FAQ를 통해 원하는 답변을 쉽고 빠르게 찾아보세요',
+      trigger: 'faqs'
+    },
+    {
+      id: 'faqs',
+      options: [
+        {value: 'f1', label: '😮 업데이트 주기가 어떻게 되나요?', trigger: 'faq1'},
+        {value: 'f2', label: '😮 어떤 쇼핑몰의 상품이 있나요?', trigger: 'faq2'},
+        {value: 'f3', label: '😮 상품이 갑자기 사라졌어요. 이유가 뭔가요?', trigger: 'faq3'},
+        {value: 'f4', label: '😮 원하는 상품이 없어요.', trigger: 'faq4'},
+        {value: 'f5', label: '😮 Soup에서는 어떤 기능을 제공하나요?', trigger: 'faq5'},
+      ]
+    },
+    {
+      id: 'faq1',
+      message: '30분 주기로 업데이트 되고 있습니다. 메인 페이지에서 최신 업데이트 시간을 확인할 수 있어요. 🥰',
+      trigger: 'finishFAQ'
+    },
+    {
+      id: 'faq2',
+      message: '현재 카카오 커머스, 11번가, 홈플러스의 특가 상품이 존재해요. 점차 많은 쇼핑몰의 상품이 업데이트 될 예정이에요. 😎',
+      trigger: 'finishFAQ'
+    },
+    {
+      id: 'faq3',
+      message: '해당 쇼핑몰에 존재하던 특가 상품이 사라졌기 때문이에요. 특가 상품이 다시 올라올 때까지 기다려야 해요. 😥',
+      trigger: 'finishFAQ'
+    },
+    {
+      id: 'faq4',
+      message: '업데이트 되는 시기에 해당 상품에 대한 특가 정보가 없기 때문이에요. 잠시 뒤 다시 검색해 보세요. 😉',
+      trigger: 'finishFAQ'
+    },
+    {
+      id: 'faq5',
+      message: 'Soup에서는 여러 쇼핑몰의 음식 특가를 제공하고 있어요. 또한 사용자의 검색 정보에 따라 상품을 추천해주고 있답니다. 😄',
+      trigger: 'finishFAQ'
+    },
+    {
+      id: 'finishFAQ',
+      options: [
+        {value: 'start', label: '처음으로', trigger: 'start'},
+        {value: 'selectFAQ', label: '자주 묻는 질문(FAQ) 다시 보기', trigger: 'selectFAQ'}
+      ]
     },
     {
       id: 'categories',
@@ -73,13 +137,6 @@ const Bot = () => {
     {
       id: 'themes',
       options: themeList,
-    //   options: [
-    //     { value: '93', label: 'MD 정지윤의 추천 상품', trigger: 'last' },
-    //     { value: '94', label: '배우 강아람의 추천 메뉴', trigger: 'last' },
-    //     { value: '95', label: '간편식', trigger: 'last' },
-    //     { value: '96', label: '수확의 계절', trigger: 'last' },
-    //     { value: '97', label: '먹거리', trigger: 'last' }
-    //   ],
       metadata: {
         param: 'theme'
       }
@@ -322,7 +379,6 @@ const Bot = () => {
         param: 'category'
       }
     },
-    
     {
       id: 'last',
       component: <Search />,
@@ -332,7 +388,9 @@ const Bot = () => {
   ]
 
   const config = {
-    width: "30%",
+    botAvatar: `${process.env.PUBLIC_URL}/img/botAvatar.png`,
+    userAvatar: `${process.env.PUBLIC_URL}/img/user.png`,
+    width: "50%",
     height: "600px",
     floating: true,
     headerTitle: "SouP Bot",
@@ -356,6 +414,8 @@ const Bot = () => {
         <ChatBot
           steps={steps}
           {...config}
+          bubbleStyle={{ padding: "8px 12px", margin: "5px 1px" }}
+          bubbleOptionStyle={{ padding: "8px 12px", margin: "1px 0" }}
         />
       </ThemeProvider>
     </>
