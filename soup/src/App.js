@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Cookies } from 'react-cookie';
+
+import './App.css';
 
 import LandingPage from './components/views/LandingPage'; 
 import LoginPage from './components/views/LoginPage';
@@ -11,12 +14,26 @@ import AdminPage from './components/views/AdminPage/index';
 import ItemList from './components/views/Item/ItemList';
 import ThemeItemList from "./components/views/Item/ThemeItemList";
 import NotFound from "./components/views/NotFound";
-
-import './App.css';
 import BestShopItemList from './components/views/Item/BestShopItemList';
 
 
+const cookies = new Cookies();
+
+export const setCookie = (name, value) => {
+  return cookies.set(name, value);
+};
+
+export const getCookie = (name) => {
+  return cookies.get(name);
+};
+
+export const removeCookie = (name) => {
+  return cookies.remove(name);
+};
+
 function App() {
+
+    
  
     const categoryList = [
         {
@@ -78,7 +95,7 @@ function App() {
 
   const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
-    if (localStorage.getItem('access_token') === null){
+    if (localStorage.getItem('accessToken') === null){
       console.log('isLogin ?? ::', isLogin)
     }else{
       setIsLogin(true)

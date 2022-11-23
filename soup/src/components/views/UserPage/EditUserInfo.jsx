@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { getCookie, setCookie, removeCookie } from '../../../App';
+
+
 import Header from '../Header';
 import Nav from '../Nav';
 
 import '../../../css/UserPage.css';
-import axios from 'axios';
-import { useEffect } from 'react';
 
 
 // function ConfirmPw(user) {
@@ -68,20 +70,19 @@ function EditUserInfo({isLogin, setIsLogin}) {
     }; 
     
     const onSecessionHandler = (e) => {
+        const refreshToken = getCookie('refreshToken');
         axios.delete('/members/mypage', 
         {
+            Cookie: {refreshToken},
             headers: {
                 'x-access-token': localStorage.getItem('access_token')
             }
         })
         .then(function (response) {
-
           if (response.status === 200) {
             console.log(response);
             localStorage.clear();
-            // ('access_token')
-            // localStorage.removeItem('id')
-            // localStorage.removeItem('nickname')
+            removeCookie("refreshToken");
             document.location.href = '/';
             alert("회원 탈퇴에 성공했습니다.");
           }

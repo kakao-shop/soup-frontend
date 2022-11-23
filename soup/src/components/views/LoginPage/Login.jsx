@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { getCookie, setCookie, removeCookie } from "../../../App";
 
 import "../../../css/LoginPage.css";
 
@@ -22,11 +23,12 @@ function Login() {
                 id: `${Id}`,
                 password: `${Password}`,
             })
-            .then(function(response) {
+            .then(function (response) {
                 if (response.status === 200) {
                     localStorage.clear();
+                    setCookie('refreshToken', response.data.result.refreshToken);
                     localStorage.setItem(
-                        "access_token",
+                        "accessToken",
                         response.data.result.accessToken
                     );
                     localStorage.setItem(
@@ -38,7 +40,7 @@ function Login() {
                     document.location.href = "/";
                 }
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 alert(error.response.data.message);
             });
     };
