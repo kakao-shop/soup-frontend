@@ -3,10 +3,16 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const SOUP_API_ADDR = process.env.API_IP;
 // const SOUP_API_ADDR = "localhost";
 const BACK_URI = `http://${SOUP_API_ADDR}:8000`;
-// const BACK_URI = `http://localhost:8000`;
 
 module.exports = function(app) {
-    //CORS ERROR
+    app.use(
+        "/ ",
+        createProxyMiddleware({
+            target: BACK_URI,
+            changeOrigin: true,
+        })
+    );
+
     app.use(
         "/main",
         createProxyMiddleware({
@@ -32,14 +38,6 @@ module.exports = function(app) {
     );
     app.use(
         "/admin",
-        createProxyMiddleware({
-            target: BACK_URI,
-            changeOrigin: true,
-        })
-    );
-
-    app.use(
-        "/ ",
         createProxyMiddleware({
             target: BACK_URI,
             changeOrigin: true,
