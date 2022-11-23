@@ -13,6 +13,7 @@ import ThemeItemList from "./components/views/Item/ThemeItemList";
 import NotFound from "./components/views/NotFound";
 
 import './App.css';
+import BestShopItemList from './components/views/Item/BestShopItemList';
 
 
 function App() {
@@ -268,16 +269,17 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/join" element={<JoinPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
-          <Route path="/confirmPw" element={<ConfirmPw isLogin={isLogin} setIsLogin={setIsLogin} />} />
-          <Route path="/editUserInfo" element={<EditUserInfo isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          <Route path="/category" element={<CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          <Route path="/*" element={<NotFound />} />
-          <Route path="/searchResult" element={<ItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          <Route path="/adm" element={<AdminPage isLogin={isLogin} setIsLogin={setIsLogin} category={categoryList} />} />          
-          <Route path="/theme" element={<ThemeItemList isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+          <Route path="/" element={ <LandingPage isLogin={isLogin} setIsLogin={setIsLogin} /> } />
+          <Route path="/login" element={ <LoginPage /> } />
+          <Route path="/join" element={ <JoinPage isLogin={isLogin} setIsLogin={setIsLogin} /> } />
+          <Route path="/confirmPw" element={ <ConfirmPw isLogin={isLogin} setIsLogin={setIsLogin} /> } />
+          <Route path="/editUserInfo" element={ <EditUserInfo isLogin={isLogin} setIsLogin={setIsLogin}/> } />
+          <Route path="/category" element={ <CategoryView isLogin={isLogin} setIsLogin={setIsLogin}/> } />
+          <Route path="/*" element={ <NotFound /> } />
+          <Route path="/searchResult" element={ <ItemList isLogin={isLogin} setIsLogin={setIsLogin}/> } />
+          <Route path="/adm" element={ <AdminPage isLogin={isLogin} setIsLogin={setIsLogin} category={categoryList} /> } />          
+          <Route path="/theme" element={ <ThemeItemList isLogin={isLogin} setIsLogin={setIsLogin}/> } />         
+          <Route path="/shopBest" element={ <BestShopItemList isLogin={isLogin} setIsLogin={setIsLogin}/> } />
         </Routes>
       </BrowserRouter>
     </div>

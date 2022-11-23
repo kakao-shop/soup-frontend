@@ -11,6 +11,7 @@ function SetTheme({ category }) {
 
     const [ThemeName, setThemeName] = useState();
     const [L, setL] = useState([]);
+    const [ThemeColor, setThemeColor] = useState("#ffffff");
 
     useEffect(() => {
         axios
@@ -26,7 +27,6 @@ function SetTheme({ category }) {
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
-            console.log("삭제");
             e.target.parentNode.remove();
             axios
                 .delete(`/admin/collections/${idx}`, {
@@ -87,37 +87,67 @@ function SetTheme({ category }) {
         }
     };
 
-    const saveTheme = (e) => {
-        if (L.length > 1) {
-            
-        axios
-        .post(
-            "/admin/collections",
-            {
-                title: `${ThemeName}`,
-                categoryList: L,
-            },
-            {
-                headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
-                },
-            }
-        )
-        .then(function(response) {
-            alert("테마 저장에 성공했습니다.");
-            setL([]);
-
-            document.getElementById("themeTitle-input").value = "";
-            while (document.getElementById("result").hasChildNodes()) {
-                document.getElementById("result").removeChild(document.getElementById("result").firstChild);
-            }
-        })
-        .catch(function(error) {
-            console.log(error);
-            alert("테마 저장에 실패했습니다.");
-        });
+    const themeColorHandler = (e) => {
+        const regex = /\#([0-9]){6}/;
+        console.log(e);
+        if (regex.test(e.target.value) === false) {
+            alert("색상을 형식에 맞게 기입해 주세요.");
         } else {
-            alert("카테고리를 2개 이상 지정해 주세요.");
+            setThemeColor(e.target.value);
+        }
+    };
+
+    const saveTheme = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append(
+            "themeReq",
+            new Blob(
+                [JSON.stringify({ title: `${ThemeName}`, categoryList: L })],
+                { type: "application/json" }
+            )
+        );
+        formData.append(
+            "image",
+            document.getElementById("themeImage-input").files[0]
+        );
+        console.log(formData);
+        if (document.getElementById("themeTitle-input").value !== "") {
+            if (L.length > 1) {
+                axios
+                    .post("/admin/collections", formData, {
+                        headers: {
+                            "x-access-token": localStorage.getItem(
+                                "access_token"
+                            ),
+                            "Content-Type": "multipart/form-data",
+                        },
+                    })
+                    .then(function(response) {
+                        alert("테마 저장에 성공했습니다.");
+                        setL([]);
+
+                        document.getElementById("themeTitle-input").value = "";
+                        document.getElementById("themeImage-input").value = "";
+                        while (
+                            document.getElementById("result").hasChildNodes()
+                        ) {
+                            document
+                                .getElementById("result")
+                                .removeChild(
+                                    document.getElementById("result").firstChild
+                                );
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        alert("테마 저장에 실패했습니다.");
+                    });
+            } else {
+                alert("카테고리를 2개 이상 지정해 주세요.");
+            }
+        } else {
+            alert("테마 이름을 지정해 주세요.");
         }
     };
 
@@ -148,12 +178,25 @@ function SetTheme({ category }) {
                     ))}
                 </div>
             </div>
-            <form action="/" className="theme-right">
+            <form
+                action="/"
+                className="theme-right"
+                encType="multipart/form-data"
+                onSubmit={saveTheme}
+            >
                 <label>테마이름</label>
                 <input
                     id="themeTitle-input"
                     type="text"
+                    required
                     onChange={(e) => setThemeName(e.target.value)}
+                />
+                <label>테마 이미지</label>
+                <input
+                    id="themeImage-input"
+                    type="file"
+                    name="image"
+                    required
                 />
                 <label>카테고리 대분류</label>
                 <select name="main" className="chosenMain" onChange={changeSub}>
@@ -172,11 +215,7 @@ function SetTheme({ category }) {
                     <option>소분류 선택</option>
                 </select>
                 <div id="result"></div>
-                <button
-                    type="button"
-                    className="bt save-btn"
-                    onClick={saveTheme}
-                >
+                <button type="submit" className="bt save-btn">
                     테마 저장
                 </button>
             </form>

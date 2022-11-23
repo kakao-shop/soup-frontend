@@ -1,13 +1,26 @@
+
 .Theme.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto 50px;
     overflow: hidden;
+
 }
 
 .Theme > * {
     display: flex;
+}
+
+.Theme #BannerList {
+    width: 1050px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.Theme #BannerList .banner-item img {
+    width: 1050.1px;
+    height: 200px;
 }
 
 .Theme .Title > div {

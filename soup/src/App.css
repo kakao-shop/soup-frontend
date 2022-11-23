@@ -41,12 +41,12 @@ button:active {
 
 .App {
   flex-direction: column;
+  position: relative;
 }
 
 .container {
   width: 1050px;
   margin: auto auto;
-  position: relative;
 }
 
 .square {
