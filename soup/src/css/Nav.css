@@ -2,12 +2,6 @@ nav {
     background-color: #FF6928;
 }
 
-nav #nav-bar {
-    position: absolute;
-    width: 100%;
-    height: 50px;
-}
-
 nav .container {
     overflow: visible;
     display: flex;
