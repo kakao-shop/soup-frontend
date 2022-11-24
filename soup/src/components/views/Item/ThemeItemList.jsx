@@ -5,6 +5,7 @@ import Pagination from "react-js-pagination";
 
 import Header from "../Header";
 import Nav from "../Nav";
+import { urlSendHandler } from "../../SelectItemCount";
 
 import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
@@ -156,19 +157,20 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                 </div>
                 <div className="itemList">
                     {product && product.length > 0 ? (
-                        product.map((data, index) => (
+                        product.map((item, index) => (
                             <a
-                                href={data.webUrl}
+                                href={item.webUrl}
+                                onClick={(e) => urlSendHandler(item.webUrl)}
                                 className="item-link"
                                 target="_blank"
-                                key={`link-${data.prdName}`}
+                                key={`link-${item.prdName}`}
                             >
                                 <div
                                     className="list-item"
                                     key={`상품목록${index + 1}`}
                                 >
                                     <div className="item-img">
-                                        {data.imgSrc === null ? (
+                                        {item.imgSrc === null ? (
                                             <img
                                                 src={
                                                     process.env.PUBLIC_URL +
@@ -179,7 +181,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                             />
                                         ) : (
                                             <img
-                                                src={data.imgSrc}
+                                                src={item.imgSrc}
                                                 alt="Item"
                                                 className="item-img"
                                             />
@@ -189,10 +191,10 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                     <div className="item-info">
                                         <div>
                                             <strong className="item-name">
-                                                {data.prdName}
+                                                {item.prdName}
                                             </strong>
                                             <div className="item-price">
-                                                {data.price.toLocaleString()} 원
+                                                {item.price.toLocaleString()} 원
                                             </div>
                                         </div>
                                     </div>
@@ -200,18 +202,18 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                                         <div>
                                             <span>카테고리</span>
                                             <span>
-                                                {data.cat}&gt;
+                                                {item.cat}&gt;
                                                 <br />
-                                                {data.subcat}
+                                                {item.subcat}
                                             </span>
                                         </div>
                                         <div>
                                             <span>구매횟수</span>
-                                            <span>{data.purchase}</span>
+                                            <span>{item.purchase}</span>
                                         </div>
                                         <div>
                                             <span>판매처</span>
-                                            <span>{data.site}</span>
+                                            <span>{item.site}</span>
                                         </div>
                                     </div>
                                 </div>

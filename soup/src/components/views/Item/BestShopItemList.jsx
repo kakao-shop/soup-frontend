@@ -5,6 +5,7 @@ import Pagination from "react-js-pagination";
 
 import Header from "../Header";
 import Nav from "../Nav";
+import { urlSendHandler } from "../../SelectItemCount";
 
 import "../../../css/ItemList.css";
 import "../../../css/Pagination.css";
@@ -149,12 +150,13 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                 </div>
                 <div className="itemList">
                     {product && product.length > 0 ? (
-                        product.map((data, index) => (
+                        product.map((item, index) => (
                             <a
-                                href={data.webUrl}
+                                href={item.webUrl}
+                                onClick={(e) => urlSendHandler(item.webUrl)}
                                 className="item-link"
                                 target="_blank"
-                                key={`link-${data.prdName}`}
+                                key={`link-${item.prdName}`}
                             >
                                 <div className="best-index">{
                                 index === 0 ? "🥇" : 
@@ -165,7 +167,7 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                                     key={`상품목록${index + 1}`}
                                 >
                                     <div className="item-img">
-                                        {data.imgSrc === null ? (
+                                        {item.imgSrc === null ? (
                                             <img
                                                 src={
                                                     process.env.PUBLIC_URL +
@@ -176,7 +178,7 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                                             />
                                         ) : (
                                             <img
-                                                src={data.imgSrc}
+                                                src={item.imgSrc}
                                                 alt="Item"
                                                 className="item-img"
                                             />
@@ -186,10 +188,10 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                                     <div className="item-info">
                                         <div>
                                             <strong className="item-name">
-                                                {data.prdName}
+                                                {item.prdName}
                                             </strong>
                                             <div className="item-price">
-                                                {data.price.toLocaleString()} 원
+                                                {item.price.toLocaleString()} 원
                                             </div>
                                         </div>
                                     </div>
@@ -197,14 +199,14 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                                         <div>
                                             <span>카테고리</span>
                                             <span>
-                                                {data.cat}&gt;
+                                                {item.cat}&gt;
                                                 <br />
-                                                {data.subcat}
+                                                {item.subcat}
                                             </span>
                                         </div>
                                         <div>
                                             <span>구매횟수</span>
-                                            <span>{data.purchase}</span>
+                                            <span>{item.purchase}</span>
                                         </div>
                                     </div>
                                 </div>

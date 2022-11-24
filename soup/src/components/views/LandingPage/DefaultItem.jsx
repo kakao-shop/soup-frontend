@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
+import { urlSendHandler } from "../../SelectItemCount";
+
 import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
@@ -21,6 +23,10 @@ function DefaultItem() {
             imgSrc: "",
         },
     ]);
+    
+
+
+
 
     const updateTime = useRef("알 수 없음");
 
@@ -73,7 +79,7 @@ function DefaultItem() {
                 <div className="item-list">
                     {product.map((item, index) => (
                         <div key={"default" + index} className="item">
-                            <a href={item.webUrl} className="item-link" target="_blank">
+                            <a href={item.webUrl} onClick={(e) => urlSendHandler(item.webUrl)} className="item-link" target="_blank">
                                 {item.imgSrc === null ? (
                                     <img
                                         src={
