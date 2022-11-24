@@ -76,7 +76,7 @@ function Theme(props) {
                     .get("/search/main", {
                         headers: {
                             "x-access-token": localStorage.getItem(
-                                "access_token"
+                                "accessToken"
                             ),
                         },
                     })

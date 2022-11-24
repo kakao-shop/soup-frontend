@@ -21,7 +21,7 @@ function EditUserInfo({isLogin, setIsLogin}) {
             axios.get('/members/mypage', 
         {
             headers: {
-                'x-access-token': localStorage.getItem('access_token')
+                'x-access-token': localStorage.getItem('accessToken')
             }
         }
         ).then(function (response) {
@@ -53,7 +53,7 @@ function EditUserInfo({isLogin, setIsLogin}) {
         },
         {
             headers: {
-                'x-access-token': localStorage.getItem('access_token')
+                'x-access-token': localStorage.getItem('accessToken')
             }
         })
         .then(function (response) {          
@@ -75,7 +75,7 @@ function EditUserInfo({isLogin, setIsLogin}) {
         {
             Cookie: {refreshToken},
             headers: {
-                'x-access-token': localStorage.getItem('access_token')
+                'x-access-token': localStorage.getItem('accessToken')
             }
         })
         .then(function (response) {

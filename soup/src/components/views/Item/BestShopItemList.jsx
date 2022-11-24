@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import Pagination from "react-js-pagination";
+import { urlSendHandler } from "../../SelectItemCount";
 
 import Header from "../Header";
 import Nav from "../Nav";
-import { urlSendHandler } from "../../SelectItemCount";
 
 import "../../../css/ItemList.css";
 import "../../../css/Pagination.css";
@@ -18,9 +17,6 @@ function BestShopItemList({ isLogin, setIsLogin }) {
     const size = 100;
     const [title, setTitle] = useState("");
     const clickedSite = useRef(site);
-
-    console.log(site);
-    // setClickedSite(site);
 
     const [product, setProduct] = useState([
         {
@@ -45,12 +41,10 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                     size: `${size}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token")
+                    "x-access-token": localStorage.getItem("accessToken")
                 }
             })
             .then(function(response) {
-                console.log(response.data.result.content);
-
                 setTitle(`${site} Top 100`);
                 setProduct(response.data.result.content);
         
@@ -61,7 +55,8 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                 document.getElementById(site).style.fontWeight = "700";
             })
             .catch(function(error) {
-                alert("error");
+                alert(`${site}의 Top 100 상품 정보를 불러올 수 없습니다.`);
+                console.log(error);
             });
     }, []);
 
@@ -70,8 +65,7 @@ function BestShopItemList({ isLogin, setIsLogin }) {
         console.log("1", clickedSite, document.getElementById(clickedSite.current));
         document.getElementById(clickedSite.current).style.color = "#222222";
         document.getElementById(clickedSite.current).style.fontWeight = "400";
-
-        // setClickedSort(sortValue);        
+ 
         clickedSite.current = e.target.id;
 
         document.getElementById(e.target.id).style.color = "#FF6928";
@@ -84,7 +78,7 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                     size: `${size}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -95,26 +89,6 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                 alert("상품을 정렬하지 못했습니다.");
                 console.log(error);
             });
-    };
-
-    const handlePageChange = async (Page) => {
-        // axios
-            // .get(`/search/collections/${themeIdx}`, {
-            //     params: {
-            //         size: `${size}`,
-            //         page: `${page.current}`,
-            //     },
-            //     headers: {
-            //         "x-access-token": localStorage.getItem("access_token"),
-            //     },
-            // })
-            // .then(function(response) {
-            //     setTitle(response.data.result.title);
-            //     setProduct(response.data.result.result.content);
-            // })
-            // .catch(function(error) {
-            //     alert("현재 페이지의 특가 상품을 가져올 수 없습니다.");
-            // });
     };
 
     return (

@@ -51,7 +51,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
             await axios
                 .get("/bot/today-best", {
                     headers: {
-                        "x-access-token": localStorage.getItem("access_token"),
+                        "x-access-token": localStorage.getItem("accessToken"),
                     },
                     params: {
                         site: `${search}`

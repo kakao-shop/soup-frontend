@@ -26,7 +26,7 @@ function ConfirmPw({ isLogin, setIsLogin }) {
                 },
                 {
                     headers: {
-                        "x-access-token": localStorage.getItem("access_token"),
+                        "x-access-token": localStorage.getItem("accessToken"),
                     },
                 }
             )

@@ -12,8 +12,7 @@ import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
 function ThemeItemList({ isLogin, setIsLogin }) {
-    const [size, setSize] = useState("30");
-    const [sort, setSort] = useState("purchase,desc");
+    const size ="30";
     const [title, setTitle] = useState("");
     const page = useRef(0);
     const [totalElements, setTotalElements] = useState(0);
@@ -47,7 +46,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -68,7 +67,6 @@ function ThemeItemList({ isLogin, setIsLogin }) {
         document.getElementById(clickedSort).style.fontWeight = "400";
 
         setClickedSort(sortValue);
-        setSort(sortValue);
 
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";
@@ -80,7 +78,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -104,7 +102,7 @@ function ThemeItemList({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {

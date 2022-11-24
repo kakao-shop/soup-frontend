@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import { urlSendHandler } from "../../SelectItemCount";
 
 import Header from "../Header";
 import Nav from "../Nav";
-import { urlSendHandler } from "../../SelectItemCount";
 
 import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
@@ -74,9 +74,8 @@ function CategoryView({ isLogin, setIsLogin }) {
     const search = location.state.subcat;
     const subList = categoryList[num].sub.item;
 
-    const [isBot, setIsBot] = useState(true);
     const [category, setCategory] = useState(search);
-    const [size, setSize] = useState("30");
+    const size = "30";
     const [sort, setSort] = useState("purchase,desc");
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -99,10 +98,9 @@ function CategoryView({ isLogin, setIsLogin }) {
             imgSrc: "",
         },
     ]);
-    const getCategory = async (e) => {
+    const getCategory = async () => {
         let cat = "";
         cat = search;
-        setIsBot(false);
         await getProduct(cat);
     };
 
@@ -141,7 +139,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -176,7 +174,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -199,7 +197,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {

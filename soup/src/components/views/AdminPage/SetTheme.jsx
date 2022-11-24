@@ -15,7 +15,7 @@ function SetTheme({ category }) {
         axios
             .get("/admin/collections", {
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -29,7 +29,7 @@ function SetTheme({ category }) {
             axios
                 .delete(`/admin/collections/${idx}`, {
                     headers: {
-                        "x-access-token": localStorage.getItem("access_token"),
+                        "x-access-token": localStorage.getItem("accessToken"),
                     },
                 })
                 .then(function(response) {
@@ -119,7 +119,7 @@ function SetTheme({ category }) {
                     .post("/admin/collections", formData, {
                         headers: {
                             "x-access-token": localStorage.getItem(
-                                "access_token"
+                                "accessToken"
                             ),
                             "Content-Type": "multipart/form-data",
                         },

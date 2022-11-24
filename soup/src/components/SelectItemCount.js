@@ -7,7 +7,7 @@ export function urlSendHandler(a) {
                       }, {
                           headers: {
                               "x-access-token": localStorage.getItem(
-                                  "access_token"
+                                  "accessToken"
                               )
                             },
                       })

@@ -12,8 +12,7 @@ import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
 function ItemList({ isLogin, setIsLogin }) {
-    const [size, setSize] = useState("30");
-    const [title, setTitle] = useState("");
+    const size = "30";
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const page = useRef(0);
@@ -56,7 +55,7 @@ function ItemList({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -91,7 +90,7 @@ function ItemList({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -116,7 +115,7 @@ function ItemList({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
