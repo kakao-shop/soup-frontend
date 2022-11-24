@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { urlSendHandler } from "../../SelectItemCount";
 
 import "../../../css/BotSearchResult.css";
 
@@ -87,6 +88,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                         {result.map((item, index) => (
                             <a
                                 href={item.webUrl}
+                                onClick={(e) => urlSendHandler(item.webUrl)}
                                 target="_blank"
                                 className="result-item"
                                 key={item.id}

@@ -1,17 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import axios from "axios";
+import _ from "lodash";
 
 import "../../../css/AdminPage.css";
 
 function SetTheme({ category }) {
     const [ThemeList, setThemeList] = useState([]);
-
     const subValue = useRef([]);
-
     const [ThemeName, setThemeName] = useState();
     const [L, setL] = useState([]);
-    const [ThemeColor, setThemeColor] = useState("#ffffff");
 
     useEffect(() => {
         axios
@@ -51,6 +49,7 @@ function SetTheme({ category }) {
             return cate.main === e.target.value;
         })[0].sub.item;
         subValue.current = currentCate;
+        subSelect.innerHTML += `<option>소분류 선택</option>`;
         subValue.current.map(
             (sub, index) =>
                 (subSelect.innerHTML += `<option value=${sub} key=${sub}sub id=suboption${index}>${sub}</option>`)
@@ -63,47 +62,50 @@ function SetTheme({ category }) {
         } else {
             let subCategory = e.target.value;
             let mainCategory = e.target.previousSibling.previousSibling.value;
+            if (
+                subCategory !== "소분류 선택" &&
+                mainCategory !== "대분류 선택"
+            ) {
+                setL([...L, { mainCategory, subCategory }]);
+                const chosenDiv = document.createElement("div");
+                chosenDiv.setAttribute("class", "chosenDiv");
+                const chosenCategories = document.createElement("div");
+                chosenCategories.setAttribute("class", "chosenData");
+                chosenCategories.innerText = `${mainCategory}>${subCategory}`;
 
-            setL([...L, { mainCategory, subCategory }]);
+                const categoryDeleteBtn = document.createElement("button");
+                categoryDeleteBtn.setAttribute("class", "deleteCategoryBtn");
+                categoryDeleteBtn.setAttribute("type", "button");
+                categoryDeleteBtn.innerText = "X";
+                categoryDeleteBtn.onclick = (e) => {
+                    e.target.parentNode.remove();
+                };
 
-            const chosenDiv = document.createElement("div");
-            chosenDiv.setAttribute("class", "chosenDiv");
-            const chosenCategories = document.createElement("div");
-            chosenCategories.setAttribute("class", "chosenData");
-            chosenCategories.innerText = `${mainCategory}>${subCategory}`;
+                chosenDiv.appendChild(chosenCategories);
+                chosenDiv.appendChild(categoryDeleteBtn);
 
-            const categoryDeleteBtn = document.createElement("button");
-            categoryDeleteBtn.setAttribute("class", "deleteCategoryBtn");
-            categoryDeleteBtn.setAttribute("type", "button");
-            categoryDeleteBtn.innerText = "X";
-            categoryDeleteBtn.onclick = (e) => {
-                e.target.parentNode.remove();
-            };
-
-            chosenDiv.appendChild(chosenCategories);
-            chosenDiv.appendChild(categoryDeleteBtn);
-
-            e.target.nextSibling.appendChild(chosenDiv);
-        }
-    };
-
-    const themeColorHandler = (e) => {
-        const regex = /\#([0-9]){6}/;
-        console.log(e);
-        if (regex.test(e.target.value) === false) {
-            alert("색상을 형식에 맞게 기입해 주세요.");
-        } else {
-            setThemeColor(e.target.value);
+                e.target.nextSibling.appendChild(chosenDiv);
+            }
         }
     };
 
     const saveTheme = (e) => {
         e.preventDefault();
         const formData = new FormData();
+
+        let noDupl;
+        for (let i of document.getElementById("result").childNodes) {
+            
+            const mainCategory = i.innerText.match(/[^A-Za-z0-9]*[\>]/)[0].replace(">", "");
+            const subCategory = i.innerText.match(/[\>][^A-Za-z0-9]*/)[0].replace(">", "");
+            setL([...L, { mainCategory, subCategory}]);
+            noDupl = _.uniqBy(L, "subCategory");
+        }
+
         formData.append(
             "themeReq",
             new Blob(
-                [JSON.stringify({ title: `${ThemeName}`, categoryList: L })],
+                [JSON.stringify({ title: `${ThemeName}`, categoryList: noDupl })],
                 { type: "application/json" }
             )
         );
@@ -111,7 +113,6 @@ function SetTheme({ category }) {
             "image",
             document.getElementById("themeImage-input").files[0]
         );
-        console.log(formData);
         if (document.getElementById("themeTitle-input").value !== "") {
             if (L.length > 1) {
                 axios
@@ -200,6 +201,7 @@ function SetTheme({ category }) {
                 />
                 <label>카테고리 대분류</label>
                 <select name="main" className="chosenMain" onChange={changeSub}>
+                    <option>대분류 선택</option>
                     {category.map((cate, index) => (
                         <option
                             value={cate.main}

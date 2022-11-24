@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
+import { urlSendHandler } from "../../SelectItemCount";
+
 import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
@@ -22,25 +24,7 @@ function DefaultItem() {
         },
     ]);
     
-    function urlSendHandler(a) {
-      console.log("test", a);
-      axios       
-                    .post("/search/select/item", {
-                      url: `${a}`,
-                    }, {
-                        headers: {
-                            "x-access-token": localStorage.getItem(
-                                "access_token"
-                            )
-                          },
-                    })
-                    .then(function(response) {
-                        console.log(response);
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
-    }
+
 
 
 

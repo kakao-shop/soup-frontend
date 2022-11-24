@@ -1,17 +1,22 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import { getCookie, setCookie, removeCookie } from "../../App";
 
 import '../../css/Avatar.css';
 
 function Btns({isLogin, setIsLogin}) {
   const onLogout = () => {
     // sessionStorage 에 user_id 로 저장되어있는 아이템을 삭제한다.
-      axios.delete('/members/logout',)
+    const refreshToken = getCookie('refreshToken');
+      axios.delete('/members/logout', {
+        Cookie: {refreshToken}
+      })
       .then(function (response) {
         alert("로그아웃에 성공했습니다.");
         document.location.href = '/';
         localStorage.clear();
+        removeCookie('refreshToken');
         // App 으로 이동(새로고침)
       }).catch(function (error) {
         alert("로그아웃에 실패했습니다. 다시 시도하세요.");
