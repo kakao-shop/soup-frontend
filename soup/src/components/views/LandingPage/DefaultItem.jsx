@@ -35,12 +35,12 @@ function DefaultItem() {
             try {
                 const response = await axios.get("/search/main", {
                     headers: {
-                        "x-access-token": localStorage.getItem("access_token"),
+                        "x-access-token": localStorage.getItem("accessToken"),
                     },
                 });
                 updateTime.current = response.data.result.crawlingTime;
                 setProduct(response.data.result.recommendResult);
-                // updateTime.current = 
+
             } catch (error) {
                 alert("상품 목록을 가져오지 못했습니다.");
                 console.log(error);

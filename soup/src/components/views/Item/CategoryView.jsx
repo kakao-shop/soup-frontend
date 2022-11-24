@@ -141,7 +141,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -176,7 +176,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {
@@ -199,7 +199,7 @@ function CategoryView({ isLogin, setIsLogin }) {
                     page: `${page.current}`,
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("access_token"),
+                    "x-access-token": localStorage.getItem("accessToken"),
                 },
             })
             .then(function(response) {

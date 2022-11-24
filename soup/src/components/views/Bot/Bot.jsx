@@ -13,7 +13,7 @@ const Bot = () => {
         axios
         .get("/bot/collections", {
             headers: {
-                "x-access-token": localStorage.getItem("access_token"),
+                "x-access-token": localStorage.getItem("accessToken"),
             },
         })
         .then((response) => {

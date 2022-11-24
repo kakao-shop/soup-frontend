@@ -11,7 +11,7 @@ function UserInfo() {
     useEffect(() => {
         axios.get("/admin/members", {
             headers: {
-                'x-access-token': localStorage.getItem('access_token')
+                'x-access-token': localStorage.getItem('accessToken')
             }})
         .then(function (response) {
             setUserList(response.data.result)
