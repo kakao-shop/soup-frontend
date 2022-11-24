@@ -21,6 +21,28 @@ function DefaultItem() {
             imgSrc: "",
         },
     ]);
+    
+    function urlSendHandler(a) {
+      console.log("test", a);
+      axios       
+                    .post("/search/select/item", {
+                      url: `${a}`,
+                    }, {
+                        headers: {
+                            "x-access-token": localStorage.getItem(
+                                "access_token"
+                            )
+                          },
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+    }
+
+
 
     const updateTime = useRef("알 수 없음");
 
@@ -73,7 +95,7 @@ function DefaultItem() {
                 <div className="item-list">
                     {product.map((item, index) => (
                         <div key={"default" + index} className="item">
-                            <a href={item.webUrl} className="item-link" target="_blank">
+                            <a href={item.webUrl} onClick={(e) => urlSendHandler(item.webUrl)} className="item-link" target="_blank">
                                 {item.imgSrc === null ? (
                                     <img
                                         src={

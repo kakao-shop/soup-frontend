@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const SOUP_API_ADDR = process.env.API_IP;
-// const SOUP_API_ADDR = "localhost";
+// const SOUP_API_ADDR = process.env.API_IP;
+const SOUP_API_ADDR = "127.0.0.1";
 const BACK_URI = `http://${SOUP_API_ADDR}:8000`;
 
 module.exports = function(app) {
