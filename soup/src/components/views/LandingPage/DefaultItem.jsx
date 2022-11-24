@@ -79,7 +79,7 @@ function DefaultItem() {
                 <div className="item-list">
                     {product.map((item, index) => (
                         <div key={"default" + index} className="item">
-                            <a href={item.webUrl} onClick={(e) => urlSendHandler(item.webUrl)} className="item-link" target="_blank">
+                            <a href={item.webUrl} onClick={(e) => urlSendHandler(item)} className="item-link" target="_blank">
                                 {item.imgSrc === null ? (
                                     <img
                                         src={
