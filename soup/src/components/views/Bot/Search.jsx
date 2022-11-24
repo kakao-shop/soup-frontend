@@ -88,7 +88,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                         {result.map((item, index) => (
                             <a
                                 href={item.webUrl}
-                                onClick={(e) => urlSendHandler(item.webUrl)}
+                                onClick={(e) => urlSendHandler(item)}
                                 target="_blank"
                                 className="result-item"
                                 key={item.id}

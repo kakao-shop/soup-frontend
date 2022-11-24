@@ -127,7 +127,7 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                         product.map((item, index) => (
                             <a
                                 href={item.webUrl}
-                                onClick={(e) => urlSendHandler(item.webUrl)}
+                                onClick={(e) => urlSendHandler(item)}
                                 className="item-link"
                                 target="_blank"
                                 key={`link-${item.prdName}`}

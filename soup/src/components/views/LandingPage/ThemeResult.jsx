@@ -43,7 +43,7 @@ function ThemeResult(idx) {
                 <div className="item-list">
                 {product.map((item, index) => (
                     <div key={"default" + index} className="item">
-                        <a href={item.webUrl} onClick={(e) => urlSendHandler(item.webUrl)} className="item-link">
+                        <a href={item.webUrl} onClick={(e) => urlSendHandler(item)} className="item-link">
                         {item.imgSrc === null
                             ? <img src={process.env.PUBLIC_URL + '/img/no-img.png'} alt="Item" className="item-img" />
                             : <img src={item.imgSrc} alt="Item" className="item-img" />
