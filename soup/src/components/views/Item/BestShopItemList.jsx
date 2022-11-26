@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+
 import { urlSendHandler } from "../../SelectItemCount";
+import { reissuanceAccessToken } from "../../jwtTokenModules";
 
 import Header from "../Header";
 import Nav from "../Nav";
@@ -10,7 +12,7 @@ import "../../../css/ItemList.css";
 import "../../../css/Pagination.css";
 import "../../../css/BestShopItemList.css";
 
-function BestShopItemList({ isLogin, setIsLogin }) {
+function BestShopItemList({categoryList}) {
 
     const location = useLocation();
     const site = location.state.site;
@@ -55,8 +57,12 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                 document.getElementById(site).style.fontWeight = "700";
             })
             .catch(function(error) {
-                alert(`${site}의 Top 100 상품 정보를 불러올 수 없습니다.`);
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert(`${site}의 Top 100 상품 정보를 불러올 수 없습니다.`);
+                    console.log(error);
+                }
             });
     }, []);
 
@@ -86,15 +92,19 @@ function BestShopItemList({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.content);
             })
             .catch(function(error) {
-                alert("상품을 정렬하지 못했습니다.");
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("상품을 정렬할 수 없습니다.");
+                    console.log(error);
+                }
             });
     };
 
     return (
         <div>
-            <Header setIsLogin={setIsLogin} isLogin={isLogin} />
-            <Nav />
+            <Header />
+            <Nav categoryList={categoryList} />
             <div className="ItemList bestshop">
                 <div className="msg">
                     <h2>🏆 {title} 🏆</h2>

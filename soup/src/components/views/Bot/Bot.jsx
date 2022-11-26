@@ -2,8 +2,11 @@ import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
 import axios from "axios";
 
+import { reissuanceAccessToken } from "../../jwtTokenModules";
+
 import Search from "./Search";
 import TriggerMaker from "./TriggerMaker";
+import RealTimeRank from "./RealTimeRank";
 
 const Bot = () => {
     const themeList = [];
@@ -21,20 +24,25 @@ const Bot = () => {
             }
         })
         .catch((error) => {
-            alert("테마가 존재하지 않거나 출력할 수 없습니다.");
-            console.log(error);
+            if (error.response.data.code === 4002) {
+                reissuanceAccessToken(error);
+            } else {
+                alert("테마 정보를 불러올 수 없습니다.");
+                console.log(error);
+            }
         });
 
     const mainCategoryList = [
-        {value: '0', label: '과일', trigger: 'triggerMaker'},
-        {value: '1', label: '채소', trigger: 'triggerMaker'},
-        {value: '2', label: '축산', trigger: 'triggerMaker'},
-        {value: '3', label: '수산/건어물', trigger: 'triggerMaker'},
-        {value: '4', label: '즉석식품/양념', trigger: 'triggerMaker'},
-        {value: '5', label: '냉동/냉장식품', trigger: 'triggerMaker'},
-        {value: '6', label: '생수/음료', trigger: 'triggerMaker'},
-        {value: '7', label: '빵/과자', trigger: 'triggerMaker'},
-        {value: '8', label: '쌀/잡곡', trigger: 'triggerMaker'},
+        { value: '0', label: '과일', trigger: 'triggerMaker' },
+        { value: '1', label: '채소', trigger: 'triggerMaker' },
+        { value: '2', label: '축산', trigger: 'triggerMaker' },
+        { value: '3', label: '수산/건어물', trigger: 'triggerMaker' },
+        { value: '4', label: '즉석식품/양념', trigger: 'triggerMaker' },
+        { value: '5', label: '냉동/냉장식품', trigger: 'triggerMaker' },
+        { value: '6', label: '생수/음료', trigger: 'triggerMaker' },
+        { value: '7', label: '빵/과자', trigger: 'triggerMaker' },
+        { value: '8', label: '쌀/잡곡', trigger: 'triggerMaker' },
+        { value: "start", label: "처음으로", trigger: "start" },
       ]
 
 	const subCategoryList = {
@@ -59,7 +67,9 @@ const Bot = () => {
 			{ value: "배", label: "배", trigger: "last" },
 			{ value: "바나나", label: "바나나", trigger: "last" },
 			{ value: "열대과일", label: "열대과일", trigger: "last" },
-			{ value: "기타과일", label: "기타과일", trigger: "last" }
+			{ value: "기타과일", label: "기타과일", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main2: [
 			{ value: "토란", label: "토란", trigger: "last" },
@@ -96,19 +106,23 @@ const Bot = () => {
 			{ value: "반찬채소", label: "반찬채소", trigger: "last" },
 			{ value: "샐러드", label: "샐러드", trigger: "last" },
 			{ value: "인삼/더덕/약선재료", label: "인삼/더덕/약선재료", trigger: "last" },
-			{ value: "기타채소", label: "기타채소", trigger: "last" }
+			{ value: "기타채소", label: "기타채소", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main3: [
 			{ value: "닭가슴살", label: "닭가슴살", trigger: "last" },
 			{ value: "닭고기", label: "닭고기", trigger: "last" },
 			{ value: "한우", label: "한우", trigger: "last" },
 			{ value: "소고기", label: "소고기", trigger: "last" },
-			{ value: "오리고기", label: "오리고기", trigger: "last" }
+			{ value: "오리고기", label: "오리고기", trigger: "last" },
 			{ value: "수입육", label: "수입육", trigger: "last" },
 			{ value: "돼지고기", label: "돼지고기", trigger: "last" },
 			{ value: "가공육", label: "가공육", trigger: "last" },
 			{ value: "계란/알류", label: "계란/알류", trigger: "last" },
-			{ value: "기타정육", label: "기타정육", trigger: "last" }
+			{ value: "기타정육", label: "기타정육", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main4: [
 			{ value: "가자미", label: "가자미", trigger: "last" },
@@ -124,7 +138,9 @@ const Bot = () => {
 			{ value: "새우", label: "새우", trigger: "last" },
 			{ value: "오징어/문어", label: "오징어/문어", trigger: "last" },
 			{ value: "낙지/쭈꾸미", label: "낙지/쭈꾸미", trigger: "last" },
-			{ value: "기타수산믈", label: "기타수산믈", trigger: "last" }
+			{ value: "기타수산믈", label: "기타수산믈", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main5: [
 			{ value: "라면", label: "라면", trigger: "last" },
@@ -147,7 +163,9 @@ const Bot = () => {
 			{ value: "캔", label: "캔", trigger: "last" },
 			{ value: "소금/설탕", label: "소금/설탕", trigger: "last" },
 			{ value: "면류", label: "면류", trigger: "last" },
-			{ value: "기타식품", label: "기타식품", trigger: "last" }
+			{ value: "기타식품", label: "기타식품", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main6: [
 			{ value: "반찬", label: "반찬", trigger: "last" },
@@ -157,7 +175,6 @@ const Bot = () => {
 			{ value: "도시락", label: "도시락", trigger: "last" },
 			{ value: "국/탕/찜", label: "국/탕/찜", trigger: "last" },
 			{ value: "김치/젓갈", label: "김치/젓갈", trigger: "last" },
-			{ value: "밀키트", label: "밀키트", trigger: "last" },
 			{ value: "떡볶이/떡사리", label: "떡볶이/떡사리", trigger: "last" },
 			{ value: "볶음/구이", label: "볶음/구이", trigger: "last" },
 			{ value: "만두", label: "만두", trigger: "last" },
@@ -176,7 +193,9 @@ const Bot = () => {
 			{ value: "감자튀김/치즈스틱", label: "감자튀김/치즈스틱", trigger: "last" },
 			{ value: "볶음밥/덮밥/죽", label: "볶음밥/덮밥/죽", trigger: "last" },
 			{ value: "안주/전류", label: "안주/전류", trigger: "last" },
-			{ value: "기타식품", label: "기타식품", trigger: "last" }
+			{ value: "기타식품", label: "기타식품", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main7: [
 			{ value: "생수/탄산수", label: "생수/탄산수", trigger: "last" },
@@ -189,7 +208,9 @@ const Bot = () => {
 			{ value: "전통음료", label: "전통음료", trigger: "last" },
 			{ value: "건강음료", label: "건강음료", trigger: "last" },
 			{ value: "꿀", label: "꿀", trigger: "last" },
-			{ value: "기타음료", label: "기타음료", trigger: "last" }
+			{ value: "기타음료", label: "기타음료", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		],
 		main8: [
 			{ value: "빵", label: "빵", trigger: "last" },
@@ -204,6 +225,8 @@ const Bot = () => {
 			{ value: "아이스크림", label: "아이스크림", trigger: "last" },
 			{ value: "떡", label: "떡", trigger: "last" },
 			{ value: "기타제과", label: "기타제과", trigger: "last" },
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
 		]
 		,
 		main9: [
@@ -220,7 +243,9 @@ const Bot = () => {
 			{ value: "기타잡곡", label: "기타잡곡", trigger: "last" },
 			{ value: "건조식품", label: "건조식품", trigger: "last" },
 			{ value: "건조과일", label: "건조과일", trigger: "last" },
-		],
+            { value: "selectCat", label: "이전으로", trigger: "selectCat" },
+            { value: "start", label: "처음으로", trigger: "start" }
+		]
 	}
 
     const steps = [
@@ -252,7 +277,18 @@ const Bot = () => {
                     label: "자주 묻는 질문 (FAQ)",
                     trigger: "selectFAQ",
                 },
+                {
+                    value: "real-time",
+                    label: "실시간 검색어 Top 10",
+                    trigger: "viewRank"
+                }
             ],
+        },
+        {
+            id: "viewRank",
+            component: <RealTimeRank />,
+            waitAction: true,
+            trigger: "start",
         },
         {
             id: "selectShops",
@@ -265,6 +301,7 @@ const Bot = () => {
                 { value: "kakao", label: "KAKAO Commerse", trigger: "last" },
                 { value: "11번가", label: "11번가", trigger: "last" },
                 { value: "홈플러스", label: "홈플러스", trigger: "last" },
+                { value: "start", label: "처음으로", trigger: "start" }
             ],
             metadata: {
                 param: "shopBest",
@@ -313,7 +350,8 @@ const Bot = () => {
                     label: "😮 Soup에서는 어떤 기능을 제공하나요?",
                     trigger: "faq5",
                 },
-            ],
+                { value: "start", label: "처음으로", trigger: "start" }
+            ]
         },
         {
             id: "faq1",
@@ -446,7 +484,7 @@ const Bot = () => {
     const config = {
         botAvatar: `${process.env.PUBLIC_URL}/img/botAvatar.png`,
         userAvatar: `${process.env.PUBLIC_URL}/img/user.png`,
-        width: "50%",
+        width: "30%",
         height: "600px",
         floating: true,
         headerTitle: "SouP Bot",
@@ -455,10 +493,10 @@ const Bot = () => {
 
     const theme = {
         background: "#f5f8fb",
-        headerBgColor: "#EF6C00",
+        headerBgColor: "#FF6928",
         headerFontColor: "#fff",
         headerFontSize: "25px",
-        botBubbleColor: "#EF6C00",
+        botBubbleColor: "#FF6928",
         botFontColor: "#fff",
         userBubbleColor: "#fff",
         userFontColor: "#4a4a4a",

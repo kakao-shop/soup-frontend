@@ -1,43 +1,60 @@
 import React, { useState, useRef, useEffect } from "react";
-
 import axios from "axios";
 import _ from "lodash";
 
+import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
+
 import "../../../css/AdminPage.css";
 
-function SetTheme({ category }) {
+function SetTheme({ categoryList }) {
     const [ThemeList, setThemeList] = useState([]);
     const subValue = useRef([]);
     const [ThemeName, setThemeName] = useState();
     const [L, setL] = useState([]);
 
     useEffect(() => {
+        const refreshToken = getCookie('refreshToken');
         axios
             .get("/admin/collections", {
                 headers: {
                     "x-access-token": localStorage.getItem("accessToken"),
                 },
+                Cookie: {refreshToken}
             })
-            .then(function(response) {
+            .then((response) => {
                 setThemeList(response.data.result.themeList);
+            })
+            .catch((error) => {
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("테마 정보를 불러올 수 없습니다.");
+                    console.log(error);
+                }
             });
     }, [L]);
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
-            e.target.parentNode.remove();
+            const refreshToken = getCookie('refreshToken');
             axios
                 .delete(`/admin/collections/${idx}`, {
                     headers: {
                         "x-access-token": localStorage.getItem("accessToken"),
                     },
+                    Cookie: {refreshToken}
                 })
-                .then(function(response) {
+                .then((response) => {
                     alert("테마가 삭제되었습니다.");
+                    e.target.parentNode.remove();
                 })
                 .catch(function(error) {
-                    console.log(error);
-                    alert("삭제가 불가능합니다.");
+                    if (error.response.data.code === 4002) {
+                        reissuanceAccessToken(error);
+                    } else {
+                        alert("삭제가 불가능합니다.");
+                        console.log(error);
+                    }
                 });
         }
     };
@@ -45,7 +62,7 @@ function SetTheme({ category }) {
     function changeSub(e) {
         const subSelect = e.target.nextSibling.nextSibling;
         subSelect.innerHTML = "";
-        const currentCate = category.filter(function(cate) {
+        const currentCate = categoryList.filter(function(cate) {
             return cate.main === e.target.value;
         })[0].sub.item;
         subValue.current = currentCate;
@@ -95,7 +112,6 @@ function SetTheme({ category }) {
 
         let noDupl;
         for (let i of document.getElementById("result").childNodes) {
-            
             const mainCategory = i.innerText.match(/[^A-Za-z0-9]*[\>]/)[0].replace(">", "");
             const subCategory = i.innerText.match(/[\>][^A-Za-z0-9]*/)[0].replace(">", "");
             setL([...L, { mainCategory, subCategory}]);
@@ -109,14 +125,14 @@ function SetTheme({ category }) {
                 { type: "application/json" }
             )
         );
-        formData.append(
-            "image",
-            document.getElementById("themeImage-input").files[0]
-        );
+        formData.append("image", document.getElementById("themeImage-input").files[0]);
+        
         if (document.getElementById("themeTitle-input").value !== "") {
             if (L.length > 1) {
+                const refreshToken = getCookie("refreshToken");
                 axios
                     .post("/admin/collections", formData, {
+                        Cookie: {refreshToken},
                         headers: {
                             "x-access-token": localStorage.getItem(
                                 "accessToken"
@@ -130,19 +146,20 @@ function SetTheme({ category }) {
 
                         document.getElementById("themeTitle-input").value = "";
                         document.getElementById("themeImage-input").value = "";
-                        while (
-                            document.getElementById("result").hasChildNodes()
-                        ) {
-                            document
-                                .getElementById("result")
-                                .removeChild(
-                                    document.getElementById("result").firstChild
-                                );
+                        while (document.getElementById("result").hasChildNodes()) {
+                            document.getElementById("result").removeChild(
+                                document.getElementById("result").firstChild
+                            );
                         }
                     })
                     .catch(function(error) {
-                        console.log(error);
-                        alert("테마 저장에 실패했습니다.");
+                        if (error.response.data.code === 4002) {
+                            reissuanceAccessToken(error);
+                        } else {
+                            alert("테마 저장에 실패했습니다.");
+                            console.log(error);
+                        }
+
                     });
             } else {
                 alert("카테고리를 2개 이상 지정해 주세요.");
@@ -202,7 +219,7 @@ function SetTheme({ category }) {
                 <label>카테고리 대분류</label>
                 <select name="main" className="chosenMain" onChange={changeSub}>
                     <option>대분류 선택</option>
-                    {category.map((cate, index) => (
+                    {categoryList.map((cate, index) => (
                         <option
                             value={cate.main}
                             key={cate.main}

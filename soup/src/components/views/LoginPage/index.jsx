@@ -7,13 +7,18 @@ import Login from './Login';
 import '../../../css/LoginPage.css';
 
 
-function LoginPage() {
-  return (
-    <div>
-      <Header />
-      <Nav />
-      <Login />
-    </div>
-  );
+function LoginPage({categoryList}) {
+  if (localStorage.getItem("accessToken") === null) {
+    return (
+      <div>
+        <Header />
+        <Nav categoryList={categoryList}/>
+        <Login />
+      </div>
+    );
+  }
+  else {
+    window.location.href="/";
+  }
 }
 export default LoginPage;

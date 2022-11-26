@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
 import axios from "axios";
+
+import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 
 
 function UserInfo() {
-
     const [UserList, setUserList] = useState([]);
-    
+
     useEffect(() => {
-        axios.get("/admin/members", {
-            headers: {
-                'x-access-token': localStorage.getItem('accessToken')
-            }})
-        .then(function (response) {
-            setUserList(response.data.result)
-        })
-        .catch((error) => {
-            alert("유저 정보를 확인할 수 없습니다.");
-            console.log(error);
-        })
+        const refreshToken = getCookie("refreshToken");
+        axios
+            .get("/admin/members", {
+                Cookie: {refreshToken},
+                headers: {
+                    "x-access-token": localStorage.getItem("accessToken"),
+                },
+            })
+            .then((response) => {
+                setUserList(response.data.result);
+            })
+            .catch((error) => {
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("유저 정보를 확인할 수 없습니다.");
+                    console.log(error);
+                }
+            });
     }, []);
 
     return (
@@ -31,9 +38,6 @@ function UserInfo() {
                         <th scope="col">Member Index</th>
                         <th scope="col">Nickname</th>
                         <th scope="col">ID</th>
-                        {/* <th scope="col">birthday</th>
-                        <th scope="col">gender</th> */}
-                        {/* <th scope="col">oauth</th> */}
                         <th scope="col">Last Access Time</th>
                         <th scope="col">Total Access Count</th>
                         <th scope="col">Role</th>
@@ -41,13 +45,10 @@ function UserInfo() {
                 </thead>
                 <tbody className="table-body">
                     {UserList.map((user, index) => (
-                        <tr className="user" key={`user${index+1}`}>
+                        <tr className="user" key={`user${index + 1}`}>
                             <th scope="row">{user.memberIdx}</th>
                             <td>{user.nickname}</td>
                             <td>{user.id}</td>
-                            {/* <td>{user.birthday}</td>
-                            <td>{user.gender}</td> */}
-                            {/* <td>{user.auth}</td> */}
                             <td>{user.lastAccessTime}</td>
                             <td>{user.totalAccessCnt}</td>
                             <td>{user.role}</td>

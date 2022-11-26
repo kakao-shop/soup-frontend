@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { reissuanceAccessToken, getCookie } from "../../jwtTokenModules";
+
 import Header from "../Header";
 import Nav from "../Nav";
 
-function ConfirmPw({ isLogin, setIsLogin }) {
+function ConfirmPw({ categoryList }) {
     let navigate = useNavigate();
     const user = {
         id: localStorage.getItem("id"),
@@ -18,6 +20,8 @@ function ConfirmPw({ isLogin, setIsLogin }) {
     };
 
     const onSubmitHandler = (e) => {
+        e.preventDefault();
+        const refreshToken = getCookie('refreshToken');
         axios
             .post(
                 "/members/mypage/password-check",
@@ -26,31 +30,34 @@ function ConfirmPw({ isLogin, setIsLogin }) {
                 },
                 {
                     headers: {
-                        "x-access-token": localStorage.getItem("accessToken"),
+                        "x-access-token": localStorage.getItem(
+                            "accessToken"
+                        ),
                     },
+                    Cookie: {refreshToken}
                 }
             )
             .then(function(response) {
-                console.log(response);
                 if (response.status === 200) {
-                    console.log(response);
                     navigate("/editUserInfo", {
                         state: response.data,
                     });
                 }
-                // App 으로 이동(새로고침)
-                // document.location.href = '/'
             })
             .catch(function(error) {
-                alert("비밀번호가 일치하지 않습니다");
-                console.log(error);
+                if (error.response.data.code === 4001) {
+                    alert("비밀번호가 일치하지 않습니다");
+                    console.log(error);
+                } else if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                }
             });
     };
 
     return (
         <div>
-            <Header setIsLogin={setIsLogin} isLogin={isLogin} />
-            <Nav />
+            <Header />
+            <Nav categoryList={categoryList}/>
             <div>
                 <main className="ConfirmPw container">
                     <div className="square">
@@ -75,7 +82,7 @@ function ConfirmPw({ isLogin, setIsLogin }) {
                             </div>
 
                             <button
-                                type="button"
+                                type="submit"
                                 className="page-btn btn"
                                 onClick={onSubmitHandler}
                             >

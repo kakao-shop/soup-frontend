@@ -15,7 +15,6 @@ function UserPage() {
 			<Header />
 			<Nav />
 			<ConfirmPw />
-			{/* <UserInfo /> */}
 		</div>
   	)
 }

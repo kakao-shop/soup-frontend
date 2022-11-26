@@ -1,6 +1,5 @@
 import axios from "axios";
 export function urlSendHandler(a) {
-        console.log("test", a.prdName);
         axios       
                       .post("/search/select/item", {
                         score: `${a.score}`,
@@ -20,7 +19,6 @@ export function urlSendHandler(a) {
                             },
                       })
                       .then(function(response) {
-                          console.log(response);
                       })
                       .catch(function(error) {
                           console.log(error);

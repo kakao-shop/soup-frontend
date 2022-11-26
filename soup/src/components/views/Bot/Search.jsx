@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
 import { urlSendHandler } from "../../SelectItemCount";
+import { reissuanceAccessToken } from "../../jwtTokenModules";
 
 import "../../../css/BotSearchResult.css";
 
@@ -15,7 +17,6 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
     const componentDidMount = async () => {
         const search = previousStep.value;
         const param = previousStep.metadata.param;
-        console.log("search: ",search, ",param :", param);
         setParam(param);
         setSearch(search);
         if (param === "category") {
@@ -27,25 +28,37 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     },
                 })
                 .then((response) => {
-                    console.log(response.data);
                     setResult(response.data.result.result.content);
                     recoTotalElements.current =
                         response.data.result.result.totalElements;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response.data.code === 4002) {
+                        reissuanceAccessToken(error);
+                    } else {
+                        alert("해당 카테고리 상품 정보를 불러올 수 없습니다.");
+                        console.log(error);
+                    }
                 });
         } else if (param === "theme") {
             await axios
-                .get(`/search/collections/${search}`)
+                .get(`/search/collections/${search}`, {
+                    headers: {
+                        "x-access-token": localStorage.getItem("accessToken"),
+                    },
+                })
                 .then((response) => {
-                    console.log(response.data);
                     setResult(response.data.result.result.content);
                     recoTotalElements.current =
                         response.data.result.result.totalElements;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response.data.code === 4002) {
+                        reissuanceAccessToken(error);
+                    } else {
+                        alert("해당 테마 상품 정보를 불러올 수 없습니다.");
+                        console.log(error);
+                    }
                 });
         } else {
             await axios
@@ -54,17 +67,21 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                         "x-access-token": localStorage.getItem("accessToken"),
                     },
                     params: {
-                        site: `${search}`
+                        site: `${search}`,
                     },
                 })
                 .then((response) => {
-                    console.log(response.data.result);
                     setResult(response.data.result.content);
                     recoTotalElements.current =
                         response.data.result.totalElements;
                 })
-                .catch((e) => {
-                    console.log(e);
+                .catch((error) => {
+                    if (error.response.data.code === 4002) {
+                        reissuanceAccessToken(error);
+                    } else {
+                        alert(`${search}의 상품 정보를 불러올 수 없습니다.`);
+                        console.log(error);
+                    }
                 });
         }
     };
@@ -72,9 +89,6 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
     useEffect(() => {
         componentDidMount();
     }, []);
-
-    if (!result) return null;
-
     const triggerNext = () => {
         triggerNextStep();
     };
@@ -128,7 +142,8 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                         state={
                             `${param}` === "theme"
                                 ? { themeIdx: `${search}` }
-                                : (`${param}` === "category") ? { idx: `${idx}`, subcat: `${search}` }
+                                : `${param}` === "category"
+                                ? { idx: `${idx}`, subcat: `${search}` }
                                 : { site: `${search}`, size: 100 }
                         }
                     >

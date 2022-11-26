@@ -8,19 +8,19 @@ import Theme from './Theme';
 import ThemeResult from './ThemeResult';
 import Bot from '../Bot/Bot';
 
-function LandingPage({isLogin, setIsLogin}) {
+function LandingPage({categoryList}) {
 
   let location = useLocation();
   const itemIdx = location.state;
   
   return (
     <div>
-    <Header setIsLogin={setIsLogin} isLogin={isLogin}/> 
-    <Nav />
+    <Header /> 
+    <Nav categoryList={categoryList}/>
     <Theme />
-    <Bot/>
+    <Bot />
     {itemIdx === null
-    ? <DefaultItem/>
+    ? <DefaultItem />
     : <ThemeResult idx = {itemIdx}/>
     }
    

@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
+
 import { urlSendHandler } from "../../SelectItemCount";
+import { reissuanceAccessToken } from "../../jwtTokenModules";
 
 import Header from "../Header";
 import Nav from "../Nav";
@@ -11,63 +13,7 @@ import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
-function CategoryView({ isLogin, setIsLogin }) {
-    const categoryList = [
-        {
-            main: "과일",
-            sub: {
-                item: ["귤", "오렌지", "사과", "감/홍시", "토마토", "딸기", "베리류", "포도", "참외", "무화과", "키위", "파인애플", "레몬/라임", "석류", "아보카도", "견과/밤", "기타만감류", "배", "바나나", "열대과일", "기타과일"]
-            }
-        },
-        {
-            main: "채소",
-            sub: {
-                item: ["토란", "마늘", "양파", "대파", "쪽파", "생강", "당근", "연근", "호박", "감자", "고구마", "옥수수", "마/우엉", "가지", "오이", "파프리카", "브로콜리", "피망", "샐러드채소", "샐러리", "양상추", "양배추", "상추/깻잎", "쌈채소", "고추", "무", "배추/절임배추", "얼갈이", "버섯", "해초", "나물", "반찬채소", "샐러드", "인삼/더덕/약선재료", "기타채소"]
-            }
-        },
-        {
-            main: "축산",
-            sub: {
-                item: ["닭가슴살", "닭고기", "한우", "소고기", "오리고기", "수입육", "돼지고기", "가공육", "계란/알류", "기타정육"]
-            }
-        },
-        {
-            main: "수산/건어물",
-            sub: {
-                item: ["가자미", "갈치/삼치/고등어", "구색선어", "연어/참치", "동태/명태", "알/해삼", "갑각류", "어패류", "건어물", "김/파래김", "새우", "오징어/문어", "낙지/쭈꾸미", "기타수산물"]
-            }
-        },
-        {
-            main: "즉석식품/양념",
-            sub: {
-                item: ["라면", "통조림", "즉석밥", "고추장/된장/간장", "오일/기름", "소스", "시럽/잼", "참치캔", "드레싱", "고춧가루", "제빵믹스", "식초/물엿", "맛술/액젓", "다시다/미원", "죽/스프", "카레/짜장", "고춧가루/참깨", "캔", "소금/설탕", "면류", "기타식품"]
-            }
-        },
-        {
-            main: "냉장/냉동식품",
-            sub: {
-                item: ["반찬", "튀김류", "떡갈비/함박스테이크", "피자/핫도그", "도시락", "국/탕/찜", "김치/젓갈", "떡볶이/떡사리", "볶음/구이", "만두", "어묵/크래미", "베이컨/소시지", "밀키트", "두부/유부", "냉동생지", "냉동과일", "샌드위치/버거", "닭가슴살", "맛집", "요거트/요구르트", "치즈/버터", "돈까스/너겟/치킨", "감자튀김/치즈스틱", "볶음밥/덮밥/죽", "안주/전류", "기타식품"]
-            }
-        },
-        {
-            main: "생수/음료",
-            sub: {
-                item: ["생수/탄산수", "커피", "이온음료", "탄산", "차", "코코아/핫초코", "과일/야채음료", "전통음료", "건강음료", "꿀", "기타음료"]
-            }
-        },
-        {
-            main: "빵/과자",
-            sub: {
-                item: ["빵", "과자", "시리얼", "쿠키", "초콜릿", "젤리/푸딩", "간식/소시지", "껌", "캔디", "아이스크림", "떡", "기타제과"]
-            }
-        },
-        {
-            main: "쌀/잡곡",
-            sub: {
-                item: ["쌀", "현미", "흑미", "잡곡", "깨", "콩", "조", "견과", "유기농", "씨앗", "기타잡곡", "건조식품", "건조과일"]
-            }
-        }
-    ];
+function CategoryView({ categoryList }) {
 
     const location = useLocation();
     const num = location.state.idx;
@@ -148,8 +94,12 @@ function CategoryView({ isLogin, setIsLogin }) {
                 setTotalPages(response.data.result.result.totalPages);
             })
             .catch(function(error) {
-                alert("상품에 대한 특가 정보를 가져오지 못했습니다.");
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("상품에 대한 특가 정보를 불러올 수 없습니다.");
+                    console.log(error);
+                }
             });
     };
 
@@ -181,8 +131,12 @@ function CategoryView({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
-                console.log(error);
-                alert("상품을 정렬하지 못했습니다.");
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("상품을 정렬할 수 없습니다.");
+                    console.log(error);
+                }
             });
     };
 
@@ -204,8 +158,12 @@ function CategoryView({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
-                alert("현재 페이지의 특가 상품을 가져올 수 없습니다.");
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("상품 정보를 불러올 수 없습니다.");
+                    console.log(error);
+                }
             });
     };
 
@@ -215,8 +173,8 @@ function CategoryView({ isLogin, setIsLogin }) {
 
     return (
         <div>
-            <Header setIsLogin={setIsLogin} isLogin={isLogin} />
-            <Nav />
+            <Header />
+            <Nav categoryList={categoryList}/>
             <div className="CategoryView container">
                 <div className="SubCategoryList container">
                     <h2>{categoryList[num].main}</h2>

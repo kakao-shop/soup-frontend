@@ -6,7 +6,7 @@ import Btns from "./Btns";
 import "../../css/Header.css";
 
 
-function Header({ isLogin, setIsLogin }) {
+function Header() {
     const navigate = useNavigate();
     const [word, setWord] = useState("");
 
@@ -49,7 +49,7 @@ function Header({ isLogin, setIsLogin }) {
                     />
                 </button>
             </div>
-            <Btns isLogin={isLogin} setIsLogin={setIsLogin} />
+            <Btns />
         </header>
     );
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { getCookie, setCookie, removeCookie } from "../../../App";
+
+import { setCookie, removeCookie } from "../../jwtTokenModules";
 
 import "../../../css/LoginPage.css";
 
@@ -24,24 +25,25 @@ function Login() {
                 password: `${Password}`,
             })
             .then(function (response) {
+                console.log("로그인 성공");
                 if (response.status === 200) {
                     localStorage.clear();
-                    setCookie('refreshToken', response.data.result.refreshToken);
-                    localStorage.setItem(
-                        "accessToken",
-                        response.data.result.accessToken
-                    );
-                    localStorage.setItem(
-                        "nickname",
-                        response.data.result.nickname
-                    );
+                    removeCookie();
+                    setCookie('refreshToken', response.data.result.refreshToken, {
+                        path: "/",
+                        secure: true,
+                        httpOnly: false
+                    });
+                    localStorage.setItem("accessToken", response.data.result.accessToken);
+                    localStorage.setItem("nickname", response.data.result.nickname);
                     localStorage.setItem("id", `${Id}`);
                     localStorage.setItem("role", response.data.result.role);
                     document.location.href = "/";
                 }
             })
             .catch(function (error) {
-                alert(error.response.data.message);
+                alert("해당 유저가 존재하지 않거나 비밀번호가 틀립니다.");
+                console.log(error);
             });
     };
 
@@ -50,7 +52,6 @@ function Login() {
             btnLogin();
         }
     };
-
 
     return (
         <div>

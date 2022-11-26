@@ -3,6 +3,8 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
+import { reissuanceAccessToken } from "../../jwtTokenModules";
+
 import Header from "../Header";
 import Nav from "../Nav";
 import { urlSendHandler } from "../../SelectItemCount";
@@ -11,7 +13,7 @@ import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
-function ItemList({ isLogin, setIsLogin }) {
+function ItemList({categoryList}) {
     const size = "30";
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -64,8 +66,12 @@ function ItemList({ isLogin, setIsLogin }) {
                 setTotalPages(response.data.result.result.totalPages);
             })
             .catch(function(error) {
-                alert("상품에 대한 특가 정보를 가져오지 못했습니다.");
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("상품 정보를 가져오지 못했습니다.");
+                    console.log(error);
+                }
             });
     }, [num]);
 
@@ -99,8 +105,12 @@ function ItemList({ isLogin, setIsLogin }) {
                 setTotalPages(response.data.result.result.totalPages);
             })
             .catch(function(error) {
-                alert("상품을 정렬하지 못했습니다.");
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("상품을 정렬할 수 없습니다.");
+                    console.log(error);
+                }
             });
     };
 
@@ -122,15 +132,19 @@ function ItemList({ isLogin, setIsLogin }) {
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
-                alert("현재 페이지의 특가 상품을 가져올 수 없습니다.");
-                console.log(error);
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    alert("현재 페이지의 상품 정보를 불러올 수 없습니다.");
+                    console.log(error);
+                }
             });
     };
 
     return (
         <div>
-            <Header setIsLogin={setIsLogin} isLogin={isLogin} />
-            <Nav />
+            <Header />
+            <Nav categoryList={categoryList} />
 
             <div className="ItemList container" style={{ marginTop: "50px" }}>
                 <div className="msg">
