@@ -19,17 +19,10 @@ function Btns() {
                             로그아웃
                         </button>
                     </Link>
-                    <Link to="/adm">
+                    <Link to="/adminPage">
                         <button
                             type="button"
-                            className="btn login-btn"
-                            style={{
-                                width: "100%",
-                                paddingRight: "5px",
-                                paddingLeft: "5px",
-                                marginLeft: "10px",
-                                backgroundColor: "#FFB798",
-                            }}
+                            className="btn admin-btn"
                         >
                             관리자 페이지
                         </button>
@@ -47,6 +40,9 @@ function Btns() {
                         >
                             로그아웃
                         </button>
+                    </Link>
+                    <Link to="/recentItems">
+                        <div id="recentItems-btn" className="btn">최근 본 상품</div>
                     </Link>
                     <Link to="/confirmPw" id="avatar-container">
                         <img src="img/user.png" alt="user" className="avatar" />

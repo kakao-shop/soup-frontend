@@ -21,7 +21,34 @@ img.avatar {
     font-size: 12px;
 }
 
+#recentItems-btn {
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 15px;
+}
+#recentItems-btn:hover {
+    color: #fff;
+    background-color: #FF6928;
+}
+
 .Avatar .login-btn {
-    padding: 5px;
     margin-right: 10px;
+}
+
+.admin-btn, #recentItems-btn,
+.login-btn:hover {
+    color: #fff;
+    background-color: #ff9568;
+}
+
+.admin-btn {
+    width: 100%;
+    margin-left: 10px;
+    font-weight: 700;
+}
+
+#recentItems-btn:hover,
+.admin-btn:hover {
+    color: #222;
+    background-color: #ffb99b;
 }

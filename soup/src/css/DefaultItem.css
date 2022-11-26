@@ -2,7 +2,7 @@
     letter-spacing: -0.8px;
 }
 
-.default-item {
+.default-item, .recent-item {
     display: flex;
     flex-direction: column;
     width: 900px;

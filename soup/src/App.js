@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LandingPage from "./components/views/LandingPage";
@@ -12,9 +12,9 @@ import ItemList from "./components/views/Item/ItemList";
 import ThemeItemList from "./components/views/Item/ThemeItemList";
 import NotFound from "./components/views/NotFound";
 import BestShopItemList from "./components/views/Item/BestShopItemList";
+import RecentItems from "./components/views/UserPage/RecentItems";
 
 import "./App.css";
-
 
 function App() {
     const categoryList = [
@@ -84,11 +84,12 @@ function App() {
                     <Route path="/confirmPw" element={ <ConfirmPw categoryList={categoryList} /> } />
                     <Route path="/editUserInfo" element={ <EditUserInfo categoryList={categoryList} /> } />
                     <Route path="/category" element={ <CategoryView categoryList={categoryList} /> } />
-                    <Route path="/*" element={ <NotFound /> } />
                     <Route path="/searchResult" element={ <ItemList categoryList={categoryList} /> } />
-                    <Route path="/adm" element={ <AdminPage categoryList={categoryList} /> } />          
+                    <Route path="/adminPage" element={ <AdminPage categoryList={categoryList} /> } />          
                     <Route path="/theme" element={ <ThemeItemList categoryList={categoryList} /> } />         
-                    <Route path="/shopBest" element={ <BestShopItemList categoryList={categoryList} /> } />
+                    <Route path="/shopBest" element={ <BestShopItemList categoryList={categoryList} /> } />   
+                    <Route path="/recentItems" element={ <RecentItems categoryList={categoryList} /> } />
+                    <Route path="/*" element={ <NotFound /> } />
                 </Routes>
             </BrowserRouter>
         </div>
