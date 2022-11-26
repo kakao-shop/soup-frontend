@@ -25,7 +25,7 @@ export function reissuanceAccessToken(error) {
                 headers: {
                     "x-access-token": localStorage.getItem("accessToken"),
                 },
-                Cookie: { refreshToken },
+                Cookie: { refreshToken }
             })
             .then((response) => {
                 localStorage.setItem(
@@ -48,8 +48,8 @@ export function LogoutHandler() {
         .delete("/members/logout", {
             Cookie: { refreshToken },
             headers: {
-                "x-access-token": localStorage.getItem("accessToken"),
-            },
+                "x-access-token": localStorage.getItem("accessToken")
+            }
         })
         .then(function(response) {
             alert("로그아웃에 성공했습니다.");

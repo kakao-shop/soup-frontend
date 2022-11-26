@@ -21,7 +21,7 @@ function ConfirmPw({ categoryList }) {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        const refreshToken = getCookie('refreshToken');
+        const refreshToken = getCookie("refreshToken");
         axios
             .post(
                 "/members/mypage/password-check",
@@ -29,12 +29,10 @@ function ConfirmPw({ categoryList }) {
                     password: `${password}`,
                 },
                 {
+                    Cookie: { refreshToken },
                     headers: {
-                        "x-access-token": localStorage.getItem(
-                            "accessToken"
-                        ),
-                    },
-                    Cookie: {refreshToken}
+                        "x-access-token": localStorage.getItem("accessToken")
+                    }
                 }
             )
             .then(function(response) {
@@ -57,41 +55,39 @@ function ConfirmPw({ categoryList }) {
     return (
         <div>
             <Header />
-            <Nav categoryList={categoryList}/>
-            <div>
-                <main className="ConfirmPw container">
-                    <div className="square">
-                        <h2>마이페이지</h2>
-                        <form action="">
-                            <div>
-                                <label htmlFor="user-id">ID</label>
-                                <span id="user-id">{user.id}</span>
-                            </div>
-                            <div>
-                                <label htmlFor="usercheck-pw">비밀번호</label>
-                                <input
-                                    type="password"
-                                    value={password}
-                                    minLength="6"
-                                    maxLength="15"
-                                    onChange={onPasswordHandler}
-                                    id="usercheck-pw"
-                                    className="form-label"
-                                    placeholder="비밀번호 "
-                                />
-                            </div>
+            <Nav categoryList={categoryList} />
+            <main className="ConfirmPw container">
+                <div className="square">
+                    <h2>마이페이지</h2>
+                    <form action="">
+                        <div>
+                            <label htmlFor="user-id">ID</label>
+                            <span id="user-id">{user.id}</span>
+                        </div>
+                        <div>
+                            <label htmlFor="usercheck-pw">비밀번호</label>
+                            <input
+                                type="password"
+                                value={password}
+                                minLength="6"
+                                maxLength="15"
+                                onChange={onPasswordHandler}
+                                id="usercheck-pw"
+                                className="form-label"
+                                placeholder="비밀번호 "
+                            />
+                        </div>
 
-                            <button
-                                type="submit"
-                                className="page-btn btn"
-                                onClick={onSubmitHandler}
-                            >
-                                비밀번호 확인
-                            </button>
-                        </form>
-                    </div>
-                </main>
-            </div>
+                        <button
+                            type="submit"
+                            className="page-btn btn"
+                            onClick={onSubmitHandler}
+                        >
+                            비밀번호 확인
+                        </button>
+                    </form>
+                </div>
+            </main>
         </div>
     );
 }

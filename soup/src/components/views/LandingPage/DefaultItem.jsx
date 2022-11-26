@@ -33,7 +33,7 @@ function DefaultItem() {
                 .get("/search/main", {
                     headers: {
                         "x-access-token": localStorage.getItem("accessToken")
-                    },
+                    }
                 })
                 .then((response) => {
                     updateTime.current = response.data.result.crawlingTime;

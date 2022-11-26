@@ -45,11 +45,11 @@ function ThemeItemList({ categoryList}) {
             .get(`/search/collections/${themeIdx}`, {
                 params: {
                     size: `${size}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setTitle(response.data.result.title);
@@ -82,11 +82,11 @@ function ThemeItemList({ categoryList}) {
             .get(`/search/collections/${themeIdx}`, {
                 params: {
                     size: `${size}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setTitle(response.data.result.title);
@@ -110,11 +110,11 @@ function ThemeItemList({ categoryList}) {
             .get(`/search/collections/${themeIdx}`, {
                 params: {
                     size: `${size}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setTitle(response.data.result.title);

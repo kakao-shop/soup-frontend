@@ -54,11 +54,11 @@ function ItemList({categoryList}) {
                     q: `${num}`,
                     size: `${size}`,
                     sort: `${clickedSort.current}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -93,11 +93,11 @@ function ItemList({categoryList}) {
                     q: `${num}`,
                     size: `${size}`,
                     sort: `${sortValue}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -122,11 +122,11 @@ function ItemList({categoryList}) {
                     q: `${num}`,
                     size: `${size}`,
                     sort: `${clickedSort.current}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);

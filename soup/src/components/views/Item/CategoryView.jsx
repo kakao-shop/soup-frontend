@@ -82,11 +82,11 @@ function CategoryView({ categoryList }) {
                     category: `${cat}`,
                     size: `${size}`,
                     sort: `${clickedSort.current}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -121,11 +121,11 @@ function CategoryView({ categoryList }) {
                     category: `${category}`,
                     size: `${size}`,
                     sort: `${sortValue}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);
@@ -148,11 +148,11 @@ function CategoryView({ categoryList }) {
                     category: `${category}`,
                     size: `${size}`,
                     sort: `${sort}`,
-                    page: `${page.current}`,
+                    page: `${page.current}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setProduct(response.data.result.result.content);

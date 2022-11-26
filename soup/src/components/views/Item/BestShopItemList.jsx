@@ -84,8 +84,8 @@ function BestShopItemList({categoryList}) {
                     size: `${size}`
                 },
                 headers: {
-                    "x-access-token": localStorage.getItem("accessToken"),
-                },
+                    "x-access-token": localStorage.getItem("accessToken")
+                }
             })
             .then(function(response) {
                 setTitle(`${clickedSite.current} Top 100`);

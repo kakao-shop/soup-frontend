@@ -16,10 +16,10 @@ function SetTheme({ categoryList }) {
         const refreshToken = getCookie('refreshToken');
         axios
             .get("/admin/collections", {
+                Cookie: {refreshToken},
                 headers: {
                     "x-access-token": localStorage.getItem("accessToken"),
-                },
-                Cookie: {refreshToken}
+                }
             })
             .then((response) => {
                 setThemeList(response.data.result.themeList);
@@ -39,10 +39,10 @@ function SetTheme({ categoryList }) {
             const refreshToken = getCookie('refreshToken');
             axios
                 .delete(`/admin/collections/${idx}`, {
+                    Cookie: {refreshToken},
                     headers: {
                         "x-access-token": localStorage.getItem("accessToken"),
-                    },
-                    Cookie: {refreshToken}
+                    }
                 })
                 .then((response) => {
                     alert("테마가 삭제되었습니다.");
@@ -137,8 +137,8 @@ function SetTheme({ categoryList }) {
                             "x-access-token": localStorage.getItem(
                                 "accessToken"
                             ),
-                            "Content-Type": "multipart/form-data",
-                        },
+                            "Content-Type": "multipart/form-data"
+                        }
                     })
                     .then(function(response) {
                         alert("테마 저장에 성공했습니다.");

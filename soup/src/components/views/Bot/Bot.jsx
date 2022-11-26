@@ -14,8 +14,8 @@ const Bot = () => {
     axios
         .get("/bot/collections", {
             headers: {
-                "x-access-token": localStorage.getItem("accessToken"),
-            },
+                "x-access-token": localStorage.getItem("accessToken")
+            }
         })
         .then((response) => {
             const a = response.data.result;

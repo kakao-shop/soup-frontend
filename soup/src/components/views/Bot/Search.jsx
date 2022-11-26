@@ -44,8 +44,8 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
             await axios
                 .get(`/search/collections/${search}`, {
                     headers: {
-                        "x-access-token": localStorage.getItem("accessToken"),
-                    },
+                        "x-access-token": localStorage.getItem("accessToken")
+                    }
                 })
                 .then((response) => {
                     setResult(response.data.result.result.content);
@@ -64,7 +64,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
             await axios
                 .get("/bot/today-best", {
                     headers: {
-                        "x-access-token": localStorage.getItem("accessToken"),
+                        "x-access-token": localStorage.getItem("accessToken")
                     },
                     params: {
                         site: `${search}`,
