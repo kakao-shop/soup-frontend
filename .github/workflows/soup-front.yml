@@ -46,6 +46,7 @@ jobs:
     - name: Edit Manifest Image
       run: |
         cd manifest/ser-mgt
+        dir
         sed -i "23 c\        image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}" soup-frontend.yaml
         git config --global user.email "myjjy6190@gmail.com"
         git config --global user.name "jy_9922"
