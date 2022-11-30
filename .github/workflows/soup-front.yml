@@ -2,7 +2,7 @@ name: frontend web - CI CD
 on:
   push:
     branches:
-      - jiyoon
+      - jiyooncicd
 env:
   AWS_REGION: ap-northeast-2
   ECR_REPOSITORY: soup-frontend
