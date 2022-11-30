@@ -31,8 +31,8 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        context: ./soup
-        file: ./soup/Dockerfile
+        context: .
+        file: ./Dockerfile
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
 
@@ -45,7 +45,7 @@ jobs:
 
     - name: Edit Manifest Image
       run: |
-        cd manifest
+        cd manifest/ser-mgt
         dir
         sed -i "23 c\        image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}" soup-frontend.yaml
         git config --global user.email "myjjy6190@gmail.com"
