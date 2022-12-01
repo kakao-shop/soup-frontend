@@ -39,6 +39,7 @@ function Login() {
                     localStorage.setItem("nickname", response.data.result.nickname);
                     localStorage.setItem("id", `${Id}`);
                     localStorage.setItem("role", response.data.result.role);
+                    alert("로그인 성공");
                     document.location.href = "/";
                 }
             })
