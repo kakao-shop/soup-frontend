@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 import {
     reissuanceAccessToken,
@@ -18,6 +19,7 @@ function EditUserInfo({ categoryList }) {
     const [Password, setPassword] = useState("");
     const [Birth, setBirth] = useState("");
     const [Gender, setGender] = useState("");
+    // const [cookies, setCookie, removeCookie] = useCookies(['rememberEmail']);
 
     useEffect(() => {
         const refreshToken = getCookie("refreshToken");
@@ -104,7 +106,7 @@ function EditUserInfo({ categoryList }) {
                     localStorage.clear();
                     removeCookie("refreshToken");
                     alert("회원 탈퇴에 성공했습니다.");
-                    document.location.href = "/";
+                    // document.location.href = "/";
                 }
             })
             .catch(function(error) {
