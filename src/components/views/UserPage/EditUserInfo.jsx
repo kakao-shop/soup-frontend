@@ -110,7 +110,7 @@ function EditUserInfo({ categoryList }) {
                     localStorage.removeItem("accessToken");
                     removeCookie("refreshToken");
                     alert("회원 탈퇴에 성공했습니다.");
-                    // document.location.href = "/";
+                    document.location.href = "/";
                 }
             })
             .catch(function(error) {
