@@ -32,7 +32,6 @@ function Login() {
                     setCookie('refreshToken', response.data.result.refreshToken, {
                         path: "/"
                     });
-                    console.log(getCookie("refreshToken"));
                     localStorage.setItem("accessToken", response.data.result.accessToken);
                     localStorage.setItem("nickname", response.data.result.nickname);
                     localStorage.setItem("id", `${Id}`);
