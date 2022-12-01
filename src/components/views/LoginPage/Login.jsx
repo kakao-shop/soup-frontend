@@ -31,14 +31,14 @@ function Login() {
                     removeCookie();
                     setCookie('refreshToken', response.data.result.refreshToken, {
                         path: "/",
-                        secure: true,
                         httpOnly: false
                     });
+                    console.log(response.data.result.refreshToken);
                     localStorage.setItem("accessToken", response.data.result.accessToken);
                     localStorage.setItem("nickname", response.data.result.nickname);
                     localStorage.setItem("id", `${Id}`);
                     localStorage.setItem("role", response.data.result.role);
-                    document.location.href = "/";
+                    // document.location.href = "/";
                 }
             })
             .catch(function (error) {
