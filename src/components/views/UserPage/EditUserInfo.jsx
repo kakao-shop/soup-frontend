@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 
 import {
     reissuanceAccessToken,
@@ -19,7 +18,6 @@ function EditUserInfo({ categoryList }) {
     const [Password, setPassword] = useState("");
     const [Birth, setBirth] = useState("");
     const [Gender, setGender] = useState("");
-    // const [cookies, setCookie, removeCookie] = useCookies(['rememberEmail']);
 
     useEffect(() => {
         const refreshToken = getCookie("refreshToken");
@@ -76,7 +74,6 @@ function EditUserInfo({ categoryList }) {
                 }
             )
             .then(function(response) {
-                alert("성공")
                 if (response.status === 200) {
                     alert("비밀번호 변경이 완료되었습니다.");
                     document.location.href = "/confirmPw";
