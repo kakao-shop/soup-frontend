@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { setCookie, removeCookie } from "../../jwtTokenModules";
+import { setCookie, removeCookie, getCookie } from "../../jwtTokenModules";
 
 import "../../../css/LoginPage.css";
 
@@ -36,6 +36,7 @@ function Login() {
                         httpOnly: false,
                         sameSite: "none"
                     });
+                    console.log(getCookie("refreshToken"));
                     localStorage.setItem("accessToken", response.data.result.accessToken);
                     localStorage.setItem("nickname", response.data.result.nickname);
                     localStorage.setItem("id", `${Id}`);
