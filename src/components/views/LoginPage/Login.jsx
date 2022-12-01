@@ -30,10 +30,11 @@ function Login() {
                     localStorage.clear();
                     removeCookie();
                     setCookie('refreshToken', response.data.result.refreshToken, {
+                        domain: "ap-northeast-2.elb.amazonaws.com",
                         path: "/",
                         secure: true,
                         httpOnly: false,
-                        sameSite: 'none'
+                        sameSite: "none"
                     });
                     localStorage.setItem("accessToken", response.data.result.accessToken);
                     localStorage.setItem("nickname", response.data.result.nickname);
