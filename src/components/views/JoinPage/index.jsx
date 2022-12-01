@@ -17,6 +17,7 @@ function JoinPage({categoryList}) {
 
     const onIdHandler = (e) => {
         setId(e.currentTarget.value);
+        setIdCheck(400);
     };
 
     const onNicknameHandler = (e) => {
