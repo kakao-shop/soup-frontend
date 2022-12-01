@@ -77,7 +77,7 @@ function JoinPage({categoryList}) {
             })
             .catch(function(error) {
                 alert(error.response.data.message);
-                console.log(error.response.data.message);
+                console.log(error);
             });
         } else {
             alert("ID 중복확인을 해주세요.");

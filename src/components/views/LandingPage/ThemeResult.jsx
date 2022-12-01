@@ -38,7 +38,7 @@ function ThemeResult(idx) {
                         reissuanceAccessToken(error);
                     } else {
                         alert("상품 목록을 가져오지 못했습니다.");
-                        console.log(error.response);
+                        console.log(error);
                     }
                 });
         };
