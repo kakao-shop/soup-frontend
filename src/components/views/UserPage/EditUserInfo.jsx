@@ -103,7 +103,11 @@ function EditUserInfo({ categoryList }) {
             .then(function(response) {
                 if (response.status === 200) {
                     console.log(response);
-                    localStorage.clear();
+                    // localStorage.clear();
+                    localStorage.removeItem("id");
+                    localStorage.removeItem("nickname");
+                    localStorage.removeItem("role");
+                    localStorage.removeItem("accessToken");
                     removeCookie("refreshToken");
                     alert("회원 탈퇴에 성공했습니다.");
                     // document.location.href = "/";
