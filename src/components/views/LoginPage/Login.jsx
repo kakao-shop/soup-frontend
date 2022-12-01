@@ -28,11 +28,11 @@ function Login() {
                 console.log("로그인 성공");
                 if (response.status === 200) {
                     localStorage.clear();
-                    // removeCookie();
-                    // setCookie('refreshToken', response.data.result.refreshToken, {
-                    //     path: "/",
-                    //     httpOnly: false
-                    // });
+                    removeCookie();
+                    setCookie('refreshToken', response.data.result.refreshToken, {
+                        path: "/",
+                        httpOnly: false
+                    });
                     console.log(response.data.result.refreshToken);
                     // localStorage.setItem("accessToken", response.data.result.accessToken);
                     // localStorage.setItem("nickname", response.data.result.nickname);
