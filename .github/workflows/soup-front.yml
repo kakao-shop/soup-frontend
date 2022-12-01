@@ -50,5 +50,5 @@ jobs:
         git config --global user.email "myjjy6190@gmail.com"
         git config --global user.name "jy_9922"
         git add .
-        git commit -m "Edit back image"
+        git commit -m "Edit front image"
         git push -f --set-upstream origin main
