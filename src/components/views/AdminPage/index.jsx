@@ -8,6 +8,7 @@ import NotFound from "../NotFound";
 
 import "../../../css/AdminPage.css";
 
+// jiyooncicd
 function AdminPage({ categoryList }) {
     const [path, setPath] = useState("theme");
 
