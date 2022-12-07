@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import _ from "lodash";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -10,10 +12,9 @@ function SetTheme({ categoryList }) {
     const [ThemeList, setThemeList] = useState([]);
     const subValue = useRef([]);
     const [ThemeName, setThemeName] = useState();
-    const [L, setL] = useState([]);
 
     useEffect(() => {
-        const refreshToken = getCookie('refreshToken');
+        const refreshToken = getCookie('refresh.errorToken');
         axios
             .get("/admin/collections", {
                 Cookie: {refreshToken},
@@ -28,11 +29,15 @@ function SetTheme({ categoryList }) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert("테마 정보를 불러올 수 없습니다.");
+                    toast.error('테마 정보를 불러올 수 없습니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
-    }, [L]);
+    }, [ThemeList]);
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
@@ -45,14 +50,25 @@ function SetTheme({ categoryList }) {
                     }
                 })
                 .then((response) => {
-                    alert("테마가 삭제되었습니다.");
-                    e.target.parentNode.remove();
+                    toast.success('테마가 삭제되었습니다. 😊', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
+                    
+                    setTimeout(() => {
+                        e.target.parentNode.remove();
+                    }, 800);
                 })
-                .catch(function(error) {
+                .catch((error) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        alert("삭제가 불가능합니다.");
+                        toast.error('삭제가 불가능합니다. 😥', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
                         console.log(error);
                     }
                 });
@@ -75,15 +91,15 @@ function SetTheme({ categoryList }) {
 
     const categoryResult = (e) => {
         if (e.target.nextSibling.childElementCount === 5) {
-            alert("5개까지 선택 가능");
+            toast.warn('카테고리는 5개까지 지정 가능합니다. 😅', {
+                autoClose: 700,
+                transition: Slide,
+                hideProgressBar: true
+            });
         } else {
             let subCategory = e.target.value;
             let mainCategory = e.target.previousSibling.previousSibling.value;
-            if (
-                subCategory !== "소분류 선택" &&
-                mainCategory !== "대분류 선택"
-            ) {
-                setL([...L, { mainCategory, subCategory }]);
+            if (subCategory !== "소분류 선택" && mainCategory !== "대분류 선택") {
                 const chosenDiv = document.createElement("div");
                 chosenDiv.setAttribute("class", "chosenDiv");
                 const chosenCategories = document.createElement("div");
@@ -94,9 +110,7 @@ function SetTheme({ categoryList }) {
                 categoryDeleteBtn.setAttribute("class", "deleteCategoryBtn");
                 categoryDeleteBtn.setAttribute("type", "button");
                 categoryDeleteBtn.innerText = "X";
-                categoryDeleteBtn.onclick = (e) => {
-                    e.target.parentNode.remove();
-                };
+                categoryDeleteBtn.onclick = (e) => {e.target.parentNode.remove();};
 
                 chosenDiv.appendChild(chosenCategories);
                 chosenDiv.appendChild(categoryDeleteBtn);
@@ -110,14 +124,13 @@ function SetTheme({ categoryList }) {
         e.preventDefault();
         const formData = new FormData();
 
-        let noDupl;
+        let noDupl = [];
         for (let i of document.getElementById("result").childNodes) {
-            const mainCategory = i.innerText.match(/[^A-Za-z0-9]*[\>]/)[0].replace(">", "");
-            const subCategory = i.innerText.match(/[\>][^A-Za-z0-9]*/)[0].replace(">", "");
-            setL([...L, { mainCategory, subCategory}]);
-            noDupl = _.uniqBy(L, "subCategory");
+            const mainCategory = i.innerText.match(/[^A-Za-z0-9]*[>]/)[0].replace(">", "");
+            const subCategory = i.innerText.match(/[>][^A-Za-z0-9][^\n]*/)[0].replace(">", "");
+            noDupl.push({"mainCategory": mainCategory, "subCategory": subCategory})
+            noDupl = _.uniqBy(noDupl, "subCategory");
         }
-
         formData.append(
             "themeReq",
             new Blob(
@@ -128,7 +141,7 @@ function SetTheme({ categoryList }) {
         formData.append("image", document.getElementById("themeImage-input").files[0]);
         
         if (document.getElementById("themeTitle-input").value !== "") {
-            if (L.length > 1) {
+            if (noDupl.length > 1) {
                 const refreshToken = getCookie("refreshToken");
                 axios
                     .post("/admin/collections", formData, {
@@ -141,8 +154,11 @@ function SetTheme({ categoryList }) {
                         }
                     })
                     .then(function(response) {
-                        alert("테마 저장에 성공했습니다.");
-                        setL([]);
+                        toast.success('테마 저장에 성공했습니다. 😊', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
 
                         document.getElementById("themeTitle-input").value = "";
                         document.getElementById("themeImage-input").value = "";
@@ -155,17 +171,36 @@ function SetTheme({ categoryList }) {
                     .catch(function(error) {
                         if (error.response.data.code === 4002) {
                             reissuanceAccessToken(error);
+                        } else if (error.response.data.message === "could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.DataException: could not execute statement") {
+                            toast.error('배너 저장 시 이미지 형식으로 저장해야 합니다. 😥', {
+                                autoClose: 700,
+                                transition: Slide,
+                                hideProgressBar: true
+                            });
+                            console.log(error);
                         } else {
-                            alert("테마 저장에 실패했습니다.");
+                            toast.error('테마 저장에 실패했습니다. 😥', {
+                                autoClose: 700,
+                                transition: Slide,
+                                hideProgressBar: true
+                            });
                             console.log(error);
                         }
 
                     });
             } else {
-                alert("카테고리를 2개 이상 지정해 주세요.");
+                toast.warn('카테고리를 2개 이상 지정해 주세요. 😅', {
+                    autoClose: 700,
+                    transition: Slide,
+                    hideProgressBar: true
+                });
             }
         } else {
-            alert("테마 이름을 지정해 주세요.");
+            toast.warn('테마 이름을 지정해 주세요. 😅', {
+                autoClose: 700,
+                transition: Slide,
+                hideProgressBar: true
+            });
         }
     };
 
@@ -238,6 +273,15 @@ function SetTheme({ categoryList }) {
                     테마 저장
                 </button>
             </form>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }

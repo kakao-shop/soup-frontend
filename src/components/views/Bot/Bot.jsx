@@ -1,8 +1,10 @@
 import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { useRef } from "react";
 import axios from "axios";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -29,7 +31,11 @@ const Bot = () => {
             if (error.response.data.code === 4002) {
                 reissuanceAccessToken(error);
             } else {
-                alert("테마 정보를 불러올 수 없습니다.");
+                toast.error('테마 정보를 불러올 수 없습니다. 😥', {
+                    autoClose: 700,
+                    transition: Slide,
+                    hideProgressBar: true
+                });
                 console.log(error);
             }
         });
@@ -274,12 +280,10 @@ const Bot = () => {
     const isLogin = useRef(false);
     let steps = [];
 
-    if (localStorage.getItem("id") === null) {isLogin.current = false; console.log("no")}
-    else {console.log("yes"); isLogin.current = true;}
+    if (localStorage.getItem("id") === null) {isLogin.current = false;}
+    else {isLogin.current = true;}
     
-    console.log(localStorage.getItem("id"), isLogin);
     if (!isLogin.current) {
-        console.log("no");
         steps = [
             {
                 id: "start",
@@ -337,7 +341,7 @@ const Bot = () => {
             {
                 id: "shops",
                 options: [
-                    { value: "kakao", label: "KAKAO Commerse", trigger: "last" },
+                    { value: "카카오 쇼핑", label: "카카오 쇼핑", trigger: "last" },
                     { value: "11번가", label: "11번가", trigger: "last" },
                     { value: "홈플러스", label: "홈플러스", trigger: "last" },
                 { value: "start", label: "처음으로", trigger: "start" }
@@ -531,6 +535,15 @@ const Bot = () => {
                     bubbleOptionStyle={{ padding: "8px 12px", margin: "1px 0" }}
                 />
             </ThemeProvider>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </>
     );
 };

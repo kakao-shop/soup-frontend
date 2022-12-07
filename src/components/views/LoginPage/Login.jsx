@@ -1,12 +1,23 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { setCookie, removeCookie, getCookie } from "../../jwtTokenModules";
+import { setCookie, removeCookie } from "../../jwtTokenModules";
 
 import "../../../css/LoginPage.css";
 
 function Login() {
+
+    const navigate = useNavigate();
+    const showToastMessage = () => {
+        toast.success('Success Notification !', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
+
     const [Id, setId] = useState("");
     const [Password, setPassword] = useState("");
 
@@ -19,31 +30,54 @@ function Login() {
     };
 
     const btnLogin = (e) => {
-        axios
-            .post("/members/login", {
-                id: `${Id}`,
-                password: `${Password}`,
-            })
-            .then(function (response) {
-                console.log("로그인 성공");
-                if (response.status === 200) {
-                    localStorage.clear();
-                    removeCookie();
-                    setCookie('refreshToken', response.data.result.refreshToken, {
-                        path: "/"
+        if (Id) {
+            if (Password) {
+                axios
+                .post("/members/login", {
+                    id: `${Id}`,
+                    password: `${Password}`,
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        localStorage.clear();
+                        removeCookie();
+                        setCookie('refreshToken', response.data.result.refreshToken, {
+                            path: "/"
+                        });
+                        localStorage.setItem("accessToken", response.data.result.accessToken);
+                        localStorage.setItem("nickname", response.data.result.nickname);
+                        localStorage.setItem("id", `${Id}`);
+                        localStorage.setItem("role", response.data.result.role);
+                        toast.success('로그인에 성공했습니다. 😀', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        })
+                        setTimeout(() => { window.location.href="/"; }, 1000);
+                    }
+                })
+                .catch((error) => {
+                    toast.error('해당 유저가 존재하지 않거나 비밀번호가 틀립니다. 😢', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                        });
+                    console.log(error);
+                });
+            } else {
+                toast.warn('비밀번호를 입력하세요. 🙂', {
+                    autoClose: 700,
+                    transition: Slide,
+                    hideProgressBar: true
                     });
-                    localStorage.setItem("accessToken", response.data.result.accessToken);
-                    localStorage.setItem("nickname", response.data.result.nickname);
-                    localStorage.setItem("id", `${Id}`);
-                    localStorage.setItem("role", response.data.result.role);
-                    alert("로그인 성공");
-                    document.location.href = "/";
-                }
-            })
-            .catch(function (error) {
-                alert("해당 유저가 존재하지 않거나 비밀번호가 틀립니다.");
-                console.log(error);
+            }
+        } else {
+            toast.warn('ID를 입력하세요. 🙂', {
+                autoClose: 700,
+                transition: Slide,
+                hideProgressBar: true
             });
+        }
     };
 
     const handleOnKeyPress = (e) => {
@@ -96,6 +130,15 @@ function Login() {
                     </Link>
                 </div>
             </main>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }

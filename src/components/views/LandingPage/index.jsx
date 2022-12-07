@@ -12,7 +12,6 @@ function LandingPage({categoryList}) {
 
   let location = useLocation();
   const itemIdx = location.state;
-  
   return (
     <div>
     <Header /> 

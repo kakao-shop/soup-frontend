@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
@@ -60,7 +63,11 @@ function BestShopItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert(`${site}의 Top 100 상품 정보를 불러올 수 없습니다.`);
+                    toast.error(`${site}의 Top 100 상품 정보를 불러올 수 없습니다. 😥`, {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
@@ -95,7 +102,11 @@ function BestShopItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert("상품을 정렬할 수 없습니다.");
+                    toast.error('상품을 정렬할 수 없습니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
@@ -202,6 +213,15 @@ function BestShopItemList({categoryList}) {
                     )}
                 </div>
             </div>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }

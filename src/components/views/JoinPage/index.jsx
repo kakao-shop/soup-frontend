@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from "../Header";
 import Nav from "../Nav";
@@ -7,6 +10,8 @@ import Nav from "../Nav";
 import "../../../css/JoinPage.css";
 
 function JoinPage({categoryList}) {
+    const navigate = useNavigate();
+
     const [Id, setId] = useState("");
     const [IdCheck, setIdCheck] = useState(400);
     const [Nickname, setNickname] = useState("");
@@ -48,13 +53,31 @@ function JoinPage({categoryList}) {
                 },
             })
             .then(function(response) {
-                if (response.status === 200) alert("사용할 수 있는 ID 입니다.");
+                toast.success('사용할 수 있는 ID 입니다. 😊', {
+                    autoClose: 700,
+                    transition: Slide,
+                    hideProgressBar: true
+                });
                 setIdCheck(200);
             })
             .catch(function(error) {
-                alert(error.response.data.message);
-                e.target.previousSibling.value = "";
-                setIdCheck(400);
+                if (error.response.status === 400) {
+                    toast.warn(error.response.data.message + ' 😅', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
+                    e.target.previousSibling.value = "";
+                    setIdCheck(400);
+                }
+                else {
+                    toast.error('ID 중복확인이 불가능 합니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
+                    console.log(error);
+                }
             });
     };
 
@@ -72,15 +95,27 @@ function JoinPage({categoryList}) {
                 oauth: "ORIGIN",
             })
             .then(function(response) {
-                alert("회원가입에 성공했습니다.");
-                window.location.href="/";
+                toast.success('회원가입에 성공했습니다. 😊', {
+                    autoClose: 700,
+                    transition: Slide,
+                    hideProgressBar: true
+                });
+                setTimeout(() => navigate("/"), 1000);
             })
             .catch(function(error) {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message + ' 😥', {
+                    autoClose: 700,
+                    transition: Slide,
+                    hideProgressBar: true
+                });
                 console.log(error);
             });
         } else {
-            alert("ID 중복확인을 해주세요.");
+            toast.warn('ID 중복확인을 해주세요. 😅', {
+                autoClose: 700,
+                transition: Slide,
+                hideProgressBar: true
+            });
         }
     };
 
@@ -191,6 +226,15 @@ function JoinPage({categoryList}) {
                         </form>
                     </div>
                 </main>
+                <ToastContainer 
+                        position= "top-right" 
+                        autoClose= {700} 
+                        transition= "Slide"
+                        hideProgressBar 
+                        closeOnClick
+                        rtl={false}
+                        pauseOnHover 
+                        draggable= {false} />
             </div>
         );
     }

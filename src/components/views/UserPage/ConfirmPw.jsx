@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { reissuanceAccessToken, getCookie } from "../../jwtTokenModules";
 
@@ -44,7 +46,11 @@ function ConfirmPw({ categoryList }) {
             })
             .catch(function(error) {
                 if (error.response.data.code === 4001) {
-                    alert("비밀번호가 일치하지 않습니다");
+                    toast.error('비밀번호가 일치하지 않습니다 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 } else if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
@@ -88,6 +94,15 @@ function ConfirmPw({ categoryList }) {
                     </form>
                 </div>
             </main>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }
