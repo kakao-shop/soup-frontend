@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { reissuanceAccessToken } from "../../jwtTokenModules";
+import { urlSendHandler } from "../../SelectItemCount";
 
 import Header from "../Header";
 import Nav from "../Nav";
-import { urlSendHandler } from "../../SelectItemCount";
 
 import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
@@ -69,7 +71,11 @@ function ItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert("상품 정보를 가져오지 못했습니다.");
+                    toast.error('상품 정보를 가져오지 못했습니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
@@ -108,7 +114,11 @@ function ItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert("상품을 정렬할 수 없습니다.");
+                    toast.error('상품을 정렬할 수 없습니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
@@ -135,7 +145,11 @@ function ItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert("현재 페이지의 상품 정보를 불러올 수 없습니다.");
+                    toast.error('현재 페이지의 상품 정보를 불러올 수 없습니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
@@ -150,7 +164,7 @@ function ItemList({categoryList}) {
                 <div className="msg">
                     <h3>“ {num} ”</h3>
                     <span>
-                        의 특가 상품이{" "}
+                        의 특가 상품이
                         <strong style={{ color: "#FF6928", fontSize: "18px" }}>
                             {totalElements}
                         </strong>
@@ -262,6 +276,15 @@ function ItemList({categoryList}) {
                     activeLinkClass="pagelink-active"
                 ></Pagination>
             </div>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }

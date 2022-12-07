@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { LogoutHandler } from "../jwtTokenModules";
 
@@ -48,6 +50,15 @@ function Btns() {
                         <img src="img/user.png" alt="user" className="avatar" />
 						<div id="btn-nickname"><strong>{localStorage.getItem("nickname")}</strong> 님</div>
                     </Link>
+                    <ToastContainer 
+                            position= "top-right" 
+                            autoClose= {700} 
+                            transition= "Slide"
+                            hideProgressBar 
+                            closeOnClick
+                            rtl={false}
+                            pauseOnHover 
+                            draggable= {false} />
                 </div>
             );
         }
@@ -60,6 +71,15 @@ function Btns() {
                 <Link className="btn join-btn" to="/join">
                     회원가입
                 </Link>
+                <ToastContainer 
+                        position= "top-right" 
+                        autoClose= {700} 
+                        transition= "Slide"
+                        hideProgressBar 
+                        closeOnClick
+                        rtl={false}
+                        pauseOnHover 
+                        draggable= {false} />
             </div>
         );
     }

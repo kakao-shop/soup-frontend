@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
@@ -44,7 +46,11 @@ function DefaultItem() {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        alert("상품 목록을 가져오지 못했습니다.");
+                        toast.error('상품 목록을 가져오지 못했습니다. 😥', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
                     }
                 });
         };
@@ -115,6 +121,15 @@ function DefaultItem() {
                     ))}
                 </div>
             </div>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </main>
     );
 }

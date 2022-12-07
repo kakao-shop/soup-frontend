@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -86,7 +88,11 @@ function Theme() {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        alert("테마 정보를 불러올 수 없습니다.");
+                        toast.error('테마 정보를 불러올 수 없습니다. 😥', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
                         console.log(error);
                     }
                 });
@@ -147,6 +153,15 @@ function Theme() {
                     </div>
                 </div>
             </div>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }

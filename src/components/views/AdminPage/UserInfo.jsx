@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -23,7 +25,11 @@ function UserInfo() {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    alert("유저 정보를 확인할 수 없습니다.");
+                    toast.error('유저 정보를 확인할 수 없습니다. 😥', {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
                     console.log(error);
                 }
             });
@@ -56,6 +62,15 @@ function UserInfo() {
                     ))}
                 </tbody>
             </table>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 }

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
@@ -19,6 +21,7 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
         const param = previousStep.metadata.param;
         setParam(param);
         setSearch(search);
+        
         if (param === "category") {
             setIdx(steps.triggerMaker.value);
             await axios
@@ -36,7 +39,11 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        alert("해당 카테고리 상품 정보를 불러올 수 없습니다.");
+                        toast.error('해당 카테고리 상품 정보를 불러올 수 없습니다. 😥', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
                         console.log(error);
                     }
                 });
@@ -56,7 +63,11 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        alert("해당 테마 상품 정보를 불러올 수 없습니다.");
+                        toast.error('해당 테마 상품 정보를 불러올 수 없습니다. 😥', {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
                         console.log(error);
                     }
                 });
@@ -74,12 +85,17 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     setResult(response.data.result.content);
                     recoTotalElements.current =
                         response.data.result.totalElements;
+                    console.log(recoTotalElements.current, response.data.result);
                 })
                 .catch((error) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        alert(`${search}의 상품 정보를 불러올 수 없습니다.`);
+                        toast.error(`${search}의 상품 정보를 불러올 수 없습니다. 😥`, {
+                            autoClose: 700,
+                            transition: Slide,
+                            hideProgressBar: true
+                        });
                         console.log(error);
                     }
                 });
@@ -157,6 +173,15 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     처음으로
                 </button>
             </div>
+            <ToastContainer 
+                    position= "top-right" 
+                    autoClose= {700} 
+                    transition= "Slide"
+                    hideProgressBar 
+                    closeOnClick
+                    rtl={false}
+                    pauseOnHover 
+                    draggable= {false} />
         </div>
     );
 };

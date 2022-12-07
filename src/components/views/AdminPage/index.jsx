@@ -12,7 +12,6 @@ function AdminPage({ categoryList }) {
     const [path, setPath] = useState("theme");
 
     if (localStorage.getItem("role") === "ADMIN") {
-        console.log(categoryList);
         return (
             <div>
                 {path === "userInfo" ? (

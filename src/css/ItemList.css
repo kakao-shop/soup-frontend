@@ -55,15 +55,15 @@
 }
 
 .ItemList .list-item .item-img {
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     flex-shrink: 0;
 }
 
 .ItemList .list-item .item-img img {
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
 }
 
 .ItemList .list-item .item-info {
