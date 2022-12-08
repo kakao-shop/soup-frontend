@@ -26,7 +26,7 @@ function Header() {
                 <img
                     className="logo"
                     alt="logo"
-                    src={`${process.env.PUBLIC_URL}/img/logo-wrong.png`}
+                    src={`${process.env.PUBLIC_URL}/img/logo-right.png`}
                 />
             </Link>
             <div className="search">
