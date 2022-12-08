@@ -45,11 +45,15 @@ function EditUserInfo({ categoryList }) {
             setId(response.data.result.id);
             setBirth(response.data.result.birthday);
             setGender(response.data.result.gender);
-
-            if (gender === "male")
+            console.log(birth);
+            if (gender === "male") {
                 document.getElementById("editForm").gender[0].checked = true;
-            else
+                console.log(gender, document.getElementById("editForm").gender[0])
+            }
+            else {
                 document.getElementById("editForm").gender[1].checked = true;
+                console.log(gender, document.getElementById("editForm").gender[0])
+            }
         })
         .catch(function(error) {
             if (error.response.data.code === 4002) {
