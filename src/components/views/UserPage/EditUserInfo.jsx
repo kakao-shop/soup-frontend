@@ -47,12 +47,12 @@ function EditUserInfo({ categoryList }) {
             setGender(response.data.result.gender);
             console.log(birth);
             if (gender === "male") {
-                document.getElementById("editForm").gender[0].checked = true;
-                console.log(gender, document.getElementById("editForm").gender[0])
+                document.getElementById("male").checked = true;
+                console.log(gender, document.getElementById("male"))
             }
             else {
-                document.getElementById("editForm").gender[1].checked = true;
-                console.log(gender, document.getElementById("editForm").gender[0])
+                document.getElementById("female").checked = true;
+                console.log(gender, document.getElementById("female"))
             }
         })
         .catch(function(error) {
@@ -172,7 +172,7 @@ function EditUserInfo({ categoryList }) {
                             <span id="user-id">{nickname}</span>
                         </div>
                         <div>
-                            <label htmlFor="usercheck-pw">비밀번호</label>
+                            <label htmlFor="new-password">비밀번호</label>
                             <input
                                 type="password"
                                 name={password}
@@ -180,7 +180,7 @@ function EditUserInfo({ categoryList }) {
                                 maxLength="15"
                                 onChange={onPasswordHandler}
                                 placeholder="변경할 비밀번호 입력"
-                                id="usercheck-pw"
+                                id="new-password"
                                 className="form-label"
                             />
                         </div>
