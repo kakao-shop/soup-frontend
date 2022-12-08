@@ -294,7 +294,7 @@ const Bot = () => {
         steps = [
             {
                 id: "start",
-                message: "수프봇입니다. 어떤걸 검색할까요?",
+                message: "수프봇입니다. 어떤 것을 검색할까요?",
                 trigger: "search-type",
             },
             {
@@ -302,7 +302,7 @@ const Bot = () => {
                 options: [
                     {
                         value: "shopbest",
-                        label: "쇼핑몰 별 Best 상품",
+                        label: "쇼핑몰별 Best 상품",
                         trigger: "selectShops",
                     },
                     {
@@ -317,7 +317,7 @@ const Bot = () => {
                     },
                     {
                         value: "FAQ",
-                        label: "자주 묻는 질문 (FAQ)",
+                        label: "자주 묻는 질문(FAQ)",
                         trigger: "selectFAQ",
                     },
                     {
@@ -335,7 +335,7 @@ const Bot = () => {
             },
             {
                 id: "selectShops",
-                message: "쇼핑몰을 선택해 주세요",
+                message: "쇼핑몰을 선택해 주세요.",
                 trigger: "shops",
             },
             {
@@ -352,7 +352,7 @@ const Bot = () => {
             },
             {
                 id: "selectCat",
-                message: "카테고리를 골라주세요",
+                message: "카테고리를 골라주세요.",
                 trigger: "categories",
             },
             {
@@ -362,7 +362,7 @@ const Bot = () => {
             },
             {
                 id: "selectFAQ",
-                message: "FAQ를 통해 원하는 답변을 쉽고 빠르게 찾아보세요",
+                message: "FAQ를 통해 원하는 답변을 쉽고 빠르게 찾아보세요.",
                 trigger: "faqs",
             },
             {
@@ -370,7 +370,7 @@ const Bot = () => {
                 options: [
                     {
                         value: "f1",
-                        label: "😮 업데이트 주기가 어떻게 되나요?",
+                        label: "😮 업데이트 주기가 궁금해요.",
                         trigger: "faq1",
                     },
                     {
