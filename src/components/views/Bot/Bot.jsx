@@ -341,7 +341,7 @@ const Bot = () => {
             {
                 id: "shops",
                 options: [
-                    { value: "KAKAO Commerse", label: "카카오 쇼핑", trigger: "last" },
+                    { value: "카카오 쇼핑", label: "카카오 쇼핑", trigger: "last" },
                     { value: "11번가", label: "11번가", trigger: "last" },
                     { value: "홈플러스", label: "홈플러스", trigger: "last" },
                 { value: "start", label: "처음으로", trigger: "start" }
