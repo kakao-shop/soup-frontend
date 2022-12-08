@@ -8,7 +8,7 @@ img.avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ffe7dd;
+    background-color: #ffb99b;
 }
 
 #avatar-container {
@@ -38,7 +38,7 @@ img.avatar {
 .admin-btn, #recentItems-btn,
 .login-btn:hover {
     color: #fff;
-    background-color: #ff9568;
+    background-color: #ff6928;
 }
 
 .admin-btn {
