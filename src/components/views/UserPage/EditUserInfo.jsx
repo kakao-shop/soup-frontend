@@ -45,14 +45,6 @@ function EditUserInfo({ categoryList }) {
             setId(response.data.result.id);
             setBirth(response.data.result.birthday);
             setGender(response.data.result.gender);
-            // if (gender === "male") {
-            //     document.getElementById("male").checked = true;
-            //     document.getElementById("female").checked = false;
-            // }
-            // else {
-            //     document.getElementById("male").checked = false;
-            //     document.getElementById("female").checked = true;
-            // }
         })
         .catch(function(error) {
             if (error.response.data.code === 4002) {
