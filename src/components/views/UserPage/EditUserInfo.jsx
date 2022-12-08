@@ -48,11 +48,11 @@ function EditUserInfo({ categoryList }) {
             console.log(birth);
             if (gender === "male") {
                 document.getElementById("male").checked = true;
-                console.log(gender, document.getElementById("male"))
+                document.getElementById("female").checked = false;
             }
             else {
+                document.getElementById("male").checked = false;
                 document.getElementById("female").checked = true;
-                console.log(gender, document.getElementById("female"))
             }
         })
         .catch(function(error) {
@@ -196,7 +196,7 @@ function EditUserInfo({ categoryList }) {
                                     name="gender"
                                     value="M"
                                     id="male"
-                                    checked={gender === "M"}
+                                    checked={gender === "M" ? true : false}
                                     disabled
                                 />
                                 <label htmlFor="male">남자</label>
@@ -205,7 +205,7 @@ function EditUserInfo({ categoryList }) {
                                     name="gender"
                                     value="W"
                                     id="female"
-                                    checked={gender === "W"}
+                                    checked={gender === "W" ? true : false}
                                     disabled
                                 />
                                 <label htmlFor="female">여자</label>
