@@ -42,7 +42,7 @@ function BestShopItemList({categoryList}) {
         axios
             .get(`/bot/today-best`, {
                 params: {
-                    site: `${site}`,
+                    site: `${clickedSite.current}`,
                     size: `${size}`
                 },
                 headers: {
@@ -53,36 +53,34 @@ function BestShopItemList({categoryList}) {
                 setTitle(`${site} Top 100`);
                 setProduct(response.data.result.content);
         
-
                 // document.getElementById("kakao").style.color = "#222222";
                 // document.getElementById("kakao").style.fontWeight = "400";
         
-                // document.getElementById(site).style.color = "#FF6928";
-                // document.getElementById(site).style.fontWeight = "700";
+                document.getElementById(clickedSite.current).style.color = "#FF6928";
+                document.getElementById(clickedSite.current).style.fontWeight = "700";
             })
             .catch(function(error) {
-                console.log(error);
-                // if (error.response.data.code === 4002) {
-                //     reissuanceAccessToken(error);
-                // } else {
-                //     toast.error(`${site}의 Top 100 상품 정보를 불러올 수 없습니다. 😥`, {
-                //         autoClose: 700,
-                //         transition: Slide,
-                //         hideProgressBar: true
-                //     });
-                //     console.log(error);
-                // }
+                if (error.response.data.code === 4002) {
+                    reissuanceAccessToken(error);
+                } else {
+                    toast.error(`${site}의 Top 100 상품 정보를 불러올 수 없습니다. 😥`, {
+                        autoClose: 700,
+                        transition: Slide,
+                        hideProgressBar: true
+                    });
+                    console.log(error);
+                }
             });
     }, []);
 
     const clickSortBtnHandler = (e) => {
-        // document.getElementById(clickedSite.current).style.color = "#222222";
-        // document.getElementById(clickedSite.current).style.fontWeight = "400";
+        document.getElementById(clickedSite.current).style.color = "#222222";
+        document.getElementById(clickedSite.current).style.fontWeight = "400";
  
         clickedSite.current = e.target.id;
         
-        // document.getElementById(e.target.id).style.color = "#FF6928";
-        // document.getElementById(e.target.id).style.fontWeight = "700";
+        document.getElementById(e.target.id).style.color = "#FF6928";
+        document.getElementById(e.target.id).style.fontWeight = "700";
 
         axios
             .get(`/bot/today-best`, {
