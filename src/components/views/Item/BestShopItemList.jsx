@@ -38,7 +38,6 @@ function BestShopItemList({categoryList}) {
     ]);
 
     useEffect(() => {
-        console.log("useEffect", clickedSite.current);
         axios
             .get(`/bot/today-best`, {
                 params: {
@@ -74,7 +73,6 @@ function BestShopItemList({categoryList}) {
     }, []);
 
     const clickSortBtnHandler = (e) => {
-        console.log("click", clickedSite.current, e.target.id);
         document.getElementById(clickedSite.current).style.color = "#222222";
         document.getElementById(clickedSite.current).style.fontWeight = "400";
  

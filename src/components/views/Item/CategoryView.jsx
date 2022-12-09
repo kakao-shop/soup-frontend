@@ -68,12 +68,8 @@ function CategoryView({ categoryList }) {
 
         clickedSort.current = "purchase,desc";
 
-        document.getElementsByClassName(
-            `subBtn ${idx.current}`
-        )[0].style.color = "#FF6928";
-        document.getElementsByClassName(
-            `subBtn ${idx.current}`
-        )[0].style.fontWeight = "700";
+        document.getElementsByClassName(`subBtn ${idx.current}`)[0].style.color = "#FF6928";
+        document.getElementsByClassName(`subBtn ${idx.current}`)[0].style.fontWeight = "700";
         document.getElementById("purchase,desc").style.color = "#FF6928";
         document.getElementById("purchase,desc").style.fontWeight = "700";
 
