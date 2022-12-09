@@ -13,7 +13,7 @@ function SetTheme({ categoryList }) {
     const subValue = useRef([]);
     const [ThemeName, setThemeName] = useState();
 
-    useEffect(() => {
+    // useEffect(() => {
         const refreshToken = getCookie('refresh.errorToken');
         axios
             .get("/admin/collections", {
@@ -37,7 +37,7 @@ function SetTheme({ categoryList }) {
                     console.log(error);
                 }
             });
-    }, []);
+    // }, []);
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
