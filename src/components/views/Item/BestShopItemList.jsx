@@ -38,6 +38,7 @@ function BestShopItemList({categoryList}) {
     ]);
 
     useEffect(() => {
+        clickedSite.current = "a";
         axios
             .get(`/bot/today-best`, {
                 params: {
@@ -51,6 +52,11 @@ function BestShopItemList({categoryList}) {
             .then(function(response) {
                 setTitle(`${clickedSite.current} Top 100`);
                 setProduct(response.data.result.content);
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> baa891949198af7b02f75eea16bc30c9ac505b98
                 // document.getElementById("kakao").style.color = "#222222";
                 // document.getElementById("kakao").style.fontWeight = "400";
         
@@ -76,6 +82,10 @@ function BestShopItemList({categoryList}) {
         document.getElementById(clickedSite.current).style.fontWeight = "400";
  
         clickedSite.current = e.target.id;
+<<<<<<< HEAD
+=======
+
+>>>>>>> baa891949198af7b02f75eea16bc30c9ac505b98
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";
 
@@ -108,7 +118,7 @@ function BestShopItemList({categoryList}) {
     };
 
     return (
-        <div className="BestShop container">
+        <div>
             <Header />
             <Nav categoryList={categoryList} />
             <div className="ItemList bestshop">
@@ -118,10 +128,10 @@ function BestShopItemList({categoryList}) {
                 <div className="sort-group">
                     <button
                         className="sort-btn"
-                        id="카카오 쇼핑"
+                        id="kakao"
                         onClick={clickSortBtnHandler}
                     >
-                        카카오 쇼핑
+                        kakao
                     </button>
                     <button
                         className="sort-btn"
