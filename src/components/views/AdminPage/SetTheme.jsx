@@ -11,13 +11,7 @@ import "../../../css/AdminPage.css";
 function SetTheme({ categoryList }) {
     const [ThemeList, setThemeList] = useState([
         {
-            "title": "테마 1",
-            "categoryList": [
-                {
-                    "mainCategory": "과일",
-                    "subCategory": "사과"
-                }
-            ]
+            "title": "테마 1"
         }
     ]);
     const subValue = useRef([]);
