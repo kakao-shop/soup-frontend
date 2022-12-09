@@ -25,6 +25,7 @@ function SetTheme({ categoryList }) {
             })
             .then((response) => {
                 ThemeList = response.data.result.themeList;
+                console.log(ThemeList);
             })
             .catch((error) => {
                 if (error.response.data.code === 4002) {
