@@ -39,10 +39,11 @@ function BestShopItemList({categoryList}) {
     ]);
 
     useEffect(() => {
+        clickedSite.current = "a";
         axios
             .get(`/bot/today-best`, {
                 params: {
-                    site: `${site}`,
+                    site: `${clickedSite.current}`,
                     size: `${size}`
                 },
                 headers: {
@@ -50,9 +51,9 @@ function BestShopItemList({categoryList}) {
                 }
             })
             .then(function(response) {
-                setTitle(`${site} Top 100`);
+                setTitle(`${clickedSite.current} Top 100`);
                 setProduct(response.data.result.content);
-        
+
 
                 // document.getElementById("kakao").style.color = "#222222";
                 // document.getElementById("kakao").style.fontWeight = "400";
@@ -80,9 +81,9 @@ function BestShopItemList({categoryList}) {
         // document.getElementById(clickedSite.current).style.fontWeight = "400";
  
         clickedSite.current = e.target.id;
-        
-        // document.getElementById(e.target.id).style.color = "#FF6928";
-        // document.getElementById(e.target.id).style.fontWeight = "700";
+
+        document.getElementById(e.target.id).style.color = "#FF6928";
+        document.getElementById(e.target.id).style.fontWeight = "700";
 
         axios
             .get(`/bot/today-best`, {
@@ -113,7 +114,7 @@ function BestShopItemList({categoryList}) {
     };
 
     return (
-        <div className="BestShop container">
+        <div>
             <Header />
             <Nav categoryList={categoryList} />
             <div className="ItemList bestshop">
@@ -123,10 +124,10 @@ function BestShopItemList({categoryList}) {
                 <div className="sort-group">
                     <button
                         className="sort-btn"
-                        id="카카오 쇼핑"
+                        id="kakao"
                         onClick={clickSortBtnHandler}
                     >
-                        카카오 쇼핑
+                        kakao
                     </button>
                     <button
                         className="sort-btn"
