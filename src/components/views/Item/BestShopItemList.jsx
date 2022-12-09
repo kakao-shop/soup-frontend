@@ -74,13 +74,11 @@ function BestShopItemList({categoryList}) {
     }, []);
 
     const clickSortBtnHandler = (e) => {
-
-        console.log("1", clickedSite, document.getElementById(clickedSite.current));
         document.getElementById(clickedSite.current).style.color = "#222222";
         document.getElementById(clickedSite.current).style.fontWeight = "400";
  
         clickedSite.current = e.target.id;
-
+        
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";
 
@@ -113,7 +111,7 @@ function BestShopItemList({categoryList}) {
     };
 
     return (
-        <div>
+        <div className="BestShop container">
             <Header />
             <Nav categoryList={categoryList} />
             <div className="ItemList bestshop">
