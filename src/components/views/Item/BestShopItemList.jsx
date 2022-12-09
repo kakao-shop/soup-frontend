@@ -53,6 +53,7 @@ function BestShopItemList({categoryList}) {
                 setTitle(`${site} Top 100`);
                 setProduct(response.data.result.content);
         
+
                 document.getElementById("kakao").style.color = "#222222";
                 document.getElementById("kakao").style.fontWeight = "400";
         
@@ -60,16 +61,17 @@ function BestShopItemList({categoryList}) {
                 document.getElementById(site).style.fontWeight = "700";
             })
             .catch(function(error) {
-                if (error.response.data.code === 4002) {
-                    reissuanceAccessToken(error);
-                } else {
-                    toast.error(`${site}의 Top 100 상품 정보를 불러올 수 없습니다. 😥`, {
-                        autoClose: 700,
-                        transition: Slide,
-                        hideProgressBar: true
-                    });
-                    console.log(error);
-                }
+                console.log(error);
+                // if (error.response.data.code === 4002) {
+                //     reissuanceAccessToken(error);
+                // } else {
+                //     toast.error(`${site}의 Top 100 상품 정보를 불러올 수 없습니다. 😥`, {
+                //         autoClose: 700,
+                //         transition: Slide,
+                //         hideProgressBar: true
+                //     });
+                //     console.log(error);
+                // }
             });
     }, []);
 
@@ -121,10 +123,10 @@ function BestShopItemList({categoryList}) {
                 <div className="sort-group">
                     <button
                         className="sort-btn"
-                        id="kakao"
+                        id="카카오 쇼핑"
                         onClick={clickSortBtnHandler}
                     >
-                        kakao
+                        카카오 쇼핑
                     </button>
                     <button
                         className="sort-btn"
