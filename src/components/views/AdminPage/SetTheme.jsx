@@ -9,11 +9,12 @@ import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 import "../../../css/AdminPage.css";
 
 function SetTheme({ categoryList }) {
-    const [ThemeList, setThemeList] = useState([]);
+    // const [ThemeList, setThemeList] = useState([]);
     const subValue = useRef([]);
     const [ThemeName, setThemeName] = useState();
+    let ThemeList = [];
 
-    // useEffect(() => {
+    useEffect(() => {
         const refreshToken = getCookie('refresh.errorToken');
         axios
             .get("/admin/collections", {
@@ -23,7 +24,7 @@ function SetTheme({ categoryList }) {
                 }
             })
             .then((response) => {
-                setThemeList(response.data.result.themeList);
+                ThemeList = response.data.result.themeList;
             })
             .catch((error) => {
                 if (error.response.data.code === 4002) {
@@ -37,7 +38,7 @@ function SetTheme({ categoryList }) {
                     console.log(error);
                 }
             });
-    // }, []);
+    }, []);
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
