@@ -9,13 +9,22 @@ import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 import "../../../css/AdminPage.css";
 
 function SetTheme({ categoryList }) {
-    // const [ThemeList, setThemeList] = useState([]);
+    const [ThemeList, setThemeList] = useState([
+        {
+            "title": "테마 1",
+            "categoryList": [
+                {
+                    "mainCategory": "과일",
+                    "subCategory": "사과"
+                }
+            ]
+        }
+    ]);
     const subValue = useRef([]);
     const [ThemeName, setThemeName] = useState();
-    let ThemeList = [];
 
     useEffect(() => {
-        const refreshToken = getCookie('refresh.errorToken');
+        const refreshToken = getCookie('refreshToken');
         axios
             .get("/admin/collections", {
                 Cookie: {refreshToken},
@@ -24,7 +33,7 @@ function SetTheme({ categoryList }) {
                 }
             })
             .then((response) => {
-                ThemeList = response.data.result.themeList;
+                setThemeList(response.data.result.themeList);
                 console.log(ThemeList);
             })
             .catch((error) => {
