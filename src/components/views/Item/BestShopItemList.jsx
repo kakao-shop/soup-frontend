@@ -54,11 +54,11 @@ function BestShopItemList({categoryList}) {
                 setProduct(response.data.result.content);
         
 
-                document.getElementById("kakao").style.color = "#222222";
-                document.getElementById("kakao").style.fontWeight = "400";
+                // document.getElementById("kakao").style.color = "#222222";
+                // document.getElementById("kakao").style.fontWeight = "400";
         
-                document.getElementById(site).style.color = "#FF6928";
-                document.getElementById(site).style.fontWeight = "700";
+                // document.getElementById(site).style.color = "#FF6928";
+                // document.getElementById(site).style.fontWeight = "700";
             })
             .catch(function(error) {
                 console.log(error);
@@ -76,13 +76,13 @@ function BestShopItemList({categoryList}) {
     }, []);
 
     const clickSortBtnHandler = (e) => {
-        document.getElementById(clickedSite.current).style.color = "#222222";
-        document.getElementById(clickedSite.current).style.fontWeight = "400";
+        // document.getElementById(clickedSite.current).style.color = "#222222";
+        // document.getElementById(clickedSite.current).style.fontWeight = "400";
  
         clickedSite.current = e.target.id;
         
-        document.getElementById(e.target.id).style.color = "#FF6928";
-        document.getElementById(e.target.id).style.fontWeight = "700";
+        // document.getElementById(e.target.id).style.color = "#FF6928";
+        // document.getElementById(e.target.id).style.fontWeight = "700";
 
         axios
             .get(`/bot/today-best`, {
