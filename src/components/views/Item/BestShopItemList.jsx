@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -50,9 +49,8 @@ function BestShopItemList({categoryList}) {
                 }
             })
             .then(function(response) {
-                setTitle(`${site} Top 100`);
+                setTitle(`${clickedSite.current} Top 100`);
                 setProduct(response.data.result.content);
-        
                 // document.getElementById("kakao").style.color = "#222222";
                 // document.getElementById("kakao").style.fontWeight = "400";
         
@@ -78,7 +76,6 @@ function BestShopItemList({categoryList}) {
         document.getElementById(clickedSite.current).style.fontWeight = "400";
  
         clickedSite.current = e.target.id;
-        
         document.getElementById(e.target.id).style.color = "#FF6928";
         document.getElementById(e.target.id).style.fontWeight = "700";
 

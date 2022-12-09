@@ -294,7 +294,7 @@ const Bot = () => {
         steps = [
             {
                 id: "start",
-                message: "수프봇입니다. 어떤 것을 검색할까요?",
+                message: "SouP Bot 입니다. 어떤 것을 검색할까요?",
                 trigger: "search-type",
             },
             {
