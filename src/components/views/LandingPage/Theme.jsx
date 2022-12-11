@@ -18,7 +18,8 @@ function Theme() {
     const [themeList, setThemeList] = useState([
         {
             idx: 1,
-            title: "테마1"
+            title: "테마1",
+            banner: `${process.env.PUBLIC_URL}/img/banner0.png`
         }
     ]);
 
