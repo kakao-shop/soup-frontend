@@ -52,8 +52,8 @@ function BestShopItemList({categoryList}) {
                 setTitle(`${clickedSite.current} Top 100`);
                 setProduct(response.data.result.content);
 
-                // document.getElementById("kakao").style.color = "#222222";
-                // document.getElementById("kakao").style.fontWeight = "400";
+                document.getElementById("카카오 쇼핑").style.color = "#222222";
+                document.getElementById("카카오 쇼핑").style.fontWeight = "400";
         
                 document.getElementById(clickedSite.current).style.color = "#FF6928";
                 document.getElementById(clickedSite.current).style.fontWeight = "700";
