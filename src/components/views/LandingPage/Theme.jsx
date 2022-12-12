@@ -106,11 +106,7 @@ function Theme() {
             <div id="BannerList">
                 {themeList[0].title === "테마1" ? (
                     <div className="banner-item">
-                        <img
-                            src={themeList[0].src}
-                            alt="banner0"
-                            className="banner-img"
-                        />
+                        12345
                     </div>
                 ) : (
                     themeList.map((theme, index) => (
