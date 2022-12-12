@@ -196,6 +196,8 @@ function ThemeItemList({ categoryList }) {
                         onChange={handlePageChange}
                         innerClass="page-ul"
                         itemClass="page-li"
+                        prevPageText={"‹"}
+                        nextPageText={"›"}
                         activeClass="page-active"
                         activeLinkClass="pagelink-active"
                     ></Pagination>
