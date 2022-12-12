@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -19,8 +19,8 @@ function Theme() {
         {
             idx: 1,
             title: "테마1",
-            banner: `${process.env.PUBLIC_URL}/img/banner0.png`
-        }
+            banner: `${process.env.PUBLIC_URL}/img/banner0.png`,
+        },
     ]);
 
     const ClickButton = (e) => {
@@ -36,12 +36,12 @@ function Theme() {
         bannerShift.current = Number(e.target.id) * -1050;
         bannerList.animate(
             {
-                transform: [`translateX(${bannerShift.current}px)`]
+                transform: [`translateX(${bannerShift.current}px)`],
             },
             {
                 duration: 500,
                 fill: "forwards",
-                easing: "ease"
+                easing: "ease",
             }
         );
     };
@@ -64,12 +64,12 @@ function Theme() {
         }
         themeContainer.animate(
             {
-                transform: [`translateX(${titleShift.current}px)`]
+                transform: [`translateX(${titleShift.current}px)`],
             },
             {
                 duration: 500,
-                fill: "forwards", 
-                easing: "ease"
+                fill: "forwards",
+                easing: "ease",
             }
         );
     };
@@ -79,8 +79,8 @@ function Theme() {
             axios
                 .get("/search/main", {
                     headers: {
-                        "x-access-token": localStorage.getItem("accessToken")
-                    }
+                        "x-access-token": localStorage.getItem("accessToken"),
+                    },
                 })
                 .then(function(response) {
                     setThemeList(response.data.result.themeList);
@@ -89,10 +89,10 @@ function Theme() {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
-                        toast.error('테마 정보를 불러올 수 없습니다. 😥', {
+                        toast.error("테마 정보를 불러올 수 없습니다. 😥", {
                             autoClose: 700,
                             transition: Slide,
-                            hideProgressBar: true
+                            hideProgressBar: true,
                         });
                         console.log(error);
                     }
@@ -104,21 +104,33 @@ function Theme() {
     return (
         <div className="Theme container">
             <div id="BannerList">
-                {themeList.map((theme, index) => (
-                    <Link
-                        to="/theme"
-                        state={{ themeIdx: `${theme.idx}` }}
-                        key={`banner${index}`}
-                    >
-                        <div className="banner-item">
-                            <img
-                                src={"data:image/png;base64," + theme.banner}
-                                alt={`banner${index}`}
-                                className="banner-img"
-                            />
-                        </div>
-                    </Link>
-                ))}
+                {themeList[0].title === "테마1" ? (
+                    <div className="banner-item">
+                        <img
+                            src={themeList[0].src}
+                            alt="banner0"
+                            className="banner-img"
+                        />
+                    </div>
+                ) : (
+                    themeList.map((theme, index) => (
+                        <Link
+                            to="/theme"
+                            state={{ themeIdx: `${theme.idx}` }}
+                            key={`banner${index}`}
+                        >
+                            <div className="banner-item">
+                                <img
+                                    src={
+                                        "data:image/png;base64," + theme.banner
+                                    }
+                                    alt={`banner${index}`}
+                                    className="banner-img"
+                                />
+                            </div>
+                        </Link>
+                    ))
+                )}
             </div>
             <div className="Title container">
                 <div className="theme-shift" onClick={onClickShiftHandler}>
@@ -154,15 +166,16 @@ function Theme() {
                     </div>
                 </div>
             </div>
-            <ToastContainer 
-                    position= "top-right" 
-                    autoClose= {700} 
-                    transition= "Slide"
-                    hideProgressBar 
-                    closeOnClick
-                    rtl={false}
-                    pauseOnHover 
-                    draggable= {false} />
+            <ToastContainer
+                position="top-right"
+                autoClose={700}
+                transition="Slide"
+                hideProgressBar
+                closeOnClick
+                rtl={false}
+                pauseOnHover
+                draggable={false}
+            />
         </div>
     );
 }
