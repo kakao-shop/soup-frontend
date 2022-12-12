@@ -19,7 +19,6 @@ function Theme() {
         {
             idx: 1,
             title: "테마1",
-            banner: `${process.env.PUBLIC_URL}/img/banner0.png`,
         },
     ]);
 
@@ -106,7 +105,14 @@ function Theme() {
             <div id="BannerList">
                 {themeList[0].title === "테마1" ? (
                     <div className="banner-item">
-                        12345
+                        <img
+                            src={
+                                process.env.PUBLIC_URL +
+                                "/img/banner0.png"
+                            }
+                            alt="banner0"
+                            className="banner-img"
+                        />
                     </div>
                 ) : (
                     themeList.map((theme, index) => (
