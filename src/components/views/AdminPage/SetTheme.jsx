@@ -9,13 +9,10 @@ import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 import "../../../css/AdminPage.css";
 
 function SetTheme({ categoryList }) {
-    const [ThemeList, setThemeList] = useState([
-        {
-            "title": "테마 1"
-        }
-    ]);
+    const [ThemeList, setThemeList] = useState([]);
     const subValue = useRef([]);
     const [ThemeName, setThemeName] = useState();
+    const [L, setL] = useState([]);
 
     useEffect(() => {
         const refreshToken = getCookie('refreshToken');
@@ -28,7 +25,6 @@ function SetTheme({ categoryList }) {
             })
             .then((response) => {
                 setThemeList(response.data.result.themeList);
-                console.log(ThemeList);
             })
             .catch((error) => {
                 if (error.response.data.code === 4002) {
@@ -42,7 +38,7 @@ function SetTheme({ categoryList }) {
                     console.log(error);
                 }
             });
-    }, []);
+    }, [L]);
 
     const deleteTheme = (e, idx) => {
         if (window.confirm("정말 삭제하시겠습니까?") === true) {
@@ -62,10 +58,10 @@ function SetTheme({ categoryList }) {
                     });
                     
                     setTimeout(() => {
-                        e.target.parentNode.remove();
+                    e.target.parentNode.remove();
                     }, 800);
                 })
-                .catch((error) => {
+                .catch(function(error) {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
@@ -129,13 +125,14 @@ function SetTheme({ categoryList }) {
         e.preventDefault();
         const formData = new FormData();
 
-        let noDupl = [];
+        let noDupl;
         for (let i of document.getElementById("result").childNodes) {
-            const mainCategory = i.innerText.match(/[^A-Za-z0-9]*[>]/)[0].replace(">", "");
-            const subCategory = i.innerText.match(/[>][^A-Za-z0-9][^\n]*/)[0].replace(">", "");
-            noDupl.push({"mainCategory": mainCategory, "subCategory": subCategory})
-            noDupl = _.uniqBy(noDupl, "subCategory");
+            const mainCategory = i.innerText.match(/[^A-Za-z0-9]*[\>]/)[0].replace(">", "");
+            const subCategory = i.innerText.match(/[\>][^A-Za-z0-9]*/)[0].replace(">", "");
+            setL([...L, { mainCategory, subCategory}]);
+            noDupl = _.uniqBy(L, "subCategory");
         }
+
         formData.append(
             "themeReq",
             new Blob(
@@ -146,7 +143,7 @@ function SetTheme({ categoryList }) {
         formData.append("image", document.getElementById("themeImage-input").files[0]);
         
         if (document.getElementById("themeTitle-input").value !== "") {
-            if (noDupl.length > 1) {
+            if (L.length > 1) {
                 const refreshToken = getCookie("refreshToken");
                 axios
                     .post("/admin/collections", formData, {
