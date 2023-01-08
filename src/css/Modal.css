@@ -1,0 +1,31 @@
+.Modal {
+    display: none;
+}
+
+.Modal.openModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 60px;
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    background-color: rgb(250, 250, 250);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 30%);
+    box-shadow: 3px 3px 10px 3px rgba(212, 212, 212, 0.361);
+}
+
+.Modal .btn {
+    width: 80px;
+    margin: 20px 5px 0;
+    font-weight: 700;
+    background-color: #ffb99b;
+    color: #444;
+}
+
+.Modal .btn:hover {
+    background-color: #FF6928;
+    color: #fff;
+}

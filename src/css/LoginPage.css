@@ -1,0 +1,12 @@
+.Login > .square {
+    position: relative;
+}
+
+#join-link {
+    position: absolute;
+    top: 68%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    text-decoration: underline;
+    color: #FF6928;
+}

@@ -1,0 +1,31 @@
+.bestshop {
+    width: 85%;
+}
+
+.bestshop .itemList .item-link {
+    position: relative;
+}
+.bestshop .itemList .list-item {
+    padding-left: 40px;
+}
+
+.bestshop .itemList .list-item img {
+    border: none;
+}
+
+.bestshop .itemList .best-index {
+    text-align: center;
+    position:absolute;
+    top: 10%;
+    left: 5px;
+    font-size: 15px;
+    /* font-weight: 700; */
+    color: #444;
+    width: 30px;
+}
+
+.bestshop .itemList .item-link:first-child .best-index, 
+.bestshop .itemList .item-link:nth-child(2) .best-index,
+.bestshop .itemList .item-link:nth-child(3) .best-index {
+    font-size: 20px;
+}
