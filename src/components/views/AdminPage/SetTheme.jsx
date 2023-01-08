@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
 
+import { getCookie, reissuanceAccessToken } from "../../jwtTokenModules";
+
 import "../../../css/AdminPage.css";
 
 function SetTheme({ categoryList }) {
@@ -30,11 +32,15 @@ function SetTheme({ categoryList }) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
+<<<<<<< HEAD:src/components/views/AdminPage/SetTheme.jsx
                     toast.error('테마 정보를 불러올 수 없습니다. 😥', {
                         autoClose: 700,
                         transition: Slide,
                         hideProgressBar: true
                     });
+=======
+                    alert("테마 정보를 불러올 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/AdminPage/SetTheme.jsx
                     console.log(error);
                 }
             });
@@ -51,6 +57,7 @@ function SetTheme({ categoryList }) {
                     }
                 })
                 .then((response) => {
+<<<<<<< HEAD:src/components/views/AdminPage/SetTheme.jsx
                     toast.success('테마가 삭제되었습니다. 😊', {
                         autoClose: 700,
                         transition: Slide,
@@ -60,16 +67,24 @@ function SetTheme({ categoryList }) {
                     setTimeout(() => {
                     e.target.parentNode.remove();
                     }, 800);
+=======
+                    alert("테마가 삭제되었습니다.");
+                    e.target.parentNode.remove();
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/AdminPage/SetTheme.jsx
                 })
                 .catch(function(error) {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
+<<<<<<< HEAD:src/components/views/AdminPage/SetTheme.jsx
                         toast.error('삭제가 불가능합니다. 😥', {
                             autoClose: 700,
                             transition: Slide,
                             hideProgressBar: true
                         });
+=======
+                        alert("삭제가 불가능합니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/AdminPage/SetTheme.jsx
                         console.log(error);
                     }
                 });
@@ -173,6 +188,7 @@ function SetTheme({ categoryList }) {
                     .catch(function(error) {
                         if (error.response.data.code === 4002) {
                             reissuanceAccessToken(error);
+<<<<<<< HEAD:src/components/views/AdminPage/SetTheme.jsx
                         } else if (error.response.data.message === "could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.DataException: could not execute statement") {
                             toast.error('배너 저장 시 이미지 형식으로 저장해야 합니다. 😥', {
                                 autoClose: 700,
@@ -186,6 +202,10 @@ function SetTheme({ categoryList }) {
                                 transition: Slide,
                                 hideProgressBar: true
                             });
+=======
+                        } else {
+                            alert("테마 저장에 실패했습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/AdminPage/SetTheme.jsx
                             console.log(error);
                         }
 

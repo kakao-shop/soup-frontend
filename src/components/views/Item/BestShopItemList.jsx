@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+<<<<<<< HEAD:src/components/views/Item/BestShopItemList.jsx
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+=======
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/BestShopItemList.jsx
 
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
@@ -49,7 +52,11 @@ function BestShopItemList({categoryList}) {
                 }
             })
             .then(function(response) {
+<<<<<<< HEAD:src/components/views/Item/BestShopItemList.jsx
                 setTitle(`${clickedSite.current} Top 100`);
+=======
+                setTitle(`${site} Top 100`);
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/BestShopItemList.jsx
                 setProduct(response.data.result.content);
 
                 document.getElementById("카카오 쇼핑").style.color = "#222222";
@@ -62,11 +69,15 @@ function BestShopItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
+<<<<<<< HEAD:src/components/views/Item/BestShopItemList.jsx
                     toast.error(`${site}의 Top 100 상품 정보를 불러올 수 없습니다. 😥`, {
                         autoClose: 700,
                         transition: Slide,
                         hideProgressBar: true
                     });
+=======
+                    alert(`${site}의 Top 100 상품 정보를 불러올 수 없습니다.`);
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/BestShopItemList.jsx
                     console.log(error);
                 }
             });
@@ -99,18 +110,26 @@ function BestShopItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
+<<<<<<< HEAD:src/components/views/Item/BestShopItemList.jsx
                     toast.error('상품을 정렬할 수 없습니다. 😥', {
                         autoClose: 700,
                         transition: Slide,
                         hideProgressBar: true
                     });
+=======
+                    alert("상품을 정렬할 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/BestShopItemList.jsx
                     console.log(error);
                 }
             });
     };
 
     return (
+<<<<<<< HEAD:src/components/views/Item/BestShopItemList.jsx
         <div className="BestShop container">
+=======
+        <div>
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/BestShopItemList.jsx
             <Header />
             <Nav categoryList={categoryList} />
             <div className="ItemList bestshop">
@@ -148,7 +167,10 @@ function BestShopItemList({categoryList}) {
                                 onClick={(e) => urlSendHandler(item)}
                                 className="item-link"
                                 target="_blank"
+<<<<<<< HEAD:src/components/views/Item/BestShopItemList.jsx
                                 rel="noopener noreferrer"
+=======
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/BestShopItemList.jsx
                                 key={`link-${item.prdName}`}
                             >
                                 <div className="best-index">{

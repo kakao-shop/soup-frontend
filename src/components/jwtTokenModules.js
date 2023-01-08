@@ -1,7 +1,5 @@
 import axios from "axios";
 import { Cookies } from "react-cookie";
-import { toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const cookies = new Cookies();
 
@@ -38,26 +36,13 @@ export function reissuanceAccessToken(error) {
             })
             .catch((error) => {
                 if (error.response.data.message === "jwt refresh token이 만료되었습니다.") {
-                    toast.error('세션이 만료되었습니다. 😥', {
-                        autoClose: 700,
-                        transition: Slide,
-                        hideProgressBar: true
-                    });
-                    setTimeout(LogoutHandler(), 1000);
+                    alert("세션이 만료되었습니다.");
+                    LogoutHandler();
                 }
             });
-    }  else {
-        toast.error('비정상적인 접근입니다. 😥', {
-            autoClose: 700,
-            transition: Slide,
-            hideProgressBar: true
-        });
-        
-        setTimeout(LogoutHandler(), 1000);
-        
     }
 }
-export function LogoutHandler(msg='로그아웃에 성공했습니다. 😀') {
+export function LogoutHandler() {
     const refreshToken = getCookie("refreshToken");
     axios
         .delete("/members/logout", {
@@ -67,21 +52,13 @@ export function LogoutHandler(msg='로그아웃에 성공했습니다. 😀') {
             }
         })
         .then(function(response) {
-            toast.success(msg, {
-                autoClose: 700,
-                transition: Slide,
-                hideProgressBar: true
-            });
-            window.location.href="/";
+            alert("로그아웃에 성공했습니다.");
+            document.location.href = "/";
             localStorage.clear();
             removeCookie("refreshToken");
         })
         .catch(function(error) {
-            localStorage.removeItem("id");
-            localStorage.removeItem("nickname");
-            localStorage.removeItem("role");
-            localStorage.removeItem("accessToken");
-            removeCookie("refreshToken");
-            window.location.href = "/";
+            console.log(error);
+            alert("로그아웃에 실패했습니다. 다시 시도하세요.");
         });
 }

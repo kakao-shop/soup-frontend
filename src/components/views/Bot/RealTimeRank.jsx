@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -28,11 +26,7 @@ export default function RealTimeRank({ steps, previousStep, triggerNextStep }) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-                    toast.error('실시간 검색어 순위 정보를 불러올 수 없습니다. 😥', {
-                        autoClose: 700,
-                        transition: Slide,
-                        hideProgressBar: true
-                    });
+                    alert("실시간 검색어 순위 정보를 불러올 수 없습니다.");
                     console.log(error);
                 }
             });
@@ -61,15 +55,6 @@ export default function RealTimeRank({ steps, previousStep, triggerNextStep }) {
             >
                 처음으로
             </button>
-            <ToastContainer 
-                    position= "top-right" 
-                    autoClose= {700} 
-                    transition= "Slide"
-                    hideProgressBar 
-                    closeOnClick
-                    rtl={false}
-                    pauseOnHover 
-                    draggable= {false} />
         </div>
     );
 }

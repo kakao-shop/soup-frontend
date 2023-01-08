@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
@@ -43,11 +41,7 @@ function RecentItems({ categoryList }) {
             if (error.response.data.code === 4002) {
                 reissuanceAccessToken(error);
             } else {
-                toast.error('최근 본 상품 내역을 불러올 수 없습니다. 😥', {
-                    autoClose: 700,
-                    transition: Slide,
-                    hideProgressBar: true
-                });
+                alert("최근 본 상품 내역을 불러올 수 없습니다.");
                 console.log(error);
             }
         });
@@ -67,7 +61,6 @@ function RecentItems({ categoryList }) {
                                     onClick={() => urlSendHandler(item)}
                                     className="item-link"
                                     target="_blank"
-                                    rel="noopener noreferrer"
                                 >
                                     {item.site === "홈플러스" && item.imgSrc === "null" ? (
                                         <img
@@ -100,15 +93,6 @@ function RecentItems({ categoryList }) {
                     </div>
                 </div>
             </main>
-            <ToastContainer 
-                    position= "top-right" 
-                    autoClose= {700} 
-                    transition= "Slide"
-                    hideProgressBar 
-                    closeOnClick
-                    rtl={false}
-                    pauseOnHover 
-                    draggable= {false} />
         </div>
     );
 }

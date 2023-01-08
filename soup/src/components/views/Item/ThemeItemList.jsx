@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 import Pagination from "react-js-pagination";
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import { reissuanceAccessToken } from "../../jwtTokenModules";
-import { urlSendHandler } from "../../SelectItemCount";
 
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
@@ -18,15 +13,16 @@ import "../../../css/ItemList.css";
 import "../../../css/SubCategoryList.css";
 import "../../../css/Pagination.css";
 
-function ItemList({categoryList}) {
-    const size = "30";
+function ThemeItemList({ categoryList}) {
+    const size ="30";
+    const [title, setTitle] = useState("");
+    const page = useRef(0);
     const [totalElements, setTotalElements] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const page = useRef(0);
-    const clickedSort = useRef("purchase,desc");
+    const [clickedSort, setClickedSort] = useState("purchase,desc");
 
     const location = useLocation();
-    const num = location.state;
+    const themeIdx = location.state.themeIdx;
 
     const [product, setProduct] = useState([
         {
@@ -44,21 +40,11 @@ function ItemList({categoryList}) {
     ]);
 
     useEffect(() => {
-        document.getElementById(clickedSort.current).style.color = "#222222";
-        document.getElementById(clickedSort.current).style.fontWeight = "400";
-
-        clickedSort.current = "purchase,desc";
         page.current = 0;
-
-        document.getElementById(clickedSort.current).style.color = "#FF6928";
-        document.getElementById(clickedSort.current).style.fontWeight = "700";
-
         axios
-            .get("/search", {
+            .get(`/search/collections/${themeIdx}`, {
                 params: {
-                    q: `${num}`,
                     size: `${size}`,
-                    sort: `${clickedSort.current}`,
                     page: `${page.current}`
                 },
                 headers: {
@@ -66,6 +52,7 @@ function ItemList({categoryList}) {
                 }
             })
             .then(function(response) {
+                setTitle(response.data.result.title);
                 setProduct(response.data.result.result.content);
                 setTotalElements(response.data.result.result.totalElements);
                 setTotalPages(response.data.result.result.totalPages);
@@ -74,38 +61,27 @@ function ItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-<<<<<<< HEAD:src/components/views/Item/ItemList.jsx
-                    toast.error('상품 정보를 가져오지 못했습니다. 😥', {
-                        autoClose: 700,
-                        transition: Slide,
-                        hideProgressBar: true
-                    });
-=======
                     alert("상품 정보를 가져오지 못했습니다.");
->>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/ItemList.jsx
                     console.log(error);
                 }
             });
-    }, [num]);
+    }, [themeIdx]);
 
     const clickSortBtnHandler = (e) => {
         const sortValue = e.target.id;
 
-        document.getElementById(clickedSort.current).style.color = "#222222";
-        document.getElementById(clickedSort.current).style.fontWeight = "400";
+        document.getElementById(clickedSort).style.color = "#222222";
+        document.getElementById(clickedSort).style.fontWeight = "400";
 
-        clickedSort.current = sortValue;
-        page.current = 0;
+        setClickedSort(sortValue);
 
-        document.getElementById(sortValue).style.color = "#FF6928";
-        document.getElementById(sortValue).style.fontWeight = "700";
+        document.getElementById(e.target.id).style.color = "#FF6928";
+        document.getElementById(e.target.id).style.fontWeight = "700";
 
         axios
-            .get("/search", {
+            .get(`/search/collections/${themeIdx}`, {
                 params: {
-                    q: `${num}`,
                     size: `${size}`,
-                    sort: `${sortValue}`,
                     page: `${page.current}`
                 },
                 headers: {
@@ -113,6 +89,7 @@ function ItemList({categoryList}) {
                 }
             })
             .then(function(response) {
+                setTitle(response.data.result.title);
                 setProduct(response.data.result.result.content);
                 setTotalElements(response.data.result.result.totalElements);
                 setTotalPages(response.data.result.result.totalPages);
@@ -121,15 +98,7 @@ function ItemList({categoryList}) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-<<<<<<< HEAD:src/components/views/Item/ItemList.jsx
-                    toast.error('상품을 정렬할 수 없습니다. 😥', {
-                        autoClose: 700,
-                        transition: Slide,
-                        hideProgressBar: true
-                    });
-=======
                     alert("상품을 정렬할 수 없습니다.");
->>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/ItemList.jsx
                     console.log(error);
                 }
             });
@@ -138,11 +107,9 @@ function ItemList({categoryList}) {
     const handlePageChange = async (Page) => {
         page.current = Page - 1;
         axios
-            .get("/search", {
+            .get(`/search/collections/${themeIdx}`, {
                 params: {
-                    q: `${num}`,
                     size: `${size}`,
-                    sort: `${clickedSort.current}`,
                     page: `${page.current}`
                 },
                 headers: {
@@ -150,21 +117,14 @@ function ItemList({categoryList}) {
                 }
             })
             .then(function(response) {
+                setTitle(response.data.result.title);
                 setProduct(response.data.result.result.content);
             })
             .catch(function(error) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
-<<<<<<< HEAD:src/components/views/Item/ItemList.jsx
-                    toast.error('현재 페이지의 상품 정보를 불러올 수 없습니다. 😥', {
-                        autoClose: 700,
-                        transition: Slide,
-                        hideProgressBar: true
-                    });
-=======
-                    alert("현재 페이지의 상품 정보를 불러올 수 없습니다.");
->>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/ItemList.jsx
+                    alert("현재 페이지의 특가 상품 정보를 불러올 수 없습니다.");
                     console.log(error);
                 }
             });
@@ -174,12 +134,12 @@ function ItemList({categoryList}) {
         <div>
             <Header />
             <Nav categoryList={categoryList} />
-
-            <div className="ItemList container" style={{ marginTop: "50px" }}>
+            <div className="ItemList">
                 <div className="msg">
-                    <h3>“ {num} ”</h3>
+                    <h3>“ {title} ”</h3>
                     <span>
-                        의 특가 상품이
+                        {" "}
+                        테마 상품이{" "}
                         <strong style={{ color: "#FF6928", fontSize: "18px" }}>
                             {totalElements}
                         </strong>
@@ -217,8 +177,7 @@ function ItemList({categoryList}) {
                                 onClick={(e) => urlSendHandler(item)}
                                 className="item-link"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                key={`item-link${index}`}
+                                key={`link-${item.prdName}`}
                             >
                                 <div
                                     className="list-item"
@@ -275,10 +234,9 @@ function ItemList({categoryList}) {
                             </a>
                         ))
                     ) : (
-                        <div className="no-search">검색 결과가 없습니다.</div>
+                        <div>검색 결과가 없습니다.</div>
                     )}
                 </div>
-
                 <Pagination
                     activePage={page.current + 1}
                     itemsCountPerPage={30}
@@ -287,23 +245,12 @@ function ItemList({categoryList}) {
                     onChange={handlePageChange}
                     innerClass="page-ul"
                     itemClass="page-li"
-                    prevPageText={"‹"}
-                    nextPageText={"›"}
                     activeClass="page-active"
                     activeLinkClass="pagelink-active"
                 ></Pagination>
             </div>
-            <ToastContainer 
-                    position= "top-right" 
-                    autoClose= {700} 
-                    transition= "Slide"
-                    hideProgressBar 
-                    closeOnClick
-                    rtl={false}
-                    pauseOnHover 
-                    draggable= {false} />
         </div>
     );
 }
 
-export default ItemList;
+export default ThemeItemList;

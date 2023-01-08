@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
+import { urlSendHandler } from "../../SelectItemCount";
+import { reissuanceAccessToken } from "../../jwtTokenModules";
+
 import "../../../css/BotSearchResult.css";
 
 const Search = ({ steps, previousStep, triggerNextStep }) => {
@@ -39,11 +42,15 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
+<<<<<<< HEAD:src/components/views/Bot/Search.jsx
                         toast.error('해당 카테고리 상품 정보를 불러올 수 없습니다. 😥', {
                             autoClose: 700,
                             transition: Slide,
                             hideProgressBar: true
                         });
+=======
+                        alert("해당 카테고리 상품 정보를 불러올 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Bot/Search.jsx
                         console.log(error);
                     }
                 });
@@ -63,11 +70,15 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
+<<<<<<< HEAD:src/components/views/Bot/Search.jsx
                         toast.error('해당 테마 상품 정보를 불러올 수 없습니다. 😥', {
                             autoClose: 700,
                             transition: Slide,
                             hideProgressBar: true
                         });
+=======
+                        alert("해당 테마 상품 정보를 불러올 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Bot/Search.jsx
                         console.log(error);
                     }
                 });
@@ -91,11 +102,15 @@ const Search = ({ steps, previousStep, triggerNextStep }) => {
                     if (error.response.data.code === 4002) {
                         reissuanceAccessToken(error);
                     } else {
+<<<<<<< HEAD:src/components/views/Bot/Search.jsx
                         toast.error(`${search}의 상품 정보를 불러올 수 없습니다. 😥`, {
                             autoClose: 700,
                             transition: Slide,
                             hideProgressBar: true
                         });
+=======
+                        alert(`${search}의 상품 정보를 불러올 수 없습니다.`);
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Bot/Search.jsx
                         console.log(error);
                     }
                 });

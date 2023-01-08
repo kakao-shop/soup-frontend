@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { urlSendHandler } from "../../SelectItemCount";
 import { reissuanceAccessToken } from "../../jwtTokenModules";
 
+import { urlSendHandler } from "../../SelectItemCount";
+import { reissuanceAccessToken } from "../../jwtTokenModules";
+
 import Header from "../Header";
 import Nav from "../Nav";
 
@@ -96,11 +99,15 @@ function CategoryView({ categoryList }) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
+<<<<<<< HEAD:src/components/views/Item/CategoryView.jsx
                     toast.error('상품에 대한 특가 정보를 불러올 수 없습니다. 😥', {
                         autoClose: 700,
                         transition: Slide,
                         hideProgressBar: true
                     });
+=======
+                    alert("상품에 대한 특가 정보를 불러올 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/CategoryView.jsx
                     console.log(error);
                 }
             });
@@ -137,11 +144,15 @@ function CategoryView({ categoryList }) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
+<<<<<<< HEAD:src/components/views/Item/CategoryView.jsx
                     toast.error('상품을 정렬할 수 없습니다. 😥', {
                         autoClose: 700,
                         transition: Slide,
                         hideProgressBar: true
                     });
+=======
+                    alert("상품을 정렬할 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/CategoryView.jsx
                     console.log(error);
                 }
             });
@@ -168,11 +179,15 @@ function CategoryView({ categoryList }) {
                 if (error.response.data.code === 4002) {
                     reissuanceAccessToken(error);
                 } else {
+<<<<<<< HEAD:src/components/views/Item/CategoryView.jsx
                     toast.error('상품 정보를 불러올 수 없습니다. 😥', {
                         autoClose: 700,
                         transition: Slide,
                         hideProgressBar: true
                     });
+=======
+                    alert("상품 정보를 불러올 수 없습니다.");
+>>>>>>> bc990ed00ffa5afad748eee05769f3cfcea8032a:soup/src/components/views/Item/CategoryView.jsx
                     console.log(error);
                 }
             });
