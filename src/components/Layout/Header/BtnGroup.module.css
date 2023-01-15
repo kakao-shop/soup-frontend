@@ -1,0 +1,31 @@
+.btn-group > * {
+  display: inline-block;
+  width: 75px;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  margin-right: 0.25rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.left-btn {
+  background-color: #FF4A08;
+  color: #fff;
+}
+
+.left-btn:hover {
+  background-color: #fc2600;
+}
+
+.right-btn {
+  border: 1px solid #666;
+  background-color: #fff;
+  color: #666;
+}
+
+.right-btn:hover {
+  background-color: #eeeeee;
+  color: #111;
+}

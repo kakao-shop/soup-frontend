@@ -12,20 +12,3 @@ header .logo {
 header .logo img {
   width: 100%;
 }
-
-header .btn-group > * {
-  width: 75px;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.4rem 0.6rem;
-  margin-right: 0.25rem;
-  background-color: #FF4A08;
-  color: #fff;
-  font-weight: 700;
-}
-
-header .join-btn {
-  border: 1px solid #666;
-  background-color: #fff;
-  color: #666;
-}
