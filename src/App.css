@@ -3,8 +3,16 @@
   padding: 0;
   border: none;
   text-decoration: none;
+  box-sizing: border-box;
+
+  color: #333;
+  letter-spacing: -0.06rem;
 }
 
 a, button {
   cursor: pointer;
+}
+
+ul, ol, li {
+  list-style: none;
 }
