@@ -1,0 +1,20 @@
+.join-id {
+  display: flex;
+}
+
+.dup-btn {
+  width: 40%;
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  margin: 0;
+  margin-left: 0.2rem;
+}
+
+.join-gender {
+  display: flex;
+  width: 30%;
+}
+
+.join-gender label {
+  margin-left: 0.5rem;
+}
