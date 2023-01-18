@@ -1,0 +1,32 @@
+.main-item {
+  width: 226px;
+  height: 320px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-right: none;
+  border-bottom: none;
+}
+
+.main-item:nth-child(5n) {
+  border-right: 1px solid #aaa;
+}
+
+.main-item:nth-child(n+6) {
+  border-bottom: 1px solid #aaa;
+}
+
+/* .item-img {
+  border: 1px solid #aaa;
+} */
+
+.item-img img {
+  width: 100%;
+  border: 1px solid #aaa;
+}
+
+.item-name {
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+  word-break:break-all;
+}

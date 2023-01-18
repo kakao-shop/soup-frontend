@@ -5,7 +5,7 @@ const Recommends = (props) => {
   return (
     <div>
       <MainItemTitle />
-      <MainItems />
+      <MainItems recommendResult={props.recommendResult} />
     </div>
   );
 };
