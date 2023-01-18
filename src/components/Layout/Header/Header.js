@@ -8,8 +8,8 @@ import classes from "./Header.module.css";
 
 const Header = (props) => {
   return (
-    <Container>
-      <header>
+    <header>
+      <Container>
         <Link to="/" className={classes.logo}>
           <img
             src={`${process.env.PUBLIC_URL}/assets/logo.png`}
@@ -18,8 +18,8 @@ const Header = (props) => {
         </Link>
         <SearchInput />
         <BtnGroup />
-      </header>
-    </Container>
+      </Container>
+    </header>
   );
 };
 
