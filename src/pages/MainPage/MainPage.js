@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/apis";
 
 import Container from "../../components/UI/Container/Container";
 import Themes from "../../components/Main/Themes/Themes";
@@ -14,17 +14,11 @@ const MainPage = (props) => {
   }, []);
 
   const getMainData = () => {
-    axios
-      .get("search/main/recommendItem", {
-        headers: {
-          "x-access-token": localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        console.log(response.data.result.themeList);
-        setThemeList(response.data.result.themeList);
-        setRecommendResult(response.data.result.recommendResult);
-      });
+    api.get("search/main/recommendItem").then((response) => {
+      console.log(response.data.result.themeList);
+      setThemeList(response.data.result.themeList);
+      setRecommendResult(response.data.result.recommendResult);
+    });
   };
   return (
     <main>
