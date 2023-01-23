@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../../api/apis";
+import { setCookie, getCookie } from "../../api/cookie";
 
 import Panel from "../UI/Panel/Panel";
 
@@ -6,17 +9,38 @@ import classes from "./Login.module.css";
 
 const Login = (props) => {
   const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleIdChange = (e) => {
     setId(e.target.value);
   };
-  const handlePwChange = (e) => {
-    setPw(e.target.value);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const loginApi = (loginData) => {
+    api
+      .post("/members/login", loginData)
+      .then((res) => {
+        alert(res.data.message);
+        localStorage.setItem("nickname", res.data.result.nickname);
+        localStorage.setItem("role", res.data.result.role);
+        setCookie("accessToken", res.data.result.accessToken);
+        setCookie("refreshToken", res.data.result.refreshToken);
+      })
+      .catch((error) => {
+        alert(error.res.data.message);
+      });
   };
 
   const handleLoginFormSubmit = (e) => {
     e.preventDefault();
+    const loginData = {
+      id: id,
+      password: password,
+    };
+
+    loginApi(loginData);
   };
 
   return (
@@ -28,6 +52,7 @@ const Login = (props) => {
           <input
             type="text"
             value={id}
+            onChange={handleIdChange}
             minLength="5"
             maxLength="12"
             id="login-id"
@@ -37,7 +62,8 @@ const Login = (props) => {
           <label htmlFor="login-pw">비밀번호</label>
           <input
             type="password"
-            value={pw}
+            value={password}
+            onChange={handlePasswordChange}
             minLength="6"
             maxLength="15"
             id="login-pw"
