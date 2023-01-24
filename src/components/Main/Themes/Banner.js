@@ -10,6 +10,7 @@ const Banner = (props) => {
       src={`${process.env.PUBLIC_URL}/assets` + banner.path}
       alt={banner.title}
       key={banner.id}
+      style={{ width: "100%" }}
     />
   ));
 
