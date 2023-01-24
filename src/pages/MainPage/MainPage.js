@@ -7,17 +7,16 @@ import Recommends from "../../components/Main/Recommends/Recommends";
 
 const MainPage = (props) => {
   const [recommendResult, setRecommendResult] = useState([]);
-  const [themeList, setThemeList] = useState([]);
+  // const [themeList, setThemeList] = useState([]);
 
   useEffect(() => {
     getMainData();
   }, []);
 
   const getMainData = () => {
-    api.get("search/main/recommendItem").then((response) => {
-      console.log(response.data.result.themeList);
-      setThemeList(response.data.result.themeList);
-      setRecommendResult(response.data.result.recommendResult);
+    api.get("search/main/recommendItem").then((res) => {
+      // setThemeList(res.data.result.themeList);
+      setRecommendResult(res.data.result.recommendResult);
     });
   };
   return (

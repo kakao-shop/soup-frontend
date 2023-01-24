@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/apis";
-import { setCookie, getCookie } from "../../api/cookie";
+import { setCookie } from "../../api/cookie";
+import AuthContext from "../../store/auth-context";
+import classes from "./Login.module.css";
 
 import Panel from "../UI/Panel/Panel";
-
-import classes from "./Login.module.css";
 
 const Login = (props) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
 
   const handleIdChange = (e) => {
     setId(e.target.value);
@@ -23,10 +25,16 @@ const Login = (props) => {
       .post("/members/login", loginData)
       .then((res) => {
         alert(res.data.message);
+
+        localStorage.setItem("id", id);
         localStorage.setItem("nickname", res.data.result.nickname);
         localStorage.setItem("role", res.data.result.role);
         setCookie("accessToken", res.data.result.accessToken);
         setCookie("refreshToken", res.data.result.refreshToken);
+
+        authCtx.onLogin();
+
+        navigate("/");
       })
       .catch((error) => {
         alert(error.res.data.message);
@@ -46,7 +54,7 @@ const Login = (props) => {
   return (
     <Panel>
       <h2>로그인</h2>
-      <form onSubmit={handleLoginFormSubmit}>
+      <form className="login-form" onSubmit={handleLoginFormSubmit}>
         <div className="form-input">
           <label htmlFor="login-id">아이디</label>
           <input
