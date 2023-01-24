@@ -13,21 +13,16 @@ api.interceptors.request.use(
 
     if (!cookies) {
       config.headers["x-access-token"] = null;
-      config.headers["Cookies"] = null;
       return config;
     }
     if (cookies) {
       config.headers["x-access-token"] = cookies["accessToken"];
-      config.headers["Cookies"] = cookies["refreshToken"];
-      console.log(config);
       return config;
     }
-    console.log("request start", config);
     return config;
   },
   function (error) {
     // 오류 요청 전 수행
-    console.log("request error", error);
     return Promise.reject(error);
   }
 );
@@ -35,12 +30,10 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   function (response) {
     // 응답을 받기 전 수행
-    console.log(response);
     return response;
   },
   function (error) {
     // 오류 응답 처리
-    console.log(error);
     return Promise.reject(error);
   }
 );
