@@ -1,4 +1,4 @@
-.btn-group > * {
+.left-btn, .right-btn {
   display: inline-block;
   width: 75px;
   border: none;
@@ -20,6 +20,7 @@
 }
 
 .right-btn {
+  margin: 0;
   border: 1px solid #666;
   background-color: #fff;
   color: #666;
@@ -28,4 +29,25 @@
 .right-btn:hover {
   background-color: #eeeeee;
   color: #111;
+}
+
+.avatar {
+  width: 4rem;
+  margin: 0 auto;
+}
+
+.avatar img {
+  width: 100%;
+}
+
+.avatar span {
+  font-size: 0.8rem;
+}
+
+.login-msg {
+  text-align: center;
+}
+
+.bottom-btn {
+  margin-top: 0.6rem;
 }
