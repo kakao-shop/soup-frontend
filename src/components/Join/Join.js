@@ -4,12 +4,16 @@ import axios from "axios";
 import Panel from "../UI/Panel/Panel";
 
 import classes from "./Join.module.css";
+import api from "../../api/apis";
+import { useNavigate } from "react-router-dom";
 
 const Join = (props) => {
+  const navigate = useNavigate();
+
   const [id, setId] = useState("");
   const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pw, setPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("M");
 
@@ -19,11 +23,11 @@ const Join = (props) => {
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handlePwChange = (e) => {
+    setPw(e.target.value);
   };
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
+  const handleConfirmPwChange = (e) => {
+    setConfirmPw(e.target.value);
   };
   const handleBirthdayChange = (e) => {
     setBirthday(e.target.value);
@@ -36,11 +40,9 @@ const Join = (props) => {
     e.preventDefault();
 
     const requestUrl = `/members/id-check?id=${id}`;
-    axios({
-      method: "get",
-      url: requestUrl,
-    })
-      .then((response) => {
+    api
+      .get(requestUrl)
+      .then((res) => {
         alert("사용할 수 있는 ID 입니다.");
       })
       .catch((error) => {
@@ -54,21 +56,19 @@ const Join = (props) => {
     const joinData = {
       id: id,
       nickname: nickname,
-      password: password,
-      confirmPassword: confirmPassword,
+      password: pw,
+      confirmPassword: confirmPw,
       birthday: birthday,
       gender: gender,
       role: "USER",
       oauth: "ORIGIN",
     };
 
-    axios({
-      method: "post",
-      url: "/members/signup",
-      data: joinData,
-    })
-      .then((response) => {
+    api
+      .post("/members/signup", joinData)
+      .then((res) => {
         alert("회원가입 성공");
+        navigate("/");
       })
       .catch((error) => {
         alert(error.response.data.message);
@@ -78,7 +78,7 @@ const Join = (props) => {
   return (
     <Panel>
       <h2>회원가입</h2>
-      <form onSubmit={handleJoinFormSubmit}>
+      <form className="join-form" onSubmit={handleJoinFormSubmit}>
         <div className="form-input">
           <label>아이디</label>
           <div className={classes["join-id"]}>
@@ -119,8 +119,8 @@ const Join = (props) => {
             maxLength="15"
             id="join-pw"
             placeholder="비밀번호 입력 (6~15자)"
-            onChange={handlePasswordChange}
-            value={password}
+            onChange={handlePwChange}
+            value={pw}
           />
         </div>
         <div className="form-input">
@@ -131,8 +131,8 @@ const Join = (props) => {
             maxLength="15"
             id="join-pwcheck"
             placeholder="비밀번호 재입력"
-            onChange={handleConfirmPasswordChange}
-            value={confirmPassword}
+            onChange={handleConfirmPwChange}
+            value={confirmPw}
           />
         </div>
         <div className="form-input">
