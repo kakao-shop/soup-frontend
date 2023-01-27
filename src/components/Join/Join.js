@@ -170,7 +170,7 @@ const Join = (props) => {
             <label>여</label>
           </div>
         </div>
-        <button>회원가입</button>
+        <button className="submit-btn">회원가입</button>
       </form>
     </Panel>
   );

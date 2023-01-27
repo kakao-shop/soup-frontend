@@ -39,11 +39,14 @@
 }
 
 .panel button {
-  padding: 0.8rem 0;
-  margin-top: 2rem;
   border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 700;
   color: #fff;
   background-color: #ff4A08;
+}
+
+.panel :global .submit-btn {
+  padding: 0.8rem 0;
+  margin-top: 2rem;
 }

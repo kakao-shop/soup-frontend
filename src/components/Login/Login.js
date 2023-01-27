@@ -77,7 +77,7 @@ const Login = (props) => {
             id="login-pw"
           />
         </div>
-        <button>로그인</button>
+        <button className="submit-btn">로그인</button>
       </form>
       <Link to="/join" className={classes["join-link"]}>
         아직 회원이 아니신가요?
