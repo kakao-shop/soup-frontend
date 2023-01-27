@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { removeCookie } from "../api/cookie";
 
 const AuthContext = React.createContext({
   isLoggedIn: false,
@@ -23,6 +24,8 @@ export const AuthContextProvider = (props) => {
 
   const handleLogout = () => {
     localStorage.clear();
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
     setIsLoggedIn(false);
   };
 
