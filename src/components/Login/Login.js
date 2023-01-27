@@ -24,8 +24,6 @@ const Login = (props) => {
     api
       .post("/members/login", loginData)
       .then((res) => {
-        alert(res.data.message);
-
         localStorage.setItem("id", id);
         localStorage.setItem("nickname", res.data.result.nickname);
         localStorage.setItem("role", res.data.result.role);
@@ -34,6 +32,7 @@ const Login = (props) => {
 
         authCtx.onLogin();
 
+        alert(res.data.message);
         navigate("/");
       })
       .catch((error) => {
