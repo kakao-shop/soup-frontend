@@ -21,3 +21,8 @@ ul, ol, li {
   list-style: none;
   box-sizing: border-box;
 }
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #b6b6b685;
+}
